@@ -1,65 +1,109 @@
-import Image from "next/image";
+"use client"
+
+import { useState, useRef, useEffect } from "react"
+import { DestinyHeroSection } from "@/components/destiny-hero-section"
+import { DestinyResultsSection } from "@/components/destiny-results-section"
+import { TeaserSection } from "@/components/teaser-section"
+import { AppDownloadSection } from "@/components/app-download-section"
+import { SpaceBackground } from "@/components/space-background"
+import { calculateNumerology, logUserDataForWebhook, UserData } from "@/lib/numerology"
 
 export default function Home() {
+  const [userData, setUserData] = useState<UserData | null>(null)
+  const [lifePathNumber, setLifePathNumber] = useState<number | null>(null)
+  const [showResults, setShowResults] = useState(false)
+  const resultsRef = useRef<HTMLDivElement>(null)
+
+  const handleFormSubmit = (data: {
+    fullName: string
+    dateOfBirth: string
+    timeOfBirth?: string
+    location: string
+  }) => {
+    // Calculate numerology
+    const result = calculateNumerology(data as UserData)
+
+    // Log data for webhook integration
+    logUserDataForWebhook(result)
+
+    // Update state
+    setUserData(data as UserData)
+    setLifePathNumber(result.lifePathNumber)
+    setShowResults(true)
+
+    // Smooth scroll to results after a brief delay
+    setTimeout(() => {
+      resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }, 300)
+  }
+
+  // Handle browser back button
+  useEffect(() => {
+    const handlePopState = () => {
+      setShowResults(false)
+      setUserData(null)
+      setLifePathNumber(null)
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    window.addEventListener("popstate", handlePopState)
+    return () => window.removeEventListener("popstate", handlePopState)
+  }, [])
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="min-h-screen bg-transparent">
+      {/* Animated Space Background */}
+      <SpaceBackground />
+
+      {/* Dark overlay for readability */}
+      <div className="fixed inset-0 pointer-events-none bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+
+      {/* Hero & Data Collection */}
+      <div className="relative">
+        <DestinyHeroSection onSubmit={handleFormSubmit} />
+      </div>
+
+      {/* Dynamic Results Section - Hidden until calculation */}
+      {showResults && userData && lifePathNumber && (
+        <div ref={resultsRef} className="relative">
+          <DestinyResultsSection
+            lifePathNumber={lifePathNumber}
+            fullName={userData.fullName}
+            dateOfBirth={userData.dateOfBirth}
+            location={userData.location}
+          />
+        </div>
+      )}
+
+      {/* Teaser / Gap Section */}
+      {showResults && <TeaserSection />}
+
+      {/* App Download CTA */}
+      <div className="relative">
+        <AppDownloadSection />
+      </div>
+
+      {/* Footer */}
+      <footer className="relative bg-transparent border-t border-charcoal-800/30 py-12">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <p className="text-2xl font-serif font-bold text-transparent bg-clip-text bg-gradient-gold mb-4">
+            NUMI
+          </p>
+          <p className="text-white/50 text-sm mb-6">
+            The Science of Numbers • Unlock Your Destiny
+          </p>
+          <div className="flex items-center justify-center gap-6 text-white/40 text-sm">
+            <a href="#" className="hover:text-white/60 transition-colors">Privacy</a>
+            <span>•</span>
+            <a href="#" className="hover:text-white/60 transition-colors">Terms</a>
+            <span>•</span>
+            <a href="#" className="hover:text-white/60 transition-colors">Contact</a>
+          </div>
+          <p className="text-white/30 text-xs mt-8">
+            © 2026 NUMI. All rights reserved. Numerology is for entertainment purposes.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+      </footer>
+    </main>
+  )
 }

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NUMI Buyer Personas - Marketing Plan 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(139, 92, 246, 0.4);
+            border-radius: 50%;
+            animation: float 25s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 200;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #fff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 3rem;
+        }
+
+        .persona-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .persona-card {
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .persona-card:hover {
+            transform: translateY(-8px);
+            border-color: #8b5cf6;
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+        }
+
+        .persona-card.featured {
+            grid-column: span 2;
+            border-color: #f59e0b;
+        }
+
+        .persona-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .persona-content {
+            padding: 2rem;
+        }
+
+        .persona-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .persona-percentage {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .persona-name {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .persona-role {
+            color: #f59e0b;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .persona-tagline {
+            color: #94a3b8;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .persona-details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-item {
+            text-align: center;
+            padding: 0.75rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 0.5rem;
+        }
+
+        .detail-label {
+            color: #94a3b8;
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            color: #8b5cf6;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .section {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-content {
+            font-size: 0.875rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .pain-points {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 3px solid #ef4444;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .pain-point {
+            color: #fca5a5;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .pain-point:last-child {
+            margin-bottom: 0;
+        }
+
+        .journey {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .journey-step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(139, 92, 246, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+        }
+
+        .journey-arrow {
+            color: #8b5cf6;
+        }
+
+        .quote-box {
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 3px solid #8b5cf6;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            font-style: italic;
+            color: #cbd5e1;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 1024px) {
+            .persona-grid {
+                grid-template-columns: 1fr;
+            }
+            .persona-card.featured {
+                grid-column: span 1;
+            }
+            .persona-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-particles" id="particles"></div>
+
+    <div class="container">
+        <h1>NUMI Buyer Personas</h1>
+        <p class="subtitle">Four customer segments representing 100% of NUMI's target audience</p>
+
+        <div class="persona-grid">
+            <!-- Sarah Chen -->
+            <div class="persona-card featured">
+                <img src="/persona/sarah chen.png" alt="Sarah Chen" class="persona-image">
+                <div class="persona-content">
+                    <div class="persona-header">
+                        <div>
+                            <div class="persona-name">Sarah Chen</div>
+                            <div class="persona-role">The Conscious Professional • 50% of Users</div>
+                        </div>
+                        <div class="persona-percentage">PRIMARY</div>
+                    </div>
+                    <p class="persona-tagline">
+                        38, Marketing Director at tech company ($125K/year), San Francisco.
+                        Professional but spiritually curious, uses Calm app daily, follows astrology accounts on Instagram.
+                    </p>
+
+                    <div class="persona-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Age</div>
+                            <div class="detail-value">38</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Location</div>
+                            <div class="detail-value">San Francisco</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Income</div>
+                            <div class="detail-value">$125K</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">LTV</div>
+                            <div class="detail-value">$250-400</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Pain Points</div>
+                        <div class="pain-points">
+                            <div class="pain-point">"Why do I keep attracting unavailable partners?"</div>
+                            <div class="pain-point">"Is this career actually aligned with my purpose?"</div>
+                            <div class="pain-point">"I feel successful but unfulfilled"</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Decision Journey</div>
+                        <div class="journey">
+                            <div class="journey-step">👁️ IG Ad</div>
+                            <div class="journey-arrow">→</div>
+                            <div class="journey-step">📱 App</div>
+                            <div class="journey-arrow">→</div>
+                            <div class="journey-step">🎓 Seminar</div>
+                            <div class="journey-arrow">→</div>
+                            <div class="journey-step">💰 $79 Product</div>
+                        </div>
+                    </div>
+
+                    <div class="quote-box">
+                        "I was skeptical of astrology apps but NUMI felt different. The insights were specific to MY life,
+                        not generic horoscopes. The seminar changed everything."
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marcus Williams -->
+            <div class="persona-card">
+                <img src="/persona/marcus williams.png" alt="Marcus Williams" class="persona-image">
+                <div class="persona-content">
+                    <div class="persona-header">
+                        <div>
+                            <div class="persona-name">Marcus Williams</div>
+                            <div class="persona-role">Life Transition Seeker • 30% of Users</div>
+                        </div>
+                        <div class="persona-percentage">30%</div>
+                    </div>
+                    <p class="persona-tagline">
+                        45, Recently laid off from corporate HR role, Atlanta. Married with 2 kids, seeking direction and purpose.
+                        Active in Facebook personal development groups.
+                    </p>
+
+                    <div class="persona-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Age</div>
+                            <div class="detail-value">45</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Location</div>
+                            <div class="detail-value">Atlanta, GA</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Status</div>
+                            <div class="detail-value">In Transition</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">LTV</div>
+                            <div class="detail-value">$350-600</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Pain Points</div>
+                        <div class="pain-points">
+                            <div class="pain-point">"What am I supposed to do with my life now?"</div>
+                            <div class="pain-point">"I need clarity before making big decisions"</div>
+                            <div class="pain-point">"Can't afford expensive coaching programs"</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Why NUMI Appeals</div>
+                        <div class="section-content">
+                            Low entry cost, provides direction, community aspect, potential affiliate income to support family
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emma Rodriguez -->
+            <div class="persona-card">
+                <img src="/persona/emma rodriguez.png" alt="Emma Rodriguez" class="persona-image">
+                <div class="persona-content">
+                    <div class="persona-header">
+                        <div>
+                            <div class="persona-name">Emma Rodriguez</div>
+                            <div class="persona-role">Pattern Explorer • 15% of Users</div>
+                        </div>
+                        <div class="persona-percentage">15%</div>
+                    </div>
+                    <p class="persona-tagline">
+                        27, Yoga instructor + part-time barista, Austin. Bohemian style, deeply spiritual, wants to
+                        deepen practice and eventually teach others.
+                    </p>
+
+                    <div class="persona-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Age</div>
+                            <div class="detail-value">27</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Location</div>
+                            <div class="detail-value">Austin, TX</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Income</div>
+                            <div class="detail-value">$35K</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">LTV</div>
+                            <div class="detail-value">$150-250</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Pain Points</div>
+                        <div class="pain-points">
+                            <div class="pain-point">"I want to go deeper than basic astrology"</div>
+                            <div class="pain-point">"How do I actually USE this information in my life?"</div>
+                            <div class="pain-point">"Want to share this with others but need credibility"</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Key Behavior</div>
+                        <div class="section-content">
+                            Daily TikTok user, active in spiritual communities, high referrer of friends,
+                            engages deeply with content
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dr. Michael Foster -->
+            <div class="persona-card">
+                <img src="/persona/dr. michael foster.png" alt="Dr. Michael Foster" class="persona-image">
+                <div class="persona-content">
+                    <div class="persona-header">
+                        <div>
+                            <div class="persona-name">Dr. Michael Foster</div>
+                            <div class="persona-role">Skeptical Professional • 5% of Users</div>
+                        </div>
+                        <div class="persona-percentage">5%</div>
+                    </div>
+                    <p class="persona-tagline">
+                        52, Healthcare Executive ($250K/year), Chicago. Data-driven, skeptical but curious about patterns,
+                        wants to optimize all areas of life.
+                    </p>
+
+                    <div class="persona-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Age</div>
+                            <div class="detail-value">52</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Location</div>
+                            <div class="detail-value">Chicago, IL</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Income</div>
+                            <div class="detail-value">$250K</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">LTV</div>
+                            <div class="detail-value">$500-1K</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Pain Points</div>
+                        <div class="pain-points">
+                            <div class="pain-point">"I want data-driven insights about myself"</div>
+                            <div class="pain-point">"Skeptical of astrology but curious about patterns"</div>
+                            <div class="pain-point">"I optimize everything else — why not myself?"</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Premium Buyer</div>
+                        <div class="section-content">
+                            Skips low-ticket, goes straight to premium products, highest spender,
+                            potential B2B partner for organization
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem; color: #94a3b8; font-size: 0.875rem;">
+            <p>Each persona represents a real segment of NUMI's target market with unique motivations, pain points, and customer journeys.</p>
+            <p style="margin-top: 0.5rem;">Marketing messages and channels should be tailored to each persona's specific needs and behaviors.</p>
+        </div>
+    </div>
+
+    <script>
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 25 + 's';
+                particle.style.animationDuration = (20 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+    </script>
+</body>
+</html>
