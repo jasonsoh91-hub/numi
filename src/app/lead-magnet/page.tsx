@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { motion, useInView, useReducedMotion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Check, Sparkles } from "lucide-react";
 import { StaticBookMockup } from "@/components/StaticBookMockup";
 
 export default function LeadMagnetPage() {
@@ -19,6 +19,8 @@ export default function LeadMagnetPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [mounted, setMounted] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [fieldFocused, setFieldFocused] = useState("");
 
   // Refs for scroll
   const formRef = useRef<HTMLDivElement>(null);
@@ -40,6 +42,18 @@ export default function LeadMagnetPage() {
 
   useEffect(() => {
     setMounted(true);
+
+    // Scroll progress
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight - windowHeight;
+      const scroll = window.scrollY;
+      const progress = Math.min((scroll / docHeight) * 100, 100);
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToForm = () => {
@@ -77,7 +91,7 @@ export default function LeadMagnetPage() {
 
     setTimeout(() => {
       router.push("/lead-magnet/success");
-    }, 800);
+    }, 1200);
   };
 
   const fadeInUp = {
@@ -110,6 +124,9 @@ export default function LeadMagnetPage() {
     "More aligned decisions",
     "Feeling seen instead of broken",
   ];
+
+  // Check if form is valid
+  const isFormValid = formData.firstName && formData.email?.includes("@") && formData.birthDay && formData.birthMonth && formData.birthYear;
 
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
@@ -151,6 +168,17 @@ export default function LeadMagnetPage() {
         />
       </div>
 
+      {/* === SCROLL PROGRESS BAR === */}
+      {mounted && (
+        <div className="fixed top-0 left-0 right-0 h-1 bg-white/5 z-50">
+          <motion.div
+            className="h-full bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]"
+            style={{ width: `${scrollProgress}%` }}
+            transition={{ duration: 0.1 }}
+          />
+        </div>
+      )}
+
       {/* Content */}
       <div className="relative z-10">
 
@@ -181,21 +209,41 @@ export default function LeadMagnetPage() {
                   Get the free NUMI guide and discover the hidden pattern behind how you think, feel, decide, relate, and grow.
                 </p>
 
-                {/* Hero CTA Button */}
-                <button
+                {/* Hero CTA Button - Enhanced with shimmer */}
+                <motion.button
                   onClick={scrollToForm}
-                  className="group relative px-8 py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-lg rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 cursor-pointer shadow-lg shadow-[#D8B86A]/20 mx-auto lg:mx-0"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group relative px-8 py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-lg rounded-xl transition-all duration-200 flex items-center gap-2 cursor-pointer shadow-lg shadow-[#D8B86A]/20 mx-auto lg:mx-0 overflow-hidden"
                 >
-                  <span>Reveal My Pattern Code</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-                </button>
+                  {/* Continuous shimmer effect */}
+                  {mounted && !prefersReducedMotion && (
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                      animate={{
+                        x: ["-100%", "200%"],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
+                  )}
+                  <span className="relative z-10 flex items-center gap-2">
+                    <span>Reveal My Pattern Code</span>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+                  </span>
+                  {/* Glow on hover */}
+                  <div className="absolute inset-0 blur-xl bg-[#D8B86A]/50 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.button>
 
                 <p className="text-white/30 text-xs mt-4 max-w-md mx-auto lg:mx-0">
                   Free instant access • No experience needed • Birthdate used only to calculate your Core Number
                 </p>
               </motion.div>
 
-              {/* Right: Book Visual */}
+              {/* Right: Book Visual - Enhanced with hover */}
               <motion.div
                 initial="hidden"
                 animate={heroInView ? "visible" : "hidden"}
@@ -203,15 +251,21 @@ export default function LeadMagnetPage() {
                 transition={{ duration: transitionDuration * 1.2 }}
                 className="flex justify-center"
               >
-                <div className="relative w-full max-w-md aspect-[4/5]">
+                <motion.div
+                  whileHover={{ scale: 1.03, rotateY: 5 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="relative w-full max-w-md aspect-[4/5] cursor-pointer"
+                >
                   <StaticBookMockup className="w-full h-full" />
-                </div>
+                  {/* Hover glow */}
+                  <div className="absolute inset-0 rounded-3xl bg-[#D8B86A]/10 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none blur-3xl" />
+                </motion.div>
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* === SECTION 2: BENEFIT BULLETS === */}
+        {/* === SECTION 2: BENEFIT BULLETS - Enhanced with hover === */}
         <section ref={benefitsRef} className="py-24 md:py-32 px-6">
           <div className="max-w-3xl mx-auto">
             <motion.div
@@ -224,7 +278,7 @@ export default function LeadMagnetPage() {
                 Your Pattern May Explain More Than You Think
               </h2>
 
-              <ul className="space-y-6">
+              <ul className="space-y-5">
                 {benefits.map((benefit, i) => (
                   <motion.li
                     key={i}
@@ -232,10 +286,17 @@ export default function LeadMagnetPage() {
                     animate={benefitsInView ? "visible" : "hidden"}
                     variants={fadeInUp}
                     transition={{ duration: transitionDuration, delay: prefersReducedMotion ? 0 : 0.1 + i * 0.08 }}
-                    className="flex items-start gap-4 text-white/70 text-base md:text-lg leading-relaxed"
+                    whileHover={{ x: 8 }}
+                    className="flex items-start gap-4 text-white/70 text-base md:text-lg leading-relaxed cursor-pointer group p-3 -mx-3 rounded-xl hover:bg-white/[0.02] transition-colors duration-200"
                   >
-                    <span className="text-[#D8B86A] mt-1 flex-shrink-0">•</span>
-                    <span>{benefit}</span>
+                    <motion.span
+                      className="text-[#D8B86A] mt-1 flex-shrink-0"
+                      whileHover={{ scale: 1.2 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      •
+                    </motion.span>
+                    <span className="group-hover:text-white/80 transition-colors duration-200">{benefit}</span>
                   </motion.li>
                 ))}
               </ul>
@@ -265,6 +326,7 @@ export default function LeadMagnetPage() {
                 animate={beforeAfterInView ? "visible" : "hidden"}
                 variants={fadeInUp}
                 transition={{ duration: transitionDuration, delay: prefersReducedMotion ? 0 : 0.15 }}
+                className="bg-white/[0.02] rounded-2xl p-6 md:p-8 border border-white/5"
               >
                 <h3 className="text-xl md:text-2xl font-semibold text-white mb-6">Before NUMI</h3>
                 <ul className="space-y-4">
@@ -277,20 +339,36 @@ export default function LeadMagnetPage() {
                 </ul>
               </motion.div>
 
-              {/* After */}
+              {/* After - Enhanced with glow */}
               <motion.div
                 initial="hidden"
                 animate={beforeAfterInView ? "visible" : "hidden"}
                 variants={fadeInUp}
                 transition={{ duration: transitionDuration, delay: prefersReducedMotion ? 0 : 0.25 }}
+                className="relative bg-gradient-to-br from-[#D8B86A]/10 to-[#D8B86A]/2 rounded-2xl p-6 md:p-8 border border-[#D8B86A]/20 overflow-hidden"
               >
-                <h3 className="text-xl md:text-2xl font-semibold text-[#D8B86A] mb-6">After NUMI</h3>
-                <ul className="space-y-4">
+                {/* Warm glow effect */}
+                <div className="absolute inset-0 bg-[#D8B86A]/5 blur-3xl" />
+                <h3 className="text-xl md:text-2xl font-semibold text-[#D8B86A] mb-6 relative">After NUMI</h3>
+                <ul className="space-y-4 relative">
                   {afterBullets.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-white/70 leading-relaxed">
-                      <span className="text-[#D8B86A] mt-1">✓</span>
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={beforeAfterInView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ duration: 0.4, delay: prefersReducedMotion ? 0 : 0.4 + i * 0.1 }}
+                      className="flex items-start gap-3 text-white/70 leading-relaxed"
+                    >
+                      <motion.span
+                        initial={{ scale: 0 }}
+                        animate={beforeAfterInView ? { scale: 1 } : {}}
+                        transition={{ duration: 0.3, delay: prefersReducedMotion ? 0 : 0.35 + i * 0.1, type: "spring" }}
+                        className="text-[#D8B86A] mt-0.5"
+                      >
+                        <Check className="w-5 h-5" strokeWidth={3} />
+                      </motion.span>
                       <span>{item}</span>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
               </motion.div>
@@ -315,21 +393,32 @@ export default function LeadMagnetPage() {
                 NUMI is designed for self-reflection and personal growth. Your Pattern Code is not a fixed destiny. It is a mirror to help you understand how you think, feel, decide, react, and grow.
               </p>
 
-              {/* Testimonial */}
-              <div className="relative bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-12">
+              {/* Testimonial - Enhanced with subtle animation */}
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={trustInView ? { scale: 1, opacity: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-12"
+              >
                 <div className="absolute top-6 left-6 text-[#D8B86A]/20 font-serif text-5xl leading-none select-none">"</div>
 
                 <blockquote className="text-lg md:text-xl lg:text-2xl text-white/80 leading-relaxed mb-8 font-light relative">
-                  <p>"I thought I was just burned out. NUMI helped me see the pattern behind why I kept feeling stuck."</p>
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={trustInView ? { opacity: 1 } : {}}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                  >
+                    "I thought I was just burned out. NUMI helped me see the pattern behind why I kept feeling stuck."
+                  </motion.p>
                 </blockquote>
 
                 <p className="text-white/40 text-sm tracking-wide">— Early NUMI User</p>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </section>
 
-        {/* === SECTION 5: OPT-IN === */}
+        {/* === SECTION 5: OPT-IN - Enhanced with validation feedback === */}
         <section ref={optinRef} className="py-24 md:py-32 px-6">
           <div className="max-w-md mx-auto">
             <motion.div
@@ -339,79 +428,181 @@ export default function LeadMagnetPage() {
               transition={{ duration: transitionDuration }}
               ref={formRef}
             >
-              <div className="bg-gradient-to-br from-white/[0.08] to-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-10">
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 text-center">Reveal Your Pattern Code</h2>
-                <p className="text-white/50 text-sm text-center mb-8">
+              <div className="bg-gradient-to-br from-white/[0.08] to-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-10 relative overflow-hidden">
+                {/* Subtle glow effect on form */}
+                {mounted && !prefersReducedMotion && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#D8B86A]/5 via-transparent to-transparent opacity-50" />
+                )}
+
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 text-center relative">Reveal Your Pattern Code</h2>
+                <p className="text-white/50 text-sm text-center mb-8 relative">
                   Enter your details to receive the free Pattern Code guide and unlock your first NUMI insight.
                 </p>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4 relative">
+                  {/* First Name */}
                   <div>
-                    <input
+                    <motion.input
                       type="text"
                       placeholder="First Name"
                       value={formData.firstName}
                       onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                      className="w-full px-4 py-3.5 bg-white/[0.05] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D8B86A]/50 focus:border-[#D8B86A]/30 transition-all duration-200"
+                      onFocus={() => setFieldFocused("firstName")}
+                      onBlur={() => setFieldFocused("")}
+                      animate={{
+                        borderColor: fieldFocused === "firstName" ? "rgba(216, 184, 106, 0.5)" : "rgba(255, 255, 255, 0.1)",
+                        scale: fieldFocused === "firstName" ? 1.01 : 1,
+                      }}
+                      transition={{ duration: 0.2 }}
+                      className="w-full px-4 py-3.5 bg-white/[0.05] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D8B86A]/50 transition-all duration-200"
                     />
+                    {/* Validation indicator */}
+                    <AnimatePresence>
+                      {formData.firstName && (
+                        <motion.div
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0 }}
+                          className="absolute right-4 top-[17px] text-[#D8B86A]"
+                        >
+                          <Check className="w-4 h-4" strokeWidth={3} />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
 
-                  <div>
-                    <input
+                  {/* Email */}
+                  <div className="relative">
+                    <motion.input
                       type="email"
                       placeholder="Email Address"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3.5 bg-white/[0.05] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D8B86A]/50 focus:border-[#D8B86A]/30 transition-all duration-200"
+                      onFocus={() => setFieldFocused("email")}
+                      onBlur={() => setFieldFocused("")}
+                      animate={{
+                        borderColor: fieldFocused === "email" ? "rgba(216, 184, 106, 0.5)" : "rgba(255, 255, 255, 0.1)",
+                        scale: fieldFocused === "email" ? 1.01 : 1,
+                      }}
+                      transition={{ duration: 0.2 }}
+                      className="w-full px-4 py-3.5 bg-white/[0.05] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D8B86A]/50 transition-all duration-200 pr-12"
                     />
+                    {/* Validation indicator */}
+                    <AnimatePresence>
+                      {formData.email?.includes("@") && (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0 }}
+                          className="absolute right-4 top-[17px] text-[#D8B86A]"
+                        >
+                          <Check className="w-4 h-4" strokeWidth={3} />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
 
+                  {/* Birthdate */}
                   <div>
                     <label className="block text-white/50 text-sm mb-2">Birthdate</label>
                     <div className="grid grid-cols-3 gap-2">
-                      <input
+                      <motion.input
                         type="number"
                         placeholder="DD"
                         min="1"
                         max="31"
                         value={formData.birthDay}
                         onChange={(e) => setFormData({ ...formData, birthDay: e.target.value })}
+                        onFocus={() => setFieldFocused("birthDay")}
+                        animate={{
+                          borderColor: fieldFocused === "birthDay" ? "rgba(216, 184, 106, 0.5)" : "rgba(255, 255, 255, 0.1)",
+                        }}
+                        transition={{ duration: 0.2 }}
                         className="px-3 py-3.5 bg-white/[0.05] border border-white/10 rounded-xl text-white text-center placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D8B86A]/50 transition-all duration-200"
                       />
-                      <input
+                      <motion.input
                         type="number"
                         placeholder="MM"
                         min="1"
                         max="12"
                         value={formData.birthMonth}
                         onChange={(e) => setFormData({ ...formData, birthMonth: e.target.value })}
+                        onFocus={() => setFieldFocused("birthMonth")}
+                        animate={{
+                          borderColor: fieldFocused === "birthMonth" ? "rgba(216, 184, 106, 0.5)" : "rgba(255, 255, 255, 0.1)",
+                        }}
+                        transition={{ duration: 0.2 }}
                         className="px-3 py-3.5 bg-white/[0.05] border border-white/10 rounded-xl text-white text-center placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D8B86A]/50 transition-all duration-200"
                       />
-                      <input
+                      <motion.input
                         type="number"
                         placeholder="YYYY"
                         min="1900"
                         max="2026"
                         value={formData.birthYear}
                         onChange={(e) => setFormData({ ...formData, birthYear: e.target.value })}
+                        onFocus={() => setFieldFocused("birthYear")}
+                        animate={{
+                          borderColor: fieldFocused === "birthYear" ? "rgba(216, 184, 106, 0.5)" : "rgba(255, 255, 255, 0.1)",
+                        }}
+                        transition={{ duration: 0.2 }}
                         className="px-3 py-3.5 bg-white/[0.05] border border-white/10 rounded-xl text-white text-center placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D8B86A]/50 transition-all duration-200"
                       />
                     </div>
                     <p className="text-white/30 text-xs mt-2">Used only to calculate your Core Number.</p>
                   </div>
 
-                  {error && (
-                    <p className="text-red-400 text-sm" role="alert">{error}</p>
-                  )}
+                  {/* Error message with animation */}
+                  <AnimatePresence>
+                    {error && (
+                      <motion.p
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="text-red-400 text-sm bg-red-400/10 border border-red-400/20 rounded-lg px-3 py-2"
+                        role="alert"
+                      >
+                        {error}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
 
-                  <button
+                  {/* Enhanced submit button with loading state */}
+                  <motion.button
                     type="submit"
                     disabled={isSubmitting}
-                    className="group relative w-full py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-lg rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
+                    whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                    whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                    animate={{
+                      backgroundColor: isFormValid ? undefined : "rgba(216, 184, 106, 0.5)",
+                    }}
+                    className="group relative w-full py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-lg rounded-xl transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed overflow-hidden"
                   >
+                    {/* Continuous shimmer effect */}
+                    {mounted && !prefersReducedMotion && (
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                        animate={{
+                          x: ["-100%", "200%"],
+                        }}
+                        transition={{
+                          duration: 2.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      />
+                    )}
+
                     <span className="relative z-10 flex items-center gap-2">
                       {isSubmitting ? (
-                        "Revealing Your Pattern..."
+                        <>
+                          <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            className="w-5 h-5 border-2 border-[#0A0E27] border-t-transparent rounded-full"
+                          />
+                          <span>Revealing Your Pattern...</span>
+                        </>
                       ) : (
                         <>
                           <span>Reveal My Pattern Code</span>
@@ -419,18 +610,47 @@ export default function LeadMagnetPage() {
                         </>
                       )}
                     </span>
-                  </button>
+                    {/* Glow on hover */}
+                    <div className="absolute inset-0 blur-xl bg-[#D8B86A]/50 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </motion.button>
 
-                  <p className="text-white/30 text-xs text-center">
-                    No spam. Just your free guide and NUMI updates.
-                  </p>
+                  {/* Trust badges */}
+                  <div className="flex items-center justify-center gap-4 text-white/30 text-xs pt-2">
+                    <motion.span
+                      initial={{ opacity: 0 }}
+                      animate={optinInView ? { opacity: 1 } : {}}
+                      transition={{ delay: 0.5 }}
+                      className="flex items-center gap-1"
+                    >
+                      <Check className="w-3 h-3 text-[#D8B86A]" strokeWidth={3} />
+                      Free
+                    </motion.span>
+                    <motion.span
+                      initial={{ opacity: 0 }}
+                      animate={optinInView ? { opacity: 1 } : {}}
+                      transition={{ delay: 0.6 }}
+                      className="flex items-center gap-1"
+                    >
+                      <Check className="w-3 h-3 text-[#D8B86A]" strokeWidth={3} />
+                      No spam
+                    </motion.span>
+                    <motion.span
+                      initial={{ opacity: 0 }}
+                      animate={optinInView ? { opacity: 1 } : {}}
+                      transition={{ delay: 0.7 }}
+                      className="flex items-center gap-1"
+                    >
+                      <Check className="w-3 h-3 text-[#D8B86A]" strokeWidth={3} />
+                      Instant access
+                    </motion.span>
+                  </div>
                 </form>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* === FINAL CTA / FOOTER LINE === */}
+        {/* === FINAL CTA / FOOTER LINE - Enhanced === */}
         <section ref={finalRef} className="py-24 md:py-32 px-6">
           <div className="max-w-3xl mx-auto text-center">
             <motion.div
@@ -446,13 +666,33 @@ export default function LeadMagnetPage() {
                 </span>
               </h2>
 
-              <button
+              <motion.button
                 onClick={scrollToForm}
-                className="group relative px-8 py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-lg rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 cursor-pointer shadow-lg shadow-[#D8B86A]/20 mx-auto"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="group relative px-8 py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-lg rounded-xl transition-all duration-200 flex items-center gap-2 cursor-pointer shadow-lg shadow-[#D8B86A]/20 mx-auto overflow-hidden"
               >
-                <span>Reveal My Pattern Code</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-              </button>
+                {/* Continuous shimmer */}
+                {mounted && !prefersReducedMotion && (
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                    animate={{
+                      x: ["-100%", "200%"],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                )}
+                <span className="relative z-10 flex items-center gap-2">
+                  <span>Reveal My Pattern Code</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+                </span>
+                {/* Glow */}
+                <div className="absolute inset-0 blur-xl bg-[#D8B86A]/50 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </motion.button>
             </motion.div>
           </div>
         </section>
