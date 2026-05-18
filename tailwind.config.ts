@@ -106,6 +106,8 @@ const config: Config = {
         "parallax-slow": "parallaxSlow 25s ease-in-out infinite",
         "parallax-slower": "parallaxSlower 35s ease-in-out infinite",
         "fog-drift": "fogDrift 18s ease-in-out infinite alternate",
+        "particle-float": "particleFloat 8s ease-in-out infinite",
+        "num-drift": "numDrift 15s ease-in-out infinite",
       },
       keyframes: {
         float: {
@@ -158,6 +160,15 @@ const config: Config = {
         fogDrift: {
           "0%": { transform: "translateX(-5%) scaleX(1)", opacity: "0.08" },
           "100%": { transform: "translateX(5%) scaleX(1.1)", opacity: "0.12" },
+        },
+        particleFloat: {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)", opacity: "0.4" },
+          "50%": { transform: "translate(-10px, -20px) scale(0.8)", opacity: "0.8" },
+        },
+        numDrift: {
+          "0%, 100%": { transform: "translate(0, 0)", opacity: "0.3" },
+          "33%": { transform: "translate(15px, -25px)", opacity: "0.6" },
+          "66%": { transform: "translate(-10px, -15px)", opacity: "0.4" },
         },
       },
       spacing: {
