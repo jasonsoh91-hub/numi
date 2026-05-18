@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { Lora } from "next/font/google";
-import { Raleway } from "next/font/google";
+import { Cormorant_Garamond } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const lora = Lora({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-lora",
+  variable: "--font-cormorant",
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
 
-const raleway = Raleway({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-raleway",
+  variable: "--font-inter",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -29,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${lora.variable} ${raleway.variable}`}>
-      <body className="min-h-screen antialiased font-sans">{children}</body>
+    <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
+      <body className="min-h-screen antialiased font-body bg-cosmic-black text-text-primary">{children}</body>
     </html>
   );
 }

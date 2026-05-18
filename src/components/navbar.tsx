@@ -1,114 +1,94 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
+import React, { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
+import { Button } from "./ui/Button";
+
+const navLinks = [
+  { name: "The Pattern Code", href: "#pattern-code" },
+  { name: "How It Works", href: "#how-it-works" },
+  { name: "Pattern Types", href: "#pattern-types" },
+  { name: "NUMI AI", href: "#numi-ai" },
+  { name: "FAQ", href: "#faq" },
+];
 
 export function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToSection = (href: string) => {
+    setIsMobileMenuOpen(false);
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  };
 
   return (
-    <nav className={`fixed top-4 left-4 right-4 z-50 rounded-2xl transition-all duration-300 ${
-      isScrolled
-        ? "bg-white/90 backdrop-blur-md shadow-soft-lg border border-primary/10"
-        : "bg-white/70 backdrop-blur-sm border border-primary/10"
-    }`}>
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
-        <div className="flex items-center justify-between h-16">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-cosmic-black/80 backdrop-blur-md border-b border-gold-glow/20"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <div className="flex items-center">
-            <a href="/" className="text-2xl font-serif font-semibold text-primary-700 hover:text-primary-600 transition-colors">
-              NUMI
-            </a>
+          <a href="#" className="font-heading text-2xl md:text-3xl font-semibold text-gold">
+            NUMI
+          </a>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <button
+                key={link.name}
+                onClick={() => scrollToSection(link.href)}
+                className="text-text-secondary hover:text-gold transition-colors duration-200 text-sm font-medium"
+              >
+                {link.name}
+              </button>
+            ))}
+            <Button size="sm">Get My Free Insight</Button>
           </div>
 
-          {/* Desktop navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#about" className="text-slate-600 hover:text-primary-600 transition-colors text-sm font-medium cursor-pointer">
-              About
-            </a>
-            <a href="#app" className="text-slate-600 hover:text-primary-600 transition-colors text-sm font-medium cursor-pointer">
-              App
-            </a>
-            <a href="#explore" className="text-slate-600 hover:text-primary-600 transition-colors text-sm font-medium cursor-pointer">
-              Explore
-            </a>
-            <a href="#partner" className="text-slate-600 hover:text-primary-600 transition-colors text-sm font-medium cursor-pointer">
-              Partners
-            </a>
-            <a href="#contact" className="text-slate-600 hover:text-primary-600 transition-colors text-sm font-medium cursor-pointer">
-              Contact
-            </a>
-            <Button className="bg-gradient-to-r from-primary-500 to-lavender-500 text-white hover:from-primary-600 hover:to-lavender-600 rounded-full px-6 shadow-soft transition-all duration-300 hover:shadow-soft-lg hover:scale-105">
-              Get Free Reading
-            </Button>
-          </div>
-
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-slate-700 hover:text-primary-600 transition-colors cursor-pointer"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden text-text-primary hover:text-gold transition-colors duration-200"
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-
-        {/* Mobile menu */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-primary/10">
-            <div className="flex flex-col space-y-4">
-              <a
-                href="#about"
-                className="text-slate-600 hover:text-primary-600 transition-colors font-medium cursor-pointer"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </a>
-              <a
-                href="#app"
-                className="text-slate-600 hover:text-primary-600 transition-colors font-medium cursor-pointer"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                App
-              </a>
-              <a
-                href="#explore"
-                className="text-slate-600 hover:text-primary-600 transition-colors font-medium cursor-pointer"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Explore
-              </a>
-              <a
-                href="#partner"
-                className="text-slate-600 hover:text-primary-600 transition-colors font-medium cursor-pointer"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Partners
-              </a>
-              <a
-                href="#contact"
-                className="text-slate-600 hover:text-primary-600 transition-colors font-medium cursor-pointer"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contact
-              </a>
-              <Button className="bg-gradient-to-r from-primary-500 to-lavender-500 text-white rounded-full w-full shadow-soft">
-                Get Free Reading
-              </Button>
-            </div>
-          </div>
-        )}
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-cosmic-black/95 backdrop-blur-xl border-t border-gold-glow/20">
+          <div className="px-4 py-6 space-y-4">
+            {navLinks.map((link) => (
+              <button
+                key={link.name}
+                onClick={() => scrollToSection(link.href)}
+                className="block w-full text-left text-text-secondary hover:text-gold transition-colors duration-200 text-base font-medium py-2"
+              >
+                {link.name}
+              </button>
+            ))}
+            <Button fullWidth>Get My Free Insight</Button>
+          </div>
+        </div>
+      )}
     </nav>
-  )
+  );
 }

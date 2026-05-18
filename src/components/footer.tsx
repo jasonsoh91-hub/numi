@@ -1,65 +1,83 @@
+"use client";
+
+import React from "react";
+
+const footerLinks = {
+  product: [
+    { name: "The Pattern Code", href: "#pattern-code" },
+    { name: "How It Works", href: "#how-it-works" },
+    { name: "Pattern Types", href: "#pattern-types" },
+    { name: "NUMI AI", href: "#numi-ai" },
+  ],
+  legal: [
+    { name: "Privacy Policy", href: "/privacy" },
+    { name: "Terms of Service", href: "/terms" },
+    { name: "Contact", href: "/contact" },
+  ],
+};
+
 export function Footer() {
   return (
-    <footer className="bg-slate-950 py-16 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
-          <div>
-            <h3 className="text-2xl font-light tracking-[0.2em] text-white mb-4">NUMI</h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-4">
-              A new generation human intelligent pattern platform combining timeless Eastern wisdom and modern presentation.
-            </p>
-            <p className="text-slate-500 text-xs">
-              Built for clarity, growth, and transformation.
+    <footer className="border-t border-gold-glow/20 bg-cosmic-black">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Logo & tagline */}
+          <div className="sm:col-span-2">
+            <h3 className="font-heading text-2xl font-semibold text-gold mb-2">NUMI</h3>
+            <p className="text-text-secondary">
+              Understand your patterns. Align your next move.
             </p>
           </div>
 
+          {/* Product links */}
           <div>
-            <h4 className="font-medium text-white mb-4">Platform</h4>
-            <div className="space-y-2 text-sm">
-              <a href="#app" className="block text-slate-400 hover:text-purple-400 transition">The NUMI App</a>
-              <a href="#explore" className="block text-slate-400 hover:text-purple-400 transition">NUMI Academy</a>
-              <a href="#explore" className="block text-slate-400 hover:text-purple-400 transition">Products</a>
-              <a href="#partner" className="block text-slate-400 hover:text-purple-400 transition">Partner Program</a>
-            </div>
+            <h4 className="font-heading text-lg font-semibold text-text-primary mb-4">
+              Product
+            </h4>
+            <ul className="space-y-2">
+              {footerLinks.product.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className="text-text-secondary hover:text-gold transition-colors duration-200"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
+          {/* Legal links */}
           <div>
-            <h4 className="font-medium text-white mb-4">Company</h4>
-            <div className="space-y-2 text-sm">
-              <a href="#about" className="block text-slate-400 hover:text-purple-400 transition">About Us</a>
-              <a href="#contact" className="block text-slate-400 hover:text-purple-400 transition">Contact</a>
-              <a href="#" className="block text-slate-400 hover:text-purple-400 transition">Privacy Policy</a>
-              <a href="#" className="block text-slate-400 hover:text-purple-400 transition">Terms of Service</a>
-            </div>
-          </div>
-
-          <div>
-            <h4 className="font-medium text-white mb-4">Connect</h4>
-            <div className="space-y-3 text-sm">
-              <a href="mailto:intelligence@numi.protocol" className="block text-slate-400 hover:text-purple-400 transition">
-                intelligence@numi.protocol
-              </a>
-              <div className="text-slate-400">
-                +1 (888) NUMI-PRO
-              </div>
-              <div className="text-slate-500 text-xs">
-                777 Neural Way<br />San Francisco, CA
-              </div>
-            </div>
+            <h4 className="font-heading text-lg font-semibold text-text-primary mb-4">
+              Legal
+            </h4>
+            <ul className="space-y-2">
+              {footerLinks.legal.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className="text-text-secondary hover:text-gold transition-colors duration-200"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-slate-500 text-sm">
-            © 2026 NUMI. All rights reserved.
+        {/* Disclaimer */}
+        <div className="mt-12 pt-8 border-t border-gold-glow/10">
+          <p className="text-text-muted text-sm text-center">
+            NUMI is designed for self-reflection and personal growth. It does not provide medical, financial, or professional advice.
           </p>
-          <div className="flex space-x-6 text-sm">
-            <a href="#" className="text-slate-500 hover:text-purple-400 transition">Privacy</a>
-            <a href="#" className="text-slate-500 hover:text-purple-400 transition">Terms</a>
-            <a href="#" className="text-slate-500 hover:text-purple-400 transition">Accessibility</a>
-          </div>
+          <p className="text-text-muted text-xs text-center mt-4">
+            © {new Date().getFullYear()} NUMI. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
-  )
+  );
 }
