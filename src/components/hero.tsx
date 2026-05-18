@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button"
+import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Gem, Heart, Sparkles, TrendingUp, ChevronRight, Star } from "lucide-react"
 
