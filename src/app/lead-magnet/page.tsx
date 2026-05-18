@@ -157,30 +157,35 @@ export default function LeadMagnetPage() {
               }}
             />
 
-            {/* === FLOATING NUMEROLOGY PARTICLES === */}
-            {/* Golden particles - scattered across screen */}
+            {/* === FLOATING NUMEROLOGY PARTICLES WITH FRAMER MOTION === */}
+            {/* Golden particles - smooth floating motion */}
             {Array.from({ length: 30 }).map((_, i) => {
-              const delay = Math.random() * 4;
+              const x = Math.random() * 100;
+              const y = Math.random() * 100;
+              const duration = 8 + Math.random() * 10;
+              const delay = Math.random() * 5;
               return (
-                <div
+                <motion.div
                   key={`particle-${i}`}
-                  className="absolute rounded-full bg-amber-400/20 pointer-events-none animate-particle-float"
+                  className="absolute rounded-full bg-amber-400/20 pointer-events-none"
                   style={{
-                    left: `${5 + Math.random() * 90}%`,
-                    top: `${5 + Math.random() * 90}%`,
                     width: `${2 + Math.random() * 3}px`,
                     height: `${2 + Math.random() * 3}px`,
                     filter: "blur(0.5px)",
-                    animationDelay: `${delay}s`,
-                    animationDuration: `${5 + Math.random() * 5}s`,
+                  }}
+                  initial={{ x: `${x}%`, y: `${y}%`, opacity: 0 }}
+                  animate={{ x: `${x}%`, y: `${y}%`, opacity: [0.2, 0.5, 0.2] }}
+                  transition={{
+                    duration,
+                    delay,
+                    repeat: Infinity,
+                    ease: "easeInOut",
                   }}
                 />
               );
             })}
-            {/* Floating numerology numbers */}
+            {/* Floating numerology numbers - smooth drift */}
             {["1", "3", "5", "7", "9", "11", "22", "33"].map((num, i) => {
-              const delay = i * 1.5;
-              const blur = Math.random() > 0.5 ? "1px" : "0px";
               const positions = [
                 { left: 10, top: 15 },
                 { left: 85, top: 12 },
@@ -192,20 +197,33 @@ export default function LeadMagnetPage() {
                 { left: 88, top: 50 },
               ];
               const pos = positions[i % positions.length];
+              const duration = 15 + Math.random() * 10;
+              const delay = i * 2;
               return (
-                <div
+                <motion.div
                   key={`num-${i}`}
-                  className="absolute text-amber-400/15 font-medium text-base pointer-events-none animate-num-drift"
-                  style={{
+                  className="absolute text-amber-400/15 font-medium text-base pointer-events-none"
+                  initial={{
                     left: `${pos.left}%`,
                     top: `${pos.top}%`,
-                    filter: blur,
-                    animationDelay: `${delay}s`,
-                    animationDuration: `${12 + Math.random() * 6}s`,
+                    opacity: 0,
+                    scale: 0.8,
+                  }}
+                  animate={{
+                    left: [`${pos.left}%`, `${pos.left + (Math.random() - 0.5) * 10}%`, `${pos.left}%`],
+                    top: [`${pos.top}%`, `${pos.top + (Math.random() - 0.5) * 15}%`, `${pos.top}%`],
+                    opacity: [0.2, 0.5, 0.2],
+                    scale: [0.8, 1, 0.8],
+                  }}
+                  transition={{
+                    duration,
+                    delay,
+                    repeat: Infinity,
+                    ease: "easeInOut",
                   }}
                 >
                   {num}
-                </div>
+                </motion.div>
               );
             })}
           </>
