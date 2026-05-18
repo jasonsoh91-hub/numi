@@ -2,7 +2,7 @@
 
 import React from "react";
 import { ArrowRight, BookOpen } from "lucide-react";
-import { Button } from "./ui/Button";
+import { Button } from "./ui/button";
 import { Container } from "./ui/Section";
 
 export function HeroSection() {

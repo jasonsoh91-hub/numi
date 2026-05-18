@@ -4,7 +4,7 @@ import React from "react";
 import { Calendar, Calculator, Sparkles } from "lucide-react";
 import { Section, Container } from "./ui/Section";
 import { Card } from "./ui/Card";
-import { Button } from "./ui/Button";
+import { Button } from "./ui/button";
 
 const steps = [
   {

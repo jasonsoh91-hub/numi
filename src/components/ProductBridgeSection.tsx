@@ -3,7 +3,7 @@
 import React from "react";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Section, Container } from "./ui/Section";
-import { Button } from "./ui/Button";
+import { Button } from "./ui/button";
 import { productBridgeFeatures } from "@/data/benefits";
 
 export function ProductBridgeSection() {

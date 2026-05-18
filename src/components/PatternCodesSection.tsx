@@ -3,7 +3,7 @@
 import React from "react";
 import { Section, Container } from "./ui/Section";
 import { Card } from "./ui/Card";
-import { Button } from "./ui/Button";
+import { Button } from "./ui/button";
 import { patternCodes } from "@/data/patternCodes";
 
 export function PatternCodesSection() {

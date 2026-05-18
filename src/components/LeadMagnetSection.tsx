@@ -3,7 +3,7 @@
 import React from "react";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { Section, Container } from "./ui/Section";
-import { Button } from "./ui/Button";
+import { Button } from "./ui/button";
 
 export function LeadMagnetSection() {
   const scrollToForm = () => {

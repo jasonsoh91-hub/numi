@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { Section, Container } from "./ui/Section";
 import { Card } from "./ui/Card";
-import { Button } from "./ui/Button";
+import { Button } from "./ui/button";
 import { calculateCoreNumber, isValidBirthdate } from "@/lib/calculateCoreNumber";
 import { patternCodes } from "@/data/patternCodes";
 
