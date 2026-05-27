@@ -21,7 +21,7 @@ export default function ThankYouPage() {
 
   const fadeInUp = {
     hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 30 },
-    visible: { opacity: 1, y: 0 }
+    visible: { opacity: 1, y: 0 } as const
   };
 
   const staggerContainer = {
@@ -43,8 +43,8 @@ export default function ThankYouPage() {
     <div className="min-h-screen bg-white text-gray-900">
       {mounted && !prefersReducedMotion && (
         <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-200/30 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-200/20 rounded-full blur-3xl" />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-200/40 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-violet-200/30 rounded-full blur-3xl" />
         </div>
       )}
 
@@ -57,7 +57,7 @@ export default function ThankYouPage() {
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <motion.span
-            className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent"
+            className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-violet-500 bg-clip-text text-transparent"
           >
             NUMI
           </motion.span>
@@ -90,13 +90,13 @@ export default function ThankYouPage() {
                 transition={{ duration: 0.6, type: "spring", bounce: 0.5 }}
                 className="relative"
               >
-                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center">
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center">
                   <Check className="w-12 h-12 md:w-16 md:h-16 text-white" strokeWidth={3} />
                 </div>
                 <motion.div
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  className="absolute inset-0 rounded-full bg-amber-400/30"
+                  className="absolute inset-0 rounded-full bg-purple-500/30"
                 />
               </motion.div>
             </motion.div>
@@ -124,8 +124,8 @@ export default function ThankYouPage() {
                   transition={{ delay: prefersReducedMotion ? 0 : 0.4 + i * 0.1 }}
                   className="p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-white border border-gray-100 text-left"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mb-4">
-                    <step.icon className="w-6 h-6 text-amber-500" />
+                  <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
+                    <step.icon className="w-6 h-6 text-purple-500" />
                   </div>
                   <h3 className="font-semibold text-gray-800 mb-2">{step.title}</h3>
                   <p className="text-sm text-gray-600">{step.desc}</p>
@@ -136,7 +136,7 @@ export default function ThankYouPage() {
             {/* Checklist */}
             <motion.div
               variants={fadeInUp}
-              className="mt-16 p-8 rounded-3xl bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 text-left max-w-lg mx-auto"
+              className="mt-16 p-8 rounded-3xl bg-gradient-to-br from-purple-50 to-violet-50 border border-purple-100 text-left max-w-lg mx-auto"
             >
               <h3 className="text-xl font-bold text-gray-800 mb-6 text-center">What Happens Next</h3>
               <ul className="space-y-4">
@@ -154,7 +154,7 @@ export default function ThankYouPage() {
                     transition={{ delay: prefersReducedMotion ? 0 : 0.6 + i * 0.08 }}
                     className="flex items-start gap-3"
                   >
-                    <Check className="w-5 h-5 text-amber-500 mt-0.5 flex-shrink-0" strokeWidth={3} />
+                    <Check className="w-5 h-5 text-purple-500 mt-0.5 flex-shrink-0" strokeWidth={3} />
                     <span className="text-gray-700">{item}</span>
                   </motion.li>
                 ))}
@@ -165,7 +165,7 @@ export default function ThankYouPage() {
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
               <motion.button
                 onClick={() => router.push("/lead-magnet")}
-                className="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-400 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-amber-200 transition-all flex items-center gap-2"
+                className="px-8 py-4 bg-gradient-to-r from-purple-600 to-violet-500 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-purple-200 transition-all flex items-center gap-2"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -187,7 +187,7 @@ export default function ThankYouPage() {
             {/* Email Note */}
             <motion.p variants={fadeInUp} className="text-gray-500 text-sm mt-8 max-w-md mx-auto">
               Can't find our email? Check your spam folder or contact{' '}
-              <a href="mailto:hello@numi.com" className="text-amber-500 hover:underline">
+              <a href="mailto:hello@numi.com" className="text-purple-500 hover:underline">
                 hello@numi.com
               </a>
             </motion.p>

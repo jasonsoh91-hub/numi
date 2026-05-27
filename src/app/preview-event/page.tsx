@@ -12,7 +12,6 @@ export default function PreviewEventPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [mounted, setMounted] = useState(false);
-  const [activeSection, setActiveSection] = useState(0);
 
   const heroRef = useRef<HTMLElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
@@ -119,8 +118,8 @@ export default function PreviewEventPage() {
     <div className="min-h-screen bg-white text-gray-900 overflow-hidden">
       {mounted && !prefersReducedMotion && (
         <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-200/30 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-200/20 rounded-full blur-3xl" />
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-200/40 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-violet-200/30 rounded-full blur-3xl" />
         </div>
       )}
 
@@ -133,14 +132,14 @@ export default function PreviewEventPage() {
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <motion.span
-            className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent"
+            className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-violet-500 bg-clip-text text-transparent"
             whileHover={{ scale: 1.05 }}
           >
             NUMI
           </motion.span>
           <motion.button
             onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
-            className="px-5 py-2 bg-gradient-to-r from-amber-500 to-amber-400 text-white rounded-full font-medium text-sm hover:shadow-lg hover:shadow-amber-200 transition-shadow"
+            className="px-5 py-2 bg-gradient-to-r from-purple-600 to-violet-500 text-white rounded-full font-medium text-sm hover:shadow-lg hover:shadow-purple-200 transition-shadow"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -158,9 +157,9 @@ export default function PreviewEventPage() {
               animate={heroInView ? "visible" : "hidden"}
               variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 rounded-full mb-6">
-                <Sparkles className="w-4 h-4 text-amber-500" />
-                <span className="text-amber-700 text-sm font-medium">Free Live Masterclass</span>
+              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 rounded-full mb-6">
+                <Sparkles className="w-4 h-4 text-purple-500" />
+                <span className="text-purple-700 text-sm font-medium">Free Live Masterclass</span>
               </motion.div>
 
               <motion.h1
@@ -168,7 +167,7 @@ export default function PreviewEventPage() {
                 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
               >
                 Discover Your
-                <span className="block bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-purple-600 via-violet-500 to-purple-600 bg-clip-text text-transparent">
                   Pattern Code Live
                 </span>
               </motion.h1>
@@ -192,14 +191,14 @@ export default function PreviewEventPage() {
                   whileHover={{ scale: 1.05 }}
                   className="flex items-center gap-2 text-gray-700"
                 >
-                  <Calendar className="w-5 h-5 text-amber-500" />
+                  <Calendar className="w-5 h-5 text-purple-500" />
                   <span className="text-sm">Coming Soon</span>
                 </motion.div>
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   className="flex items-center gap-2 text-gray-700"
                 >
-                  <Clock className="w-5 h-5 text-amber-500" />
+                  <Clock className="w-5 h-5 text-purple-500" />
                   <span className="text-sm">60 Minutes</span>
                 </motion.div>
               </motion.div>
@@ -207,7 +206,7 @@ export default function PreviewEventPage() {
               <motion.div variants={fadeInUp} className="flex gap-4">
                 <motion.button
                   onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
-                  className="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-400 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-amber-200 transition-all flex items-center gap-2"
+                  className="px-8 py-4 bg-gradient-to-r from-purple-600 to-violet-500 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-purple-200 transition-all flex items-center gap-2"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -224,20 +223,20 @@ export default function PreviewEventPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <div className="aspect-square rounded-3xl bg-gradient-to-br from-amber-100 via-orange-50 to-purple-100 p-8 relative overflow-hidden">
+              <div className="aspect-square rounded-3xl bg-gradient-to-br from-purple-100 via-violet-50 to-indigo-100 p-8 relative overflow-hidden">
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                   className="absolute inset-0"
                   style={{
-                    background: "conic-gradient(from 0deg, transparent, rgba(251, 191, 36, 0.1), transparent, rgba(168, 85, 247, 0.1), transparent)"
+                    background: "conic-gradient(from 0deg, transparent, rgba(139, 92, 246, 0.15), transparent, rgba(124, 58, 237, 0.1), transparent)"
                   }}
                 />
                 <div className="relative h-full flex flex-col items-center justify-center">
                   <motion.div
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 3, repeat: Infinity }}
-                    className="w-32 h-32 rounded-3xl bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center shadow-2xl shadow-amber-200 mb-6"
+                    className="w-32 h-32 rounded-3xl bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shadow-2xl shadow-purple-200 mb-6"
                   >
                     <Sparkles className="w-16 h-16 text-white" />
                   </motion.div>
@@ -260,7 +259,7 @@ export default function PreviewEventPage() {
               <motion.div
                 animate={{ y: [0, 12, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
-                className="w-1.5 h-1.5 bg-gray-400 rounded-full"
+                className="w-1.5 h-1.5 bg-purple-400 rounded-full"
               />
             </div>
           </motion.div>
@@ -268,7 +267,7 @@ export default function PreviewEventPage() {
       </section>
 
       {/* Stats Bar */}
-      <section className="py-12 bg-gradient-to-r from-amber-50 via-orange-50 to-purple-50">
+      <section className="py-12 bg-gradient-to-r from-purple-50 via-violet-50 to-indigo-50">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -286,7 +285,7 @@ export default function PreviewEventPage() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="text-center"
               >
-                <stat.icon className="w-8 h-8 mx-auto mb-2 text-amber-500" />
+                <stat.icon className="w-8 h-8 mx-auto mb-2 text-purple-500" />
                 <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
                 <p className="text-sm text-gray-600">{stat.label}</p>
               </motion.div>
@@ -326,7 +325,7 @@ export default function PreviewEventPage() {
                   placeholder="Enter your name"
                   value={formData.firstName}
                   onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 outline-none transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all"
                   whileFocus={{ scale: 1.01 }}
                 />
               </div>
@@ -338,7 +337,7 @@ export default function PreviewEventPage() {
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 outline-none transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all"
                   whileFocus={{ scale: 1.01 }}
                 />
               </div>
@@ -361,7 +360,7 @@ export default function PreviewEventPage() {
                 disabled={isSubmitting}
                 className={`w-full py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all ${
                   isFormValid
-                    ? "bg-gradient-to-r from-amber-500 to-amber-400 hover:shadow-xl hover:shadow-amber-200"
+                    ? "bg-gradient-to-r from-purple-600 to-violet-500 hover:shadow-xl hover:shadow-purple-200"
                     : "bg-gray-300 cursor-not-allowed"
                 }`}
                 whileHover={isFormValid ? { scale: 1.02 } : {}}
@@ -419,18 +418,18 @@ export default function PreviewEventPage() {
               <motion.div
                 key={i}
                 variants={fadeInUp}
-                className="group flex gap-6 p-6 rounded-2xl bg-white border border-gray-100 hover:border-amber-200 hover:shadow-lg hover:shadow-amber-50 transition-all cursor-default"
+                className="group flex gap-6 p-6 rounded-2xl bg-white border border-gray-100 hover:border-purple-200 hover:shadow-lg hover:shadow-purple-50 transition-all cursor-default"
               >
                 <div className="flex-shrink-0">
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
-                    className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-100 to-amber-50 flex items-center justify-center text-amber-600 font-bold"
+                    className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-100 to-violet-50 flex items-center justify-center text-purple-600 font-bold"
                   >
                     {item.num}
                   </motion.div>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-amber-600 transition-colors">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-purple-600 transition-colors">
                     {item.title}
                   </h3>
                   <p className="text-gray-600 leading-relaxed">{item.desc}</p>
@@ -465,14 +464,14 @@ export default function PreviewEventPage() {
               <motion.div
                 key={i}
                 variants={fadeInUp}
-                className="p-6 rounded-2xl bg-gradient-to-br from-amber-50 to-white border border-amber-100"
+                className="p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-white border border-purple-100"
               >
                 <div className="flex items-center gap-3">
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: prefersReducedMotion ? 0 : 0.3 + i * 0.1, type: "spring" }}
-                    className="w-8 h-8 rounded-full bg-amber-400 flex items-center justify-center flex-shrink-0"
+                    className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center flex-shrink-0"
                   >
                     <Check className="w-5 h-5 text-white" strokeWidth={3} />
                   </motion.div>
@@ -485,7 +484,7 @@ export default function PreviewEventPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-br from-amber-500 via-amber-400 to-orange-400 text-white">
+      <section className="py-20 bg-gradient-to-br from-purple-600 via-violet-500 to-indigo-500 text-white">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -502,7 +501,7 @@ export default function PreviewEventPage() {
 
             <motion.button
               onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
-              className="px-10 py-5 bg-white text-amber-600 rounded-xl font-bold text-lg hover:shadow-2xl transition-all inline-flex items-center gap-3"
+              className="px-10 py-5 bg-white text-purple-600 rounded-xl font-bold text-lg hover:shadow-2xl transition-all inline-flex items-center gap-3"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
