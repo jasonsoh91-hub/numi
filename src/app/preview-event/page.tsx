@@ -3,71 +3,41 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useInView, useReducedMotion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Check, Calendar, Clock, Users, Sparkles } from "lucide-react";
+import { ArrowRight, Check, Users, Clock, Sparkles, Calendar, Play } from "lucide-react";
 
 export default function PreviewEventPage() {
   const router = useRouter();
   const prefersReducedMotion = useReducedMotion();
-  const [formData, setFormData] = useState({
-    firstName: "",
-    email: "",
-  });
+  const [formData, setFormData] = useState({ firstName: "", email: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [mounted, setMounted] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [fieldFocused, setFieldFocused] = useState("");
+  const [activeSection, setActiveSection] = useState(0);
 
-  // Refs for scroll
+  const heroRef = useRef<HTMLElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
-
-  // InView hooks
-  const heroRef = useRef(null);
-  const eventDetailsRef = useRef(null);
-  const benefitsRef = useRef(null);
-  const trustRef = useRef(null);
-  const optinRef = useRef(null);
-  const finalRef = useRef(null);
+  const learnRef = useRef<HTMLElement>(null);
+  const transformRef = useRef<HTMLElement>(null);
 
   const heroInView = useInView(heroRef, { once: true, amount: 0.3 });
-  const eventDetailsInView = useInView(eventDetailsRef, { once: true, amount: 0.2 });
-  const benefitsInView = useInView(benefitsRef, { once: true, amount: 0.2 });
-  const trustInView = useInView(trustRef, { once: true, amount: 0.2 });
-  const optinInView = useInView(optinRef, { once: true, amount: 0.3 });
-  const finalInView = useInView(finalRef, { once: true, amount: 0.3 });
+  const formInView = useInView(formRef, { once: true, amount: 0.3 });
+  const learnInView = useInView(learnRef, { once: true, amount: 0.2 });
+  const transformInView = useInView(transformRef, { once: true, amount: 0.2 });
 
   useEffect(() => {
     setMounted(true);
-
-    const handleScroll = () => {
-      const windowHeight = window.innerHeight;
-      const docHeight = document.documentElement.scrollHeight - windowHeight;
-      const scroll = window.scrollY;
-      const progress = Math.min((scroll / docHeight) * 100, 100);
-      setScrollProgress(progress);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const scrollToForm = () => {
-    formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!formData.firstName || !formData.email) {
       setError("Please fill in all fields");
       return;
     }
-
     if (!formData.email.includes("@")) {
-      setError("Please enter a valid email address");
+      setError("Please enter a valid email");
       return;
     }
-
     setIsSubmitting(true);
     setError("");
 
@@ -79,9 +49,9 @@ export default function PreviewEventPage() {
     };
 
     localStorage.setItem("numiEventRegistration", JSON.stringify(eventData));
-    const existingRegistrations = JSON.parse(localStorage.getItem("numiEventRegistrations") || "[]");
-    existingRegistrations.push(eventData);
-    localStorage.setItem("numiEventRegistrations", JSON.stringify(existingRegistrations));
+    const existing = JSON.parse(localStorage.getItem("numiEventRegistrations") || "[]");
+    existing.push(eventData);
+    localStorage.setItem("numiEventRegistrations", JSON.stringify(existing));
 
     setTimeout(() => {
       router.push("/preview-event/thank-you");
@@ -89,632 +59,465 @@ export default function PreviewEventPage() {
   };
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 30 },
-    visible: { opacity: 1, y: 0 }
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 40 },
+    visible: { opacity: 1, y: 0 } as const
   };
 
-  const transitionDuration = prefersReducedMotion ? 0 : 0.6;
+  const staggerContainer = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: prefersReducedMotion ? 0 : 0.15
+      }
+    }
+  };
 
-  const benefits = [
-    "Discover your personal NUMI Pattern Code live",
-    "Learn how to read the hidden patterns in your life",
-    "Experience a guided self-discovery session",
-    "Get your questions answered in real-time",
-    "Connect with like-minded seekers",
+  const stats = [
+    { icon: Users, value: "Limited", label: "Spots Available" },
+    { icon: Clock, value: "60", label: "Minutes" },
+    { icon: Sparkles, value: "Free", label: "Registration" },
   ];
 
-  const whatYoullLearn = [
-    "How your birthdate reveals your Core Pattern",
-    "Why you keep repeating certain emotional cycles",
-    "Your natural decision-making style",
-    "Hidden strengths you may not have noticed",
-    "How to align your life with your Pattern Code",
+  const learnItems = [
+    {
+      num: "01",
+      title: "Discover Your Core Pattern Code",
+      desc: "Learn how your birthdate reveals your unique numerical signature that influences your thoughts, emotions, and decisions."
+    },
+    {
+      num: "02",
+      title: "Decode Your Emotional Cycles",
+      desc: "Understand why certain feelings and situations keep repeating in your life, and how to break free from limiting patterns."
+    },
+    {
+      num: "03",
+      title: "Activate Your Hidden Strengths",
+      desc: "Uncover the natural talents and abilities you may have overlooked, and learn to align your life with your authentic pattern."
+    },
+    {
+      num: "04",
+      title: "Transform Your Relationships",
+      desc: "See how your pattern interacts with others—gain clarity on compatibility, communication styles, and relationship dynamics."
+    },
+    {
+      num: "05",
+      title: "Navigate Your Life Path with Confidence",
+      desc: "Receive practical guidance on making aligned decisions in career, relationships, and personal growth based on your Pattern Code."
+    }
+  ];
+
+  const transformations = [
+    "From feeling stuck to seeing the pattern",
+    "From confusion to clarity about your life path",
+    "From self-doubt to self-awareness",
+    "From repeating cycles to breaking through"
   ];
 
   const isFormValid = formData.firstName && formData.email?.includes("@");
 
   return (
-    <div className="min-h-screen text-white relative overflow-hidden">
-      {/* === CINEMATIC BACKGROUND === */}
-      <div className="fixed inset-0 bg-[#0A0E27]">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A0E27] via-[#0F0F23] to-[#0a0d1a]" />
-
-        {mounted && !prefersReducedMotion && (
-          <>
-            {/* Gold ambient glow - top left */}
-            <div
-              className="absolute w-[800px] h-[800px] rounded-full opacity-20 animate-ambient-drift-slow"
-              style={{
-                top: "-200px",
-                left: "-200px",
-                background: "radial-gradient(circle, rgba(216, 184, 106, 0.15) 0%, rgba(216, 184, 106, 0.05) 40%, transparent 70%)",
-                filter: "blur(100px)",
-              }}
-            />
-            {/* Deep blue glow - bottom right */}
-            <div
-              className="absolute w-[900px] h-[900px] rounded-full opacity-15 animate-ambient-drift"
-              style={{
-                bottom: "-250px",
-                right: "-250px",
-                background: "radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(139, 92, 246, 0.06) 50%, transparent 70%)",
-                filter: "blur(120px)",
-              }}
-            />
-
-            {/* === FLOATING NUMEROLOGY PARTICLES === */}
-            {Array.from({ length: 30 }).map((_, i) => {
-              const x = Math.random() * 100;
-              const y = Math.random() * 100;
-              const duration = 8 + Math.random() * 10;
-              const delay = Math.random() * 5;
-              return (
-                <motion.div
-                  key={`particle-${i}`}
-                  className="absolute rounded-full bg-amber-400/20 pointer-events-none"
-                  style={{
-                    width: `${2 + Math.random() * 3}px`,
-                    height: `${2 + Math.random() * 3}px`,
-                    filter: "blur(0.5px)",
-                  }}
-                  initial={{ x: `${x}%`, y: `${y}%`, opacity: 0 }}
-                  animate={{ x: `${x}%`, y: `${y}%`, opacity: [0.2, 0.5, 0.2] }}
-                  transition={{
-                    duration,
-                    delay,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-              );
-            })}
-            {/* Floating numerology numbers */}
-            {["1", "3", "5", "7", "9", "11", "22", "33"].map((num, i) => {
-              const positions = [
-                { left: 10, top: 15 },
-                { left: 85, top: 12 },
-                { left: 15, top: 70 },
-                { left: 80, top: 75 },
-                { left: 50, top: 25 },
-                { left: 45, top: 80 },
-                { left: 8, top: 45 },
-                { left: 88, top: 50 },
-              ];
-              const pos = positions[i % positions.length];
-              const duration = 15 + Math.random() * 10;
-              const delay = i * 2;
-              return (
-                <motion.div
-                  key={`num-${i}`}
-                  className="absolute text-amber-400/15 font-medium text-base pointer-events-none"
-                  initial={{
-                    left: `${pos.left}%`,
-                    top: `${pos.top}%`,
-                    opacity: 0,
-                    scale: 0.8,
-                  }}
-                  animate={{
-                    left: [`${pos.left}%`, `${pos.left + (Math.random() - 0.5) * 10}%`, `${pos.left}%`],
-                    top: [`${pos.top}%`, `${pos.top + (Math.random() - 0.5) * 15}%`, `${pos.top}%`],
-                    opacity: [0.2, 0.5, 0.2],
-                    scale: [0.8, 1, 0.8],
-                  }}
-                  transition={{
-                    duration,
-                    delay,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  {num}
-                </motion.div>
-              );
-            })}
-          </>
-        )}
-
-        {/* Vignette */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(5, 10, 20, 0.4) 100%)",
-          }}
-        />
-      </div>
-
-      {/* === SCROLL PROGRESS BAR === */}
-      {mounted && (
-        <div className="fixed top-0 left-0 right-0 h-1 bg-white/5 z-50">
-          <motion.div
-            className="h-full bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]"
-            style={{ width: `${scrollProgress}%` }}
-            transition={{ duration: 0.1 }}
-          />
+    <div className="min-h-screen bg-white text-gray-900 overflow-hidden">
+      {mounted && !prefersReducedMotion && (
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-200/30 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-200/20 rounded-full blur-3xl" />
         </div>
       )}
 
-      {/* Content */}
-      <div className="relative z-10">
+      {/* Navigation */}
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100"
+      >
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <motion.span
+            className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent"
+            whileHover={{ scale: 1.05 }}
+          >
+            NUMI
+          </motion.span>
+          <motion.button
+            onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
+            className="px-5 py-2 bg-gradient-to-r from-amber-500 to-amber-400 text-white rounded-full font-medium text-sm hover:shadow-lg hover:shadow-amber-200 transition-shadow"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Reserve My Spot
+          </motion.button>
+        </div>
+      </motion.nav>
 
-        {/* === SECTION 1: HERO === */}
-        <section ref={heroRef} className="min-h-screen flex items-center px-6 py-24 md:py-32">
-          <div className="max-w-7xl mx-auto w-full">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-              {/* Left: Content */}
-              <motion.div
-                initial="hidden"
-                animate={heroInView ? "visible" : "hidden"}
+      {/* Hero Section */}
+      <section ref={heroRef} className="relative min-h-screen flex items-center pt-20">
+        <div className="max-w-7xl mx-auto px-6 py-16 lg:py-24">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <motion.div
+              initial="hidden"
+              animate={heroInView ? "visible" : "hidden"}
+              variants={staggerContainer}
+            >
+              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 rounded-full mb-6">
+                <Sparkles className="w-4 h-4 text-amber-500" />
+                <span className="text-amber-700 text-sm font-medium">Free Live Masterclass</span>
+              </motion.div>
+
+              <motion.h1
                 variants={fadeInUp}
-                transition={{ duration: transitionDuration }}
-                className="text-center lg:text-left"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
               >
+                Discover Your
+                <span className="block bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent">
+                  Pattern Code Live
+                </span>
+              </motion.h1>
+
+              <motion.p
+                variants={fadeInUp}
+                className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-xl"
+              >
+                Join us for an exclusive live session where you'll uncover the hidden numerical pattern behind how you think, feel, decide, and grow.
+              </motion.p>
+
+              <motion.p
+                variants={fadeInUp}
+                className="text-gray-500 mb-8"
+              >
+                With NUMI Pattern Intelligence
+              </motion.p>
+
+              <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-10">
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={heroInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#D8B86A]/10 border border-[#D8B86A]/30 rounded-full mb-8"
+                  whileHover={{ scale: 1.05 }}
+                  className="flex items-center gap-2 text-gray-700"
                 >
-                  <Sparkles className="w-4 h-4 text-[#D8B86A]" />
-                  <span className="text-[#D8B86A] text-sm font-medium">Live Preview Event</span>
+                  <Calendar className="w-5 h-5 text-amber-500" />
+                  <span className="text-sm">Coming Soon</span>
                 </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="flex items-center gap-2 text-gray-700"
+                >
+                  <Clock className="w-5 h-5 text-amber-500" />
+                  <span className="text-sm">60 Minutes</span>
+                </motion.div>
+              </motion.div>
 
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight tracking-tight">
-                  Discover Your
-                  <span className="block mt-4 text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]">
-                    Pattern Code Live
-                  </span>
-                </h1>
-
-                <p className="text-base md:text-lg text-white/60 mb-6 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                  Join us for an exclusive live session where you&apos;ll uncover the hidden pattern behind how you think, feel, decide, and grow.
-                </p>
-
-                <p className="text-sm md:text-base text-white/40 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                  Experience NUMI&apos;s pattern intelligence in real-time and get your first personal insight during the session.
-                </p>
-
-                {/* Hero CTA Button */}
+              <motion.div variants={fadeInUp} className="flex gap-4">
                 <motion.button
-                  onClick={scrollToForm}
+                  onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
+                  className="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-400 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-amber-200 transition-all flex items-center gap-2"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group relative px-8 py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-lg rounded-xl transition-all duration-200 flex items-center gap-2 cursor-pointer shadow-lg shadow-[#D8B86A]/20 mx-auto lg:mx-0 overflow-hidden"
                 >
-                  {mounted && !prefersReducedMotion && (
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                      animate={{
-                        x: ["-100%", "200%"],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                    />
-                  )}
-                  <span className="relative z-10 flex items-center gap-2">
-                    <span>Reserve My Spot</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-                  </span>
-                  <div className="absolute inset-0 blur-xl bg-[#D8B86A]/50 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <span>Claim Your FREE Spot</span>
+                  <ArrowRight className="w-5 h-5" />
                 </motion.button>
-
-                <p className="text-white/30 text-xs mt-4 max-w-md mx-auto lg:mx-0">
-                  Free registration • Limited spots • Live Q&A included
-                </p>
               </motion.div>
+            </motion.div>
 
-              {/* Right: Event Visual */}
+            {/* Hero Visual */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={heroInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
+            >
+              <div className="aspect-square rounded-3xl bg-gradient-to-br from-amber-100 via-orange-50 to-purple-100 p-8 relative overflow-hidden">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-0"
+                  style={{
+                    background: "conic-gradient(from 0deg, transparent, rgba(251, 191, 36, 0.1), transparent, rgba(168, 85, 247, 0.1), transparent)"
+                  }}
+                />
+                <div className="relative h-full flex flex-col items-center justify-center">
+                  <motion.div
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                    className="w-32 h-32 rounded-3xl bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center shadow-2xl shadow-amber-200 mb-6"
+                  >
+                    <Sparkles className="w-16 h-16 text-white" />
+                  </motion.div>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-2">NUMI Pattern</h3>
+                  <p className="text-gray-600 text-center">Decode Your Life's Hidden Blueprint</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        {mounted && !prefersReducedMotion && (
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          >
+            <div className="w-6 h-10 rounded-full border-2 border-gray-300 flex items-start justify-center p-2">
               <motion.div
-                initial="hidden"
-                animate={heroInView ? "visible" : "hidden"}
-                variants={fadeInUp}
-                transition={{ duration: transitionDuration * 1.2 }}
-                className="flex justify-center"
+                animate={{ y: [0, 12, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-1.5 h-1.5 bg-gray-400 rounded-full"
+              />
+            </div>
+          </motion.div>
+        )}
+      </section>
+
+      {/* Stats Bar */}
+      <section className="py-12 bg-gradient-to-r from-amber-50 via-orange-50 to-purple-50">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="grid grid-cols-3 gap-8"
+          >
+            {stats.map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="text-center"
               >
-                <motion.div
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="relative w-full max-w-md aspect-square"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#D8B86A]/20 to-[#D8B86A]/5 rounded-3xl border border-[#D8B86A]/20" />
-                  <div className="absolute inset-4 bg-gradient-to-br from-[#0A0E27] to-[#0F0F23] rounded-2xl border border-white/10 flex flex-col items-center justify-center p-8">
-                    <motion.div
-                      animate={heroInView ? { scale: [1, 1.1, 1] } : {}}
-                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                      className="w-24 h-24 rounded-full bg-gradient-to-br from-[#D8B86A] to-[#F4D47A] flex items-center justify-center mb-6 shadow-lg shadow-[#D8B86A]/30"
-                    >
-                      <Sparkles className="w-12 h-12 text-[#0A0E27]" />
-                    </motion.div>
-                    <h3 className="text-2xl font-bold text-white mb-2">NUMI Live Preview</h3>
-                    <p className="text-white/50 text-center">Your Pattern Revealed</p>
-                  </div>
-                  <div className="absolute inset-0 rounded-3xl bg-[#D8B86A]/10 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none blur-3xl" />
-                </motion.div>
+                <stat.icon className="w-8 h-8 mx-auto mb-2 text-amber-500" />
+                <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
+                <p className="text-sm text-gray-600">{stat.label}</p>
               </motion.div>
-            </div>
-          </div>
-        </section>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
-        {/* === SECTION 2: EVENT DETAILS === */}
-        <section ref={eventDetailsRef} className="py-24 md:py-32 px-6">
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial="hidden"
-              animate={eventDetailsInView ? "visible" : "hidden"}
-              variants={fadeInUp}
-              transition={{ duration: transitionDuration }}
-              className="bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-12"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center tracking-tight">
-                Event Details
-              </h2>
+      {/* Registration Form Section */}
+      <section ref={formRef} className="py-20 bg-white">
+        <div className="max-w-3xl mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            animate={formInView ? "visible" : "hidden"}
+            variants={staggerContainer}
+            className="text-center mb-12"
+          >
+            <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-4">
+              Claim Your FREE Spot Now
+            </motion.h2>
+            <motion.p variants={fadeInUp} className="text-gray-600">
+              Submit your details to secure your spot in this exclusive masterclass
+            </motion.p>
+          </motion.div>
 
-              <div className="grid md:grid-cols-3 gap-8">
-                {/* Date */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={eventDetailsInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.1 }}
-                  className="text-center"
-                >
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#D8B86A]/10 flex items-center justify-center">
-                    <Calendar className="w-8 h-8 text-[#D8B86A]" />
-                  </div>
-                  <h3 className="text-white font-semibold mb-2">Date</h3>
-                  <p className="text-white/60">Coming Soon</p>
-                  <p className="text-white/40 text-sm mt-1">Exact date TBD</p>
-                </motion.div>
-
-                {/* Time */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={eventDetailsInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.2 }}
-                  className="text-center"
-                >
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#D8B86A]/10 flex items-center justify-center">
-                    <Clock className="w-8 h-8 text-[#D8B86A]" />
-                  </div>
-                  <h3 className="text-white font-semibold mb-2">Time</h3>
-                  <p className="text-white/60">60 Minutes</p>
-                  <p className="text-white/40 text-sm mt-1">Live Session</p>
-                </motion.div>
-
-                {/* Format */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={eventDetailsInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.3 }}
-                  className="text-center"
-                >
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#D8B86A]/10 flex items-center justify-center">
-                    <Users className="w-8 h-8 text-[#D8B86A]" />
-                  </div>
-                  <h3 className="text-white font-semibold mb-2">Format</h3>
-                  <p className="text-white/60">Online Live</p>
-                  <p className="text-white/40 text-sm mt-1">Limited Spots</p>
-                </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={formInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.5 }}
+            className="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 md:p-12 border border-gray-100 shadow-xl shadow-gray-100"
+          >
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Name *</label>
+                <motion.input
+                  type="text"
+                  placeholder="Enter your name"
+                  value={formData.firstName}
+                  onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 outline-none transition-all"
+                  whileFocus={{ scale: 1.01 }}
+                />
               </div>
-            </motion.div>
-          </div>
-        </section>
 
-        {/* === SECTION 3: BENEFITS === */}
-        <section ref={benefitsRef} className="py-24 md:py-32 px-6">
-          <div className="max-w-3xl mx-auto">
-            <motion.div
-              initial="hidden"
-              animate={benefitsInView ? "visible" : "hidden"}
-              variants={fadeInUp}
-              transition={{ duration: transitionDuration }}
-            >
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-16 text-center tracking-tight">
-                What You&apos;ll Experience
-              </h2>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                <motion.input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 outline-none transition-all"
+                  whileFocus={{ scale: 1.01 }}
+                />
+              </div>
 
-              <ul className="space-y-5">
-                {benefits.map((benefit, i) => (
-                  <motion.li
-                    key={i}
-                    initial="hidden"
-                    animate={benefitsInView ? "visible" : "hidden"}
-                    variants={fadeInUp}
-                    transition={{ duration: transitionDuration, delay: prefersReducedMotion ? 0 : 0.1 + i * 0.08 }}
-                    whileHover={{ x: 8 }}
-                    className="flex items-start gap-4 text-white/70 text-base md:text-lg leading-relaxed cursor-pointer group p-3 -mx-3 rounded-xl hover:bg-white/[0.02] transition-colors duration-200"
+              <AnimatePresence>
+                {error && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="text-red-500 text-sm"
                   >
-                    <motion.span
-                      className="text-[#D8B86A] mt-1 flex-shrink-0"
-                      whileHover={{ scale: 1.2 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      •
-                    </motion.span>
-                    <span className="group-hover:text-white/80 transition-colors duration-200">{benefit}</span>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* === SECTION 4: WHAT YOU'LL LEARN === */}
-        <section ref={trustRef} className="py-24 md:py-32 px-6">
-          <div className="max-w-5xl mx-auto">
-            <motion.div
-              initial="hidden"
-              animate={trustInView ? "visible" : "hidden"}
-              variants={fadeInUp}
-              transition={{ duration: transitionDuration }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight">
-                What You&apos;ll Learn
-              </h2>
-            </motion.div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              {whatYoullLearn.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={trustInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: prefersReducedMotion ? 0 : 0.1 + i * 0.08 }}
-                  className="relative bg-gradient-to-br from-white/[0.05] to-white/[0.02] rounded-2xl p-6 border border-white/10 hover:border-[#D8B86A]/20 transition-colors duration-200"
-                >
-                  <div className="flex items-start gap-4">
-                    <motion.span
-                      initial={{ scale: 0 }}
-                      animate={trustInView ? { scale: 1 } : {}}
-                      transition={{ duration: 0.3, delay: prefersReducedMotion ? 0 : 0.2 + i * 0.08, type: "spring" }}
-                      className="text-[#D8B86A] mt-0.5 flex-shrink-0"
-                    >
-                      <Check className="w-5 h-5" strokeWidth={3} />
-                    </motion.span>
-                    <span className="text-white/70 leading-relaxed">{item}</span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* === SECTION 5: REGISTRATION FORM === */}
-        <section ref={optinRef} className="py-24 md:py-32 px-6">
-          <div className="max-w-md mx-auto">
-            <motion.div
-              initial="hidden"
-              animate={optinInView ? "visible" : "hidden"}
-              variants={fadeInUp}
-              transition={{ duration: transitionDuration }}
-              ref={formRef}
-            >
-              <div className="bg-gradient-to-br from-white/[0.08] to-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-10 relative overflow-hidden">
-                {/* Subtle glow effect */}
-                {mounted && !prefersReducedMotion && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#D8B86A]/5 via-transparent to-transparent opacity-50" />
+                    {error}
+                  </motion.p>
                 )}
-
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 text-center relative">Reserve Your Spot</h2>
-                <p className="text-white/50 text-sm text-center mb-8 relative">
-                  Enter your details to register for the exclusive NUMI Live Preview event.
-                </p>
-
-                <form onSubmit={handleSubmit} className="space-y-4 relative">
-                  {/* First Name */}
-                  <div className="relative">
-                    <motion.input
-                      type="text"
-                      placeholder="First Name"
-                      value={formData.firstName}
-                      onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                      onFocus={() => setFieldFocused("firstName")}
-                      onBlur={() => setFieldFocused("")}
-                      animate={{
-                        borderColor: fieldFocused === "firstName" ? "rgba(216, 184, 106, 0.5)" : "rgba(255, 255, 255, 0.1)",
-                        scale: fieldFocused === "firstName" ? 1.01 : 1,
-                      }}
-                      transition={{ duration: 0.2 }}
-                      className="w-full px-4 py-3.5 bg-white/[0.05] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D8B86A]/50 transition-all duration-200 pr-12"
-                    />
-                    <AnimatePresence>
-                      {formData.firstName && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0 }}
-                          className="absolute right-4 top-[17px] text-[#D8B86A]"
-                        >
-                          <Check className="w-4 h-4" strokeWidth={3} />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Email */}
-                  <div className="relative">
-                    <motion.input
-                      type="email"
-                      placeholder="Email Address"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      onFocus={() => setFieldFocused("email")}
-                      onBlur={() => setFieldFocused("")}
-                      animate={{
-                        borderColor: fieldFocused === "email" ? "rgba(216, 184, 106, 0.5)" : "rgba(255, 255, 255, 0.1)",
-                        scale: fieldFocused === "email" ? 1.01 : 1,
-                      }}
-                      transition={{ duration: 0.2 }}
-                      className="w-full px-4 py-3.5 bg-white/[0.05] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D8B86A]/50 transition-all duration-200 pr-12"
-                    />
-                    <AnimatePresence>
-                      {formData.email?.includes("@") && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0 }}
-                          className="absolute right-4 top-[17px] text-[#D8B86A]"
-                        >
-                          <Check className="w-4 h-4" strokeWidth={3} />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Error message */}
-                  <AnimatePresence>
-                    {error && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className="text-red-400 text-sm bg-red-400/10 border border-red-400/20 rounded-lg px-3 py-2"
-                        role="alert"
-                      >
-                        {error}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
-
-                  {/* Submit button */}
-                  <motion.button
-                    type="submit"
-                    disabled={isSubmitting}
-                    whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                    whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                    animate={{
-                      backgroundColor: isFormValid ? undefined : "rgba(216, 184, 106, 0.5)",
-                    }}
-                    className="group relative w-full py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-lg rounded-xl transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed overflow-hidden"
-                  >
-                    {mounted && !prefersReducedMotion && (
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                        animate={{
-                          x: ["-100%", "200%"],
-                        }}
-                        transition={{
-                          duration: 2.5,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                        }}
-                      />
-                    )}
-
-                    <span className="relative z-10 flex items-center gap-2">
-                      {isSubmitting ? (
-                        <>
-                          <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                            className="w-5 h-5 border-2 border-[#0A0E27] border-t-transparent rounded-full"
-                          />
-                          <span>Registering...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Reserve My Spot</span>
-                          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-                        </>
-                      )}
-                    </span>
-                    <div className="absolute inset-0 blur-xl bg-[#D8B86A]/50 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </motion.button>
-
-                  {/* Trust badges */}
-                  <div className="flex items-center justify-center gap-4 text-white/30 text-xs pt-2">
-                    <motion.span
-                      initial={{ opacity: 0 }}
-                      animate={optinInView ? { opacity: 1 } : {}}
-                      transition={{ delay: 0.5 }}
-                      className="flex items-center gap-1"
-                    >
-                      <Check className="w-3 h-3 text-[#D8B86A]" strokeWidth={3} />
-                      Free
-                    </motion.span>
-                    <motion.span
-                      initial={{ opacity: 0 }}
-                      animate={optinInView ? { opacity: 1 } : {}}
-                      transition={{ delay: 0.6 }}
-                      className="flex items-center gap-1"
-                    >
-                      <Check className="w-3 h-3 text-[#D8B86A]" strokeWidth={3} />
-                      No spam
-                    </motion.span>
-                    <motion.span
-                      initial={{ opacity: 0 }}
-                      animate={optinInView ? { opacity: 1 } : {}}
-                      transition={{ delay: 0.7 }}
-                      className="flex items-center gap-1"
-                    >
-                      <Check className="w-3 h-3 text-[#D8B86A]" strokeWidth={3} />
-                      Limited spots
-                    </motion.span>
-                  </div>
-                </form>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* === FINAL CTA === */}
-        <section ref={finalRef} className="py-24 md:py-32 px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.div
-              initial="hidden"
-              animate={finalInView ? "visible" : "hidden"}
-              variants={fadeInUp}
-              transition={{ duration: transitionDuration }}
-            >
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8 leading-tight">
-                Your Pattern Is Waiting.
-                <span className="block mt-3 text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]">
-                  Reserve Your Spot Today.
-                </span>
-              </h2>
+              </AnimatePresence>
 
               <motion.button
-                onClick={scrollToForm}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="group relative px-8 py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-lg rounded-xl transition-all duration-200 flex items-center gap-2 cursor-pointer shadow-lg shadow-[#D8B86A]/20 mx-auto overflow-hidden"
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all ${
+                  isFormValid
+                    ? "bg-gradient-to-r from-amber-500 to-amber-400 hover:shadow-xl hover:shadow-amber-200"
+                    : "bg-gray-300 cursor-not-allowed"
+                }`}
+                whileHover={isFormValid ? { scale: 1.02 } : {}}
+                whileTap={isFormValid ? { scale: 0.98 } : {}}
               >
-                {mounted && !prefersReducedMotion && (
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                    animate={{
-                      x: ["-100%", "200%"],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
+                {isSubmitting ? (
+                  <>
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                    />
+                    <span>Securing your spot...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Reserve My Spot Now</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </>
                 )}
-                <span className="relative z-10 flex items-center gap-2">
-                  <span>Reserve My Spot</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-                </span>
-                <div className="absolute inset-0 blur-xl bg-[#D8B86A]/50 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </motion.button>
-            </motion.div>
-          </div>
-        </section>
 
-        {/* === FOOTER === */}
-        <footer className="py-12 px-6 border-t border-white/5">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-white/30 text-xs leading-relaxed">
-              NUMI is designed for self-reflection and personal growth. It does not provide medical, financial, legal, or professional advice.
+              <p className="text-xs text-gray-500 text-center">
+                By registering, you agree to receive event details. You can unsubscribe anytime.
+              </p>
+            </form>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* What You'll Learn */}
+      <section ref={learnRef} className="py-20 bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-4xl mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            animate={learnInView ? "visible" : "hidden"}
+            variants={staggerContainer}
+            className="text-center mb-16"
+          >
+            <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-4">
+              What You'll Gain from This Free Masterclass
+            </motion.h2>
+            <motion.p variants={fadeInUp} className="text-gray-600">
+              Even if you're completely new to numerology or pattern intelligence
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            animate={learnInView ? "visible" : "hidden"}
+            variants={staggerContainer}
+            className="space-y-8"
+          >
+            {learnItems.map((item, i) => (
+              <motion.div
+                key={i}
+                variants={fadeInUp}
+                className="group flex gap-6 p-6 rounded-2xl bg-white border border-gray-100 hover:border-amber-200 hover:shadow-lg hover:shadow-amber-50 transition-all cursor-default"
+              >
+                <div className="flex-shrink-0">
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-100 to-amber-50 flex items-center justify-center text-amber-600 font-bold"
+                  >
+                    {item.num}
+                  </motion.div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-amber-600 transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Transformation Section */}
+      <section ref={transformRef} className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            animate={transformInView ? "visible" : "hidden"}
+            variants={staggerContainer}
+            className="text-center mb-16"
+          >
+            <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-4">
+              Transformation You Will Experience
+            </motion.h2>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            animate={transformInView ? "visible" : "hidden"}
+            variants={staggerContainer}
+            className="grid md:grid-cols-2 gap-6"
+          >
+            {transformations.map((text, i) => (
+              <motion.div
+                key={i}
+                variants={fadeInUp}
+                className="p-6 rounded-2xl bg-gradient-to-br from-amber-50 to-white border border-amber-100"
+              >
+                <div className="flex items-center gap-3">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: prefersReducedMotion ? 0 : 0.3 + i * 0.1, type: "spring" }}
+                    className="w-8 h-8 rounded-full bg-amber-400 flex items-center justify-center flex-shrink-0"
+                  >
+                    <Check className="w-5 h-5 text-white" strokeWidth={3} />
+                  </motion.div>
+                  <span className="text-gray-700 font-medium">{text}</span>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-20 bg-gradient-to-br from-amber-500 via-amber-400 to-orange-400 text-white">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Ready To Get Started?
+            </h2>
+            <p className="text-white/90 mb-10 text-lg">
+              Submit your details below to secure your spot in this exclusive NUMI masterclass.
             </p>
-            <p className="text-white/20 text-xs mt-6">© 2026 NUMI. All rights reserved.</p>
-          </div>
-        </footer>
 
-      </div>
+            <motion.button
+              onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
+              className="px-10 py-5 bg-white text-amber-600 rounded-xl font-bold text-lg hover:shadow-2xl transition-all inline-flex items-center gap-3"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Play className="w-5 h-5" />
+              <span>Claim Your FREE Spot</span>
+            </motion.button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 bg-gray-900 text-white/60 text-sm text-center">
+        <p>© 2026 NUMI. All rights reserved.</p>
+        <p className="mt-2">NUMI is for self-reflection and personal growth only.</p>
+      </footer>
     </div>
   );
 }

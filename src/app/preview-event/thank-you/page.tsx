@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
-import { Check, Mail, Calendar, ArrowRight, Home } from "lucide-react";
+import { Check, Mail, Calendar, ArrowRight, Home, Sparkles } from "lucide-react";
 
 export default function ThankYouPage() {
   const router = useRouter();
@@ -25,217 +25,169 @@ export default function ThankYouPage() {
   };
 
   const staggerContainer = {
-    hidden: { opacity: 0 },
+    hidden: {},
     visible: {
-      opacity: 1,
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.15,
-        delayChildren: prefersReducedMotion ? 0 : 0.2,
-      },
-    },
+        staggerChildren: prefersReducedMotion ? 0 : 0.12
+      }
+    }
   };
 
+  const nextSteps = [
+    { icon: Mail, title: "Check Your Email", desc: "We'll send event details and access link soon" },
+    { icon: Calendar, title: "Save the Date", desc: "We'll announce the exact date via email" },
+    { icon: Sparkles, title: "Prepare for Discovery", desc: "Get ready to uncover your Pattern Code" },
+  ];
+
   return (
-    <div className="min-h-screen text-white relative overflow-hidden">
-      {/* === CINEMATIC BACKGROUND === */}
-      <div className="fixed inset-0 bg-[#0A0E27]">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A0E27] via-[#0F0F23] to-[#0a0d1a]" />
+    <div className="min-h-screen bg-white text-gray-900">
+      {mounted && !prefersReducedMotion && (
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-200/30 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-200/20 rounded-full blur-3xl" />
+        </div>
+      )}
 
-        {mounted && !prefersReducedMotion && (
-          <>
-            {/* Gold ambient glow - top */}
-            <div
-              className="absolute w-[800px] h-[800px] rounded-full opacity-20 animate-ambient-drift-slow"
-              style={{
-                top: "-200px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                background: "radial-gradient(circle, rgba(216, 184, 106, 0.15) 0%, rgba(216, 184, 106, 0.05) 40%, transparent 70%)",
-                filter: "blur(100px)",
-              }}
-            />
-            {/* Deep blue glow - bottom */}
-            <div
-              className="absolute w-[900px] h-[900px] rounded-full opacity-15 animate-ambient-drift"
-              style={{
-                bottom: "-250px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                background: "radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(139, 92, 246, 0.06) 50%, transparent 70%)",
-                filter: "blur(120px)",
-              }}
-            />
+      {/* Navigation */}
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100"
+      >
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <motion.span
+            className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent"
+          >
+            NUMI
+          </motion.span>
+          <motion.button
+            onClick={() => router.push("/")}
+            className="px-5 py-2 bg-gray-100 hover:bg-gray-200 rounded-full font-medium text-sm transition-colors flex items-center gap-2"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Home className="w-4 h-4" />
+            <span>Home</span>
+          </motion.button>
+        </div>
+      </motion.nav>
 
-            {/* Floating particles */}
-            {Array.from({ length: 25 }).map((_, i) => {
-              const x = Math.random() * 100;
-              const y = Math.random() * 100;
-              const duration = 8 + Math.random() * 10;
-              const delay = Math.random() * 5;
-              return (
-                <motion.div
-                  key={`particle-${i}`}
-                  className="absolute rounded-full bg-amber-400/20 pointer-events-none"
-                  style={{
-                    width: `${2 + Math.random() * 3}px`,
-                    height: `${2 + Math.random() * 3}px`,
-                    filter: "blur(0.5px)",
-                  }}
-                  initial={{ x: `${x}%`, y: `${y}%`, opacity: 0 }}
-                  animate={{ x: `${x}%`, y: `${y}%`, opacity: [0.2, 0.5, 0.2] }}
-                  transition={{
-                    duration,
-                    delay,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-              );
-            })}
-          </>
-        )}
-
-        {/* Vignette */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(5, 10, 20, 0.4) 100%)",
-          }}
-        />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 py-24">
-        <div className="max-w-2xl mx-auto text-center">
+      {/* Main Content */}
+      <div className="relative z-10 pt-28 pb-20 px-6 min-h-screen flex items-center">
+        <div className="max-w-3xl mx-auto w-full">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
-            className="space-y-8"
+            className="text-center"
           >
             {/* Success Icon */}
-            <motion.div
-              variants={fadeInUp}
-              className="relative inline-flex"
-            >
+            <motion.div variants={fadeInUp} className="relative inline-block mb-8">
               <motion.div
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ duration: 0.6, type: "spring", bounce: 0.5 }}
                 className="relative"
               >
-                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-[#D8B86A] to-[#F4D47A] flex items-center justify-center">
-                  <Check className="w-12 h-12 md:w-16 md:h-16 text-[#0A0E27]" strokeWidth={3} />
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-amber-400 to-amber-500 flex items-center justify-center">
+                  <Check className="w-12 h-12 md:w-16 md:h-16 text-white" strokeWidth={3} />
                 </div>
                 <motion.div
-                  className="absolute inset-0 rounded-full bg-[#D8B86A]/30"
-                  animate={{ scale: [1, 1.3, 1] }}
+                  animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
+                  className="absolute inset-0 rounded-full bg-amber-400/30"
                 />
               </motion.div>
             </motion.div>
 
             {/* Main Message */}
             <motion.div variants={fadeInUp}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                You&apos;re In!
-                <span className="block mt-4 text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]">
-                  {registrationData?.firstName || "Spot"} Reserved
-                </span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                {registrationData?.firstName ? `You're In, ${registrationData.firstName}!` : "You're In!"}
               </h1>
-              <p className="text-lg md:text-xl text-white/60 max-w-xl mx-auto leading-relaxed">
-                Thank you for registering for the NUMI Live Preview event. You&apos;re one step closer to discovering your Pattern Code.
+              <p className="text-xl md:text-2xl text-gray-600 mb-4">
+                Your Spot is Reserved
+              </p>
+              <p className="text-gray-500 max-w-xl mx-auto">
+                Thank you for registering for the NUMI Pattern Code masterclass. Get ready to discover the hidden patterns shaping your life.
               </p>
             </motion.div>
 
-            {/* Event Cards */}
-            <motion.div
-              variants={fadeInUp}
-              className="grid md:grid-cols-2 gap-4 md:gap-6 mt-12"
-            >
-              {/* Email Confirmation */}
-              <div className="bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:border-[#D8B86A]/20 transition-colors duration-200">
-                <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-[#D8B86A]/10 flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-[#D8B86A]" />
-                </div>
-                <h3 className="text-white font-semibold mb-2">Check Your Email</h3>
-                <p className="text-white/50 text-sm">
-                  We&apos;ll send event details and the access link to your email soon.
-                </p>
-              </div>
-
-              {/* Calendar Info */}
-              <div className="bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:border-[#D8B86A]/20 transition-colors duration-200">
-                <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-[#D8B86A]/10 flex items-center justify-center">
-                  <Calendar className="w-6 h-6 text-[#D8B86A]" />
-                </div>
-                <h3 className="text-white font-semibold mb-2">Save the Date</h3>
-                <p className="text-white/50 text-sm">
-                  We&apos;ll announce the exact date soon. Stay tuned for updates.
-                </p>
-              </div>
+            {/* Next Steps */}
+            <motion.div variants={fadeInUp} className="grid md:grid-cols-3 gap-6 mt-16">
+              {nextSteps.map((step, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: prefersReducedMotion ? 0 : 0.4 + i * 0.1 }}
+                  className="p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-white border border-gray-100 text-left"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mb-4">
+                    <step.icon className="w-6 h-6 text-amber-500" />
+                  </div>
+                  <h3 className="font-semibold text-gray-800 mb-2">{step.title}</h3>
+                  <p className="text-sm text-gray-600">{step.desc}</p>
+                </motion.div>
+              ))}
             </motion.div>
 
-            {/* What's Next */}
+            {/* Checklist */}
             <motion.div
               variants={fadeInUp}
-              className="bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-white/10 rounded-2xl p-6 md:p-8 mt-8 text-left"
+              className="mt-16 p-8 rounded-3xl bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 text-left max-w-lg mx-auto"
             >
-              <h3 className="text-xl md:text-2xl font-semibold text-white mb-6 text-center">What&apos;s Next?</h3>
-              <ul className="space-y-4 max-w-md mx-auto">
+              <h3 className="text-xl font-bold text-gray-800 mb-6 text-center">What Happens Next</h3>
+              <ul className="space-y-4">
                 {[
-                  "Check your email for a confirmation message",
-                  "Look out for event details and access link",
-                  "Join us live for your NUMI Pattern reveal",
-                  "Bring your questions for the live Q&A",
+                  "Check your email for confirmation",
+                  "Add the event to your calendar",
+                  "Receive the access link before the event",
+                  "Join us live for your Pattern reveal",
+                  "Participate in live Q&A"
                 ].map((item, i) => (
                   <motion.li
                     key={i}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: prefersReducedMotion ? 0 : 0.8 + i * 0.1 }}
-                    className="flex items-start gap-3 text-white/70"
+                    transition={{ delay: prefersReducedMotion ? 0 : 0.6 + i * 0.08 }}
+                    className="flex items-start gap-3"
                   >
-                    <Check className="w-5 h-5 text-[#D8B86A] mt-0.5 flex-shrink-0" strokeWidth={3} />
-                    <span>{item}</span>
+                    <Check className="w-5 h-5 text-amber-500 mt-0.5 flex-shrink-0" strokeWidth={3} />
+                    <span className="text-gray-700">{item}</span>
                   </motion.li>
                 ))}
               </ul>
             </motion.div>
 
             {/* CTA Buttons */}
-            <motion.div
-              variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
-            >
+            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
               <motion.button
                 onClick={() => router.push("/lead-magnet")}
+                className="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-400 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-amber-200 transition-all flex items-center gap-2"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="group relative px-6 py-3 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-semibold rounded-xl transition-all duration-200 flex items-center gap-2 cursor-pointer shadow-lg shadow-[#D8B86A]/20 overflow-hidden"
               >
                 <span>Get Your Free Pattern Guide</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                <ArrowRight className="w-5 h-5" />
               </motion.button>
 
               <motion.button
                 onClick={() => router.push("/")}
+                className="px-8 py-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition-all flex items-center gap-2"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold rounded-xl transition-all duration-200 flex items-center gap-2 cursor-pointer"
               >
-                <Home className="w-4 h-4" />
+                <Home className="w-5 h-5" />
                 <span>Back to Home</span>
               </motion.button>
             </motion.div>
 
-            {/* Footer Note */}
-            <motion.p
-              variants={fadeInUp}
-              className="text-white/30 text-sm max-w-md mx-auto"
-            >
-              Can&apos;t find our email? Check your spam folder or contact us at{' '}
-              <a href="mailto:hello@numi.com" className="text-[#D8B86A] hover:underline">
+            {/* Email Note */}
+            <motion.p variants={fadeInUp} className="text-gray-500 text-sm mt-8 max-w-md mx-auto">
+              Can't find our email? Check your spam folder or contact{' '}
+              <a href="mailto:hello@numi.com" className="text-amber-500 hover:underline">
                 hello@numi.com
               </a>
             </motion.p>
@@ -244,10 +196,9 @@ export default function ThankYouPage() {
       </div>
 
       {/* Footer */}
-      <footer className="relative z-10 py-8 px-6 border-t border-white/5">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="text-white/20 text-xs">© 2026 NUMI. All rights reserved.</p>
-        </div>
+      <footer className="py-8 bg-gray-900 text-white/60 text-sm text-center relative z-10">
+        <p>© 2026 NUMI. All rights reserved.</p>
+        <p className="mt-2">NUMI is for self-reflection and personal growth only.</p>
       </footer>
     </div>
   );
