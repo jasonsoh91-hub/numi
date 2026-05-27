@@ -272,8 +272,11 @@ export default function PreviewEventPage() {
                 Join us for an exclusive live session where you'll uncover the hidden numerical pattern behind how you think, feel, decide, and grow.
               </motion.p>
 
-              <motion.p variants={fadeInUp} className="text-white/40 mb-8">
+              <motion.p variants={fadeInUp} className="text-white/40 mb-2">
                 With NUMI Pattern Intelligence
+              </motion.p>
+              <motion.p variants={fadeInUp} className="text-[#D8B86A] mb-8">
+                Hosted by Dr. Keith Tong, PhD, DNM
               </motion.p>
 
               <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-10">
@@ -539,6 +542,84 @@ export default function PreviewEventPage() {
                 </div>
               </motion.div>
             ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Speaker Section - Dr. Keith Tong */}
+      <section className="py-20 bg-gradient-to-br from-white/[0.03] to-transparent">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet Your Speaker</h2>
+            <p className="text-white/50">Learn from the creator of the NUMI Numerology System</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="grid md:grid-cols-2 gap-12 items-center"
+          >
+            {/* Photo */}
+            <div className="flex justify-center">
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+                className="relative"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-[#D8B86A]/30 to-purple-500/20 rounded-3xl blur-2xl" />
+                <img
+                  src="/dr-keith.jpg"
+                  alt="Dr. Keith Tong"
+                  className="relative w-full max-w-md aspect-[3/4] object-cover rounded-3xl border-2 border-[#D8B86A]/30"
+                />
+              </motion.div>
+            </div>
+
+            {/* Bio */}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Dr. Keith Tong</h3>
+                <p className="text-[#D8B86A] font-medium mb-6">PhD, Doctor of Natural Medicine (DNM)</p>
+
+                <div className="space-y-4 text-white/60">
+                  <p>
+                    With <span className="text-white font-medium">25+ years</span> of clinical experience in holistic health and personal development, Dr. Keith Tong has helped thousands of high achievers find clarity, purpose, and vitality.
+                  </p>
+                  <p>
+                    He is the <span className="text-white font-medium">creator of the NUMI Numerology System</span>, a proprietary method that decodes your birth date to reveal your identity, life path, and relationship patterns with precision.
+                  </p>
+                  <p>
+                    As the <span className="text-white font-medium">best-selling author of "Cutting Loose"</span> and a sought-after speaker at stages like Get Inspired, Dr. Keith brings a unique blend of Eastern wisdom, modern science, and practical tools to every session.
+                  </p>
+                </div>
+
+                {/* Credentials */}
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <div className="px-4 py-2 bg-white/[0.05] border border-white/10 rounded-full text-sm text-white/70">
+                    ✓ PhD & Doctor of Natural Medicine
+                  </div>
+                  <div className="px-4 py-2 bg-white/[0.05] border border-white/10 rounded-full text-sm text-white/70">
+                    ✓ NUMI Creator
+                  </div>
+                  <div className="px-4 py-2 bg-white/[0.05] border border-white/10 rounded-full text-sm text-white/70">
+                    ✓ Best-Selling Author
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>
