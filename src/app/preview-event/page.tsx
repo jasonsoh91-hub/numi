@@ -130,12 +130,12 @@ export default function PreviewEventPage() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 ${className}`}
+      className={`bg-white rounded-2xl p-6 shadow-xl shadow-gray-200/50 border border-gray-100 ${className}`}
     >
-      <h3 className={`font-bold text-white mb-1 ${compact ? "text-lg" : "text-xl"}`}>
+      <h3 className={`font-bold text-gray-900 mb-1 ${compact ? "text-lg" : "text-xl"}`}>
         {compact ? "Reserve Your Spot" : "Register Now — It's Free"}
       </h3>
-      {!compact && <p className="text-white/50 text-sm mb-4">Limited spots available for this exclusive session</p>}
+      {!compact && <p className="text-gray-500 text-sm mb-4">Limited spots available for this exclusive session</p>}
 
       <form onSubmit={handleSubmit} className="space-y-3">
         <input
@@ -143,14 +143,14 @@ export default function PreviewEventPage() {
           placeholder="First Name"
           value={formData.firstName}
           onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:border-[#D8B86A] focus:ring-2 focus:ring-[#D8B86A]/50 outline-none transition-all"
+          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder:text-gray-400 focus:border-[#D8B86A] focus:ring-2 focus:ring-[#D8B86A]/20 outline-none transition-all"
         />
         <input
           type="email"
           placeholder="Email Address"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:border-[#D8B86A] focus:ring-2 focus:ring-[#D8B86A]/50 outline-none transition-all"
+          className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder:text-gray-400 focus:border-[#D8B86A] focus:ring-2 focus:ring-[#D8B86A]/20 outline-none transition-all"
         />
 
         <AnimatePresence>
@@ -159,7 +159,7 @@ export default function PreviewEventPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="text-red-400 text-sm"
+              className="text-red-500 text-sm"
             >
               {error}
             </motion.p>
@@ -169,10 +169,10 @@ export default function PreviewEventPage() {
         <motion.button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full py-3 rounded-xl font-semibold text-[#0A0E27] flex items-center justify-center gap-2 transition-all ${
+          className={`w-full py-3 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all ${
             isFormValid
-              ? "bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110"
-              : "bg-white/20 cursor-not-allowed"
+              ? "bg-gradient-to-r from-[#D8B86A] via-[#E5C47A] to-[#D8B86A] hover:shadow-lg hover:shadow-[#D8B86A]/25"
+              : "bg-gray-300 cursor-not-allowed"
           }`}
           whileHover={isFormValid ? { scale: 1.02 } : {}}
           whileTap={isFormValid ? { scale: 0.98 } : {}}
@@ -182,7 +182,7 @@ export default function PreviewEventPage() {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                className="w-5 h-5 border-2 border-[#0A0E27] border-t-transparent rounded-full"
+                className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
               />
               <span>Securing...</span>
             </>
@@ -196,7 +196,7 @@ export default function PreviewEventPage() {
       </form>
 
       {!compact && (
-        <p className="text-xs text-white/30 text-center mt-3">
+        <p className="text-xs text-gray-400 text-center mt-3">
           🔒 Your information is secure. No spam, ever.
         </p>
       )}
@@ -204,24 +204,24 @@ export default function PreviewEventPage() {
   );
 
   return (
-    <div className="min-h-screen text-white relative bg-[#0A0E27]">
+    <div className="min-h-screen text-gray-900 relative bg-white">
       {/* Background Effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A0E27] via-[#0F0F23] to-[#0a0d1a]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100" />
 
         {mounted && !prefersReducedMotion && (
           <>
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#D8B86A]/10 rounded-full blur-[120px]" />
-            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px]" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#D8B86A]/5 rounded-full blur-[120px]" />
+            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-amber-100/50 rounded-full blur-[100px]" />
           </>
         )}
       </div>
 
       {/* Scroll Progress Bar */}
       {mounted && (
-        <div className="fixed top-0 left-0 right-0 h-1 bg-white/5 z-[100]">
+        <div className="fixed top-0 left-0 right-0 h-1 bg-gray-100 z-[100]">
           <motion.div
-            className="h-full bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]"
+            className="h-full bg-gradient-to-r from-[#D8B86A] via-[#E5C47A] to-[#D8B86A]"
             style={{ width: `${scrollProgress}%` }}
           />
         </div>
@@ -231,15 +231,15 @@ export default function PreviewEventPage() {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-[#0A0E27]/80 backdrop-blur-lg border-b border-white/5"
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100"
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <span className="text-xl font-bold bg-gradient-to-r from-[#D8B86A] to-[#F4D47A] bg-clip-text text-transparent">
+          <span className="text-xl font-bold bg-gradient-to-r from-[#D8B86A] to-[#B8943A] bg-clip-text text-transparent">
             NUMI
           </span>
           <motion.button
             onClick={() => router.push("/")}
-            className="text-white/60 hover:text-white text-sm transition-colors"
+            className="text-gray-500 hover:text-gray-900 text-sm transition-colors"
           >
             Back to Home
           </motion.button>
@@ -258,9 +258,9 @@ export default function PreviewEventPage() {
             <RegistrationForm compact />
             <motion.button
               onClick={() => setShowStickyForm(false)}
-              className="absolute -top-3 -right-3 w-8 h-8 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors"
+              className="absolute -top-3 -right-3 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors border border-gray-200"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4 text-gray-600" />
             </motion.button>
           </motion.div>
         )}
@@ -278,21 +278,21 @@ export default function PreviewEventPage() {
             >
               <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#D8B86A]/10 border border-[#D8B86A]/30 rounded-full mb-6">
                 <Video className="w-3.5 h-3.5 text-[#D8B86A]" />
-                <span className="text-[#D8B86A] text-sm font-medium">Free Live Masterclass</span>
+                <span className="text-[#B8943A] text-sm font-medium">Free Live Masterclass</span>
               </motion.div>
 
-              <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+              <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-900">
                 Discover Your
-                <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]">
+                <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] via-[#B8943A] to-[#9A7A2A]">
                   Pattern Code Live
                 </span>
               </motion.h1>
 
-              <motion.p variants={fadeInUp} className="text-lg text-white/60 mb-6 max-w-xl">
+              <motion.p variants={fadeInUp} className="text-lg text-gray-600 mb-6 max-w-xl">
                 Join Dr. Keith Tong for an exclusive live session where you'll uncover the hidden numerical pattern behind how you think, feel, decide, and grow.
               </motion.p>
 
-              <motion.div variants={fadeInUp} className="flex flex-wrap gap-6 text-white/50 text-sm mb-8">
+              <motion.div variants={fadeInUp} className="flex flex-wrap gap-6 text-gray-500 text-sm mb-8">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-[#D8B86A]" />
                   <span>Coming Soon</span>
@@ -310,8 +310,8 @@ export default function PreviewEventPage() {
               <motion.div variants={fadeInUp} className="flex items-center gap-3">
                 <img src="/dr-keith.jpg" alt="Dr. Keith Tong" className="w-12 h-12 rounded-full object-cover border-2 border-[#D8B86A]/30" />
                 <div>
-                  <p className="text-white font-medium">Dr. Keith Tong</p>
-                  <p className="text-white/50 text-sm">PhD, Doctor of Natural Medicine</p>
+                  <p className="text-gray-900 font-medium">Dr. Keith Tong</p>
+                  <p className="text-gray-500 text-sm">PhD, Doctor of Natural Medicine</p>
                 </div>
               </motion.div>
             </motion.div>
@@ -325,7 +325,7 @@ export default function PreviewEventPage() {
       </section>
 
       {/* Stats Bar */}
-      <section ref={statsRef} className="py-16 border-y border-white/5">
+      <section ref={statsRef} className="py-16 border-y border-gray-100 bg-gray-50/50">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div
             initial="hidden"
@@ -343,10 +343,10 @@ export default function PreviewEventPage() {
                 variants={fadeInUp}
                 className="space-y-1"
               >
-                <p className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] to-[#F4D47A]">
+                <p className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] to-[#B8943A]">
                   {stat.value}
                 </p>
-                <p className="text-white/50 text-sm">{stat.label}</p>
+                <p className="text-gray-500 text-sm">{stat.label}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -362,10 +362,10 @@ export default function PreviewEventPage() {
             variants={staggerContainer}
             className="text-center mb-16"
           >
-            <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-4">
+            <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
               What You'll Discover
             </motion.h2>
-            <motion.p variants={fadeInUp} className="text-white/50 max-w-2xl mx-auto">
+            <motion.p variants={fadeInUp} className="text-gray-500 max-w-2xl mx-auto">
               Even if you're completely new to numerology or pattern intelligence
             </motion.p>
           </motion.div>
@@ -380,17 +380,17 @@ export default function PreviewEventPage() {
               <motion.div
                 key={i}
                 variants={fadeInUp}
-                className="group p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#D8B86A]/30 hover:bg-white/[0.05] transition-all"
+                className="group p-6 rounded-2xl bg-white border border-gray-100 hover:border-[#D8B86A]/30 hover:shadow-lg hover:shadow-gray-100 transition-all"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-[#D8B86A]/10 flex items-center justify-center text-[#D8B86A] font-bold">
                     {item.num}
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-white mb-2 group-hover:text-[#D8B86A] transition-colors">
+                    <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-[#D8B86A] transition-colors">
                       {item.title}
                     </h3>
-                    <p className="text-white/50 text-sm leading-relaxed">{item.desc}</p>
+                    <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               </motion.div>
@@ -400,7 +400,7 @@ export default function PreviewEventPage() {
       </section>
 
       {/* Speaker Section */}
-      <section ref={speakerRef} className="py-24 px-6 bg-gradient-to-b from-white/[0.02] to-transparent">
+      <section ref={speakerRef} className="py-24 px-6 bg-gradient-to-b from-gray-50/50 to-transparent">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial="hidden"
@@ -411,11 +411,11 @@ export default function PreviewEventPage() {
             {/* Photo */}
             <motion.div variants={fadeInUp} className="flex justify-center">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#D8B86A]/30 to-purple-500/20 rounded-3xl blur-2xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#D8B86A]/20 to-amber-100/50 rounded-3xl blur-2xl" />
                 <img
                   src="/dr-keith.jpg"
                   alt="Dr. Keith Tong"
-                  className="relative w-full max-w-sm aspect-[3/4] object-cover rounded-3xl border border-[#D8B86A]/30"
+                  className="relative w-full max-w-sm aspect-[3/4] object-cover rounded-3xl border border-[#D8B86A]/20 shadow-xl"
                 />
               </div>
             </motion.div>
@@ -423,25 +423,25 @@ export default function PreviewEventPage() {
             {/* Bio */}
             <motion.div variants={fadeInUp} className="space-y-6">
               <div>
-                <h3 className="text-2xl font-bold text-white mb-1">Dr. Keith Tong</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-1">Dr. Keith Tong</h3>
                 <p className="text-[#D8B86A]">PhD, Doctor of Natural Medicine (DNM)</p>
               </div>
 
-              <p className="text-white/60 leading-relaxed">
-                With <span className="text-white font-medium">25+ years</span> of clinical experience in holistic health and personal development, Dr. Keith Tong has helped thousands of high achievers find clarity, purpose, and vitality.
+              <p className="text-gray-600 leading-relaxed">
+                With <span className="text-gray-900 font-medium">25+ years</span> of clinical experience in holistic health and personal development, Dr. Keith Tong has helped thousands of high achievers find clarity, purpose, and vitality.
               </p>
 
-              <p className="text-white/60 leading-relaxed">
-                He is the <span className="text-white font-medium">creator of the NUMI Numerology System</span>, a proprietary method that decodes your birth date to reveal your identity, life path, and relationship patterns with precision.
+              <p className="text-gray-600 leading-relaxed">
+                He is the <span className="text-gray-900 font-medium">creator of the NUMI Numerology System</span>, a proprietary method that decodes your birth date to reveal your identity, life path, and relationship patterns with precision.
               </p>
 
-              <p className="text-white/60 leading-relaxed">
-                As a <span className="text-white font-medium">best-selling author</span> and sought-after speaker, Dr. Keith brings a unique blend of Eastern wisdom, modern science, and practical tools to every session.
+              <p className="text-gray-600 leading-relaxed">
+                As a <span className="text-gray-900 font-medium">best-selling author</span> and sought-after speaker, Dr. Keith brings a unique blend of Eastern wisdom, modern science, and practical tools to every session.
               </p>
 
               <div className="flex flex-wrap gap-2">
                 {["✓ PhD & DNM", "✓ NUMI Creator", "✓ Best-Selling Author"].map((cred, i) => (
-                  <span key={i} className="px-3 py-1.5 bg-white/[0.05] border border-white/10 rounded-full text-sm text-white/70">
+                  <span key={i} className="px-3 py-1.5 bg-gray-100 border border-gray-200 rounded-full text-sm text-gray-600">
                     {cred}
                   </span>
                 ))}
@@ -460,7 +460,7 @@ export default function PreviewEventPage() {
             variants={staggerContainer}
             className="text-center mb-16"
           >
-            <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-4">
+            <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
               Your Transformation Starts Here
             </motion.h2>
           </motion.div>
@@ -478,9 +478,9 @@ export default function PreviewEventPage() {
                 className="flex items-center gap-3 p-4 rounded-xl bg-gradient-to-br from-[#D8B86A]/10 to-[#D8B86A]/5 border border-[#D8B86A]/20"
               >
                 <div className="w-8 h-8 rounded-full bg-[#D8B86A] flex items-center justify-center flex-shrink-0">
-                  <Check className="w-5 h-5 text-[#0A0E27]" strokeWidth={3} />
+                  <Check className="w-5 h-5 text-white" strokeWidth={3} />
                 </div>
-                <span className="text-white/80">{text}</span>
+                <span className="text-gray-700">{text}</span>
               </motion.div>
             ))}
           </motion.div>
@@ -496,10 +496,10 @@ export default function PreviewEventPage() {
             animate={ctaInView ? "visible" : "hidden"}
             variants={staggerContainer}
           >
-            <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-6">
+            <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
               Ready to Discover Your Pattern?
             </motion.h2>
-            <motion.p variants={fadeInUp} className="text-white/60 mb-10 text-lg">
+            <motion.p variants={fadeInUp} className="text-gray-600 mb-10 text-lg">
               Join us for this free live masterclass and take the first step toward understanding the hidden patterns shaping your life.
             </motion.p>
 
@@ -508,7 +508,7 @@ export default function PreviewEventPage() {
             </motion.div>
 
             {!showStickyForm && (
-              <motion.p variants={fadeInUp} className="text-white/40 text-sm mt-6">
+              <motion.p variants={fadeInUp} className="text-gray-400 text-sm mt-6">
                 Can't see the form? <button onClick={() => setShowStickyForm(true)} className="text-[#D8B86A] hover:underline">Open floating form</button>
               </motion.p>
             )}
@@ -517,12 +517,12 @@ export default function PreviewEventPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-white/5">
+      <footer className="py-12 px-6 border-t border-gray-100">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-white/30 text-xs leading-relaxed">
+          <p className="text-gray-400 text-xs leading-relaxed">
             NUMI is designed for self-reflection and personal growth. It does not provide medical, financial, legal, or professional advice.
           </p>
-          <p className="text-white/20 text-xs mt-6">© 2026 NUMI. All rights reserved.</p>
+          <p className="text-gray-300 text-xs mt-6">© 2026 NUMI. All rights reserved.</p>
         </div>
       </footer>
     </div>
