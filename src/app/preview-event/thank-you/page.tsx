@@ -42,9 +42,9 @@ export default function ThankYouPage() {
   ];
 
   return (
-    <div className="min-h-screen text-white relative overflow-hidden">
+    <div className="min-h-screen text-white relative">
       {/* === CINEMATIC BACKGROUND === */}
-      <div className="fixed inset-0 bg-[#0A0E27]">
+      <div className="fixed inset-0 bg-[#0A0E27] overflow-hidden -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0A0E27] via-[#0F0F23] to-[#0a0d1a]" />
 
         {mounted && !prefersReducedMotion && (
