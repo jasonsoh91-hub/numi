@@ -28,3 +28,41 @@
     color: #1c1917;
   }
 }
+
+@layer utilities {
+  /* Ambient drift animations for NUMI pages */
+  @keyframes ambient-drift {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(5%, -5%);
+    }
+    50% {
+      transform: translate(-3%, 3%);
+    }
+    75% {
+      transform: translate(-5%, -3%);
+    }
+  }
+
+  @keyframes ambient-drift-slow {
+    0%, 100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    33% {
+      transform: translate(3%, -3%) rotate(1deg);
+    }
+    66% {
+      transform: translate(-3%, 3%) rotate(-1deg);
+    }
+  }
+
+  .animate-ambient-drift {
+    animation: ambient-drift 20s ease-in-out infinite;
+  }
+
+  .animate-ambient-drift-slow {
+    animation: ambient-drift-slow 25s ease-in-out infinite;
+  }
+}
