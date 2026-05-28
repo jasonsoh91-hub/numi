@@ -168,6 +168,68 @@ export default function PreviewEventPage() {
         </div>
       </section>
 
+      {/* SPEAKER PROFILE */}
+      <section className="relative py-24 px-6">
+        <div className="max-w-5xl mx-auto">
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Meet Your Guide</h2>
+            <p className="text-white/50 text-lg">Dr. Keith Tong will walk you through your Pattern Code revelation</p>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Photo */}
+            <div className="relative mx-auto w-full max-w-sm">
+              <div className="relative aspect-[3/4] rounded-3xl overflow-hidden">
+                <img
+                  src="https://www.mastervitality.com/images/keith-tong.jpg"
+                  alt="Dr. Keith Tong"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E27]/50 to-transparent" />
+              </div>
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-[#D8B86A]/20 blur-3xl" />
+            </div>
+
+            {/* Bio */}
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Dr. Keith Tong</h3>
+                <p className="text-[#D8B86A] font-medium">PhD, Doctor of Natural Medicine (DNM)</p>
+              </div>
+
+              <p className="text-white/70 leading-relaxed">
+                Dr. Keith Tong brings 25+ years of clinical experience, his own lived journey through transformation, and a proprietary system no one else offers.
+              </p>
+
+              <ul className="space-y-3">
+                {[
+                  "Creator of the NUMI Numerology System",
+                  "Best-selling author of \"Cutting Loose\"",
+                  "Speaker at Get Inspired and global stages",
+                  "25+ years in holistic health and personal development",
+                ].map((item, i) => (
+                  <motion.li
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 + i * 0.1 }}
+                    className="flex items-start gap-3 text-white/60"
+                  >
+                    <Check className="w-5 h-5 text-[#D8B86A] mt-0.5 flex-shrink-0" strokeWidth={3} />
+                    <span>{item}</span>
+                  </motion.li>
+                ))}
+              </ul>
+
+              <p className="text-white/50 text-sm italic">
+                "Your life has a blueprint. It&apos;s time to read it."
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* IMMERSIVE VISUAL BREAK */}
       <section className="relative py-32 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#D8B86A]/10 via-transparent to-[#D8B86A]/10" />
