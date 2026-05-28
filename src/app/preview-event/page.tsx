@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { motion, useInView, useReducedMotion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Check, Calendar, Clock, Users, Sparkles, Play, ChevronDown } from "lucide-react";
+import { motion, useInView, useReducedMotion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Check, Calendar, Clock, Users, Sparkles, Play } from "lucide-react";
 
 export default function PreviewEventPage() {
   const router = useRouter();
@@ -12,24 +12,19 @@ export default function PreviewEventPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [mounted, setMounted] = useState(false);
-  const [fieldFocused, setFieldFocused] = useState("");
 
   const formRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef(null);
   const statsRef = useRef(null);
-  const benefitsRef = useRef(null);
   const gainRef = useRef(null);
+  const speakerRef = useRef(null);
   const formSectionRef = useRef(null);
 
   const heroInView = useInView(heroRef, { once: true, amount: 0.3 });
   const statsInView = useInView(statsRef, { once: true, amount: 0.2 });
-  const benefitsInView = useInView(benefitsRef, { once: true, amount: 0.2 });
-  const gainInView = useInView(gainRef, { once: true, amount: 0.15 });
+  const gainInView = useInView(gainRef, { once: true, amount: 0.2 });
+  const speakerInView = useInView(speakerRef, { once: true, amount: 0.2 });
   const formInView = useInView(formSectionRef, { once: true, amount: 0.3 });
-
-  const { scrollY } = useScroll();
-  const heroOpacity = useTransform(scrollY, [0, 300], [1, 0]);
-  const heroScale = useTransform(scrollY, [0, 300], [1, 0.95]);
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -55,51 +50,40 @@ export default function PreviewEventPage() {
     setTimeout(() => router.push("/preview-event/thank-you"), 1200);
   };
 
-  const isFormValid = formData.firstName && formData.email?.includes("@");
-
-  const fadeInUp = { hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 40 }, visible: { opacity: 1, y: 0 } };
-  const scaleIn = { hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1 } };
-  const stagger = { hidden: {}, visible: { transition: { staggerChildren: prefersReducedMotion ? 0 : 0.1 } } };
+  const fadeInUp = { hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 30 }, visible: { opacity: 1, y: 0 } };
+  const scaleIn = { hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1 } };
 
   const gains = [
-    { title: "Decode Your Core Pattern", desc: "Learn how your birthdate reveals your unique NUMI Pattern Code" },
-    { title: "Understand Emotional Cycles", desc: "Discover why certain feelings and situations keep repeating" },
-    { title: "Reveal Hidden Strengths", desc: "Uncover blind spots and talents you may not have noticed" },
-    { title: "Align Your Decisions", desc: "Learn how to make choices that match your natural pattern" },
-  ];
-
-  const stats = [
-    { icon: Users, value: "Limited", label: "Spots Available" },
-    { icon: Clock, value: "60", label: "Minutes Live" },
-    { icon: Calendar, value: "Free", label: "To Attend" },
+    { title: "How your birthdate reveals your Core Pattern", desc: "Learn the NUMI system that decodes your unique blueprint from your date of birth" },
+    { title: "Why emotional cycles keep repeating", desc: "Understand the hidden patterns behind why you feel stuck in certain areas of life" },
+    { title: "Your natural decision-making style", desc: "Discover how to make choices that align with your authentic self rather than against it" },
+    { title: "Hidden strengths you may not have noticed", desc: "Uncover talents and abilities that have been dormant, waiting to be activated" },
   ];
 
   return (
-    <div className="min-h-screen text-white relative overflow-hidden">
+    <div className="min-h-screen text-white relative">
       {/* BACKGROUND */}
       <div className="fixed inset-0 bg-[#0A0E27]">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0E27] via-[#12182E] to-[#0A0E27]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0E27] via-[#0F0F23] to-[#0A0E27]" />
         {mounted && !prefersReducedMotion && (
           <>
-            <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-30 animate-ambient-drift-slow" style={{ background: "radial-gradient(circle, rgba(216, 184, 106, 0.3) 0%, transparent 70%)", filter: "blur(150px)" }} />
-            <div className="absolute bottom-0 right-1/4 w-[700px] h-[700px] rounded-full opacity-20 animate-ambient-drift" style={{ background: "radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%)", filter: "blur(150px)" }} />
-            {Array.from({ length: 20 }).map((_, i) => {
-              const x = Math.random() * 100; const y = Math.random() * 100;
-              return <motion.div key={i} className="absolute rounded-full bg-amber-400/20 pointer-events-none" style={{ width: `${2 + Math.random() * 2}px`, height: `${2 + Math.random() * 2}px` }} initial={{ x: `${x}%`, y: `${y}%`, opacity: 0 }} animate={{ x: `${x}%`, y: `${y}%`, opacity: [0.2, 0.5, 0.2] }} transition={{ duration: 8 + Math.random() * 8, repeat: Infinity, ease: "easeInOut" }} />;
-            })}
+            <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full opacity-20" style={{ background: "radial-gradient(circle, rgba(216, 184, 106, 0.25) 0%, transparent 70%)", filter: "blur(150px)" }} />
+            <div className="absolute bottom-1/4 right-1/4 w-[700px] h-[700px] rounded-full opacity-15" style={{ background: "radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%)", filter: "blur(150px)" }} />
           </>
         )}
       </div>
 
-      {/* HERO */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center px-6 py-20">
-        <motion.div style={{ opacity: heroOpacity, scale: heroScale }} className="max-w-6xl mx-auto text-center">
-          <motion.div initial="hidden" animate={heroInView ? "visible" : "hidden"} variants={stagger} className="space-y-8">
+      {/* HERO - Mindvalley Style */}
+      <section ref={heroRef} className="relative min-h-screen flex items-center px-6 py-20">
+        <div className="max-w-6xl mx-auto w-full">
+          <motion.div initial="hidden" animate={heroInView ? "visible" : "hidden"} className="space-y-8">
+            {/* Badge */}
             <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 bg-[#D8B86A]/10 border border-[#D8B86A]/30 rounded-full">
               <Sparkles className="w-4 h-4 text-[#D8B86A]" />
               <span className="text-[#D8B86A] text-sm font-medium">Free Live Masterclass</span>
             </motion.div>
 
+            {/* Headline */}
             <motion.h1 variants={fadeInUp} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
               Discover Your
               <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]">
@@ -107,10 +91,39 @@ export default function PreviewEventPage() {
               </span>
             </motion.h1>
 
-            <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto">
-              Join this free live session to uncover the hidden pattern behind how you think, feel, decide, and grow.
+            {/* Subtitle */}
+            <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-white/60 max-w-3xl">
+              Join this free masterclass to uncover the hidden pattern behind how you think, feel, decide, and grow.
             </motion.p>
 
+            {/* Speaker Photos Side by Side - Mindvalley Style */}
+            <motion.div variants={scaleIn} className="flex items-center justify-center gap-8 py-12">
+              <div className="relative w-48 md:w-56 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-2 border-white/10">
+                <img
+                  src="https://maas-log-prod.cn-wlcb.ufileos.com/anthropic/6901829d-ad38-4844-af22-8f52bfb9c78f/1.png?UCloudPublicKey=TOKEN_e15ba47a-d098-4fbd-9afc-a0dcf0e4e621&Expires=1779944663&Signature=cgl0g7lbWmx3MgQIjagLPLKcVJg="
+                  alt="Dr. Keith Tong"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </motion.div>
+
+            {/* Stats Bar - Mindvalley Style */}
+            <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-8 md:gap-16 py-8 border-y border-white/10">
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#D8B86A]">Limited</div>
+                <div className="text-white/50 text-sm mt-1">Spots Available</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#D8B86A]">60</div>
+                <div className="text-white/50 text-sm mt-1">Minutes Live</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#D8B86A]">Free</div>
+                <div className="text-white/50 text-sm mt-1">To Attend</div>
+              </div>
+            </motion.div>
+
+            {/* CTA */}
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
               <button onClick={scrollToForm} className="group px-8 py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-lg rounded-xl transition-all flex items-center gap-2">
                 <span>Reserve My Free Spot</span>
@@ -118,219 +131,111 @@ export default function PreviewEventPage() {
               </button>
               <div className="flex items-center gap-2 text-white/40 text-sm">
                 <Play className="w-4 h-4" />
-                <span>60 min • Live Q&A</span>
+                <span>Live Q&A Included</span>
               </div>
             </motion.div>
           </motion.div>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0 }} animate={heroInView ? { opacity: 1 } : {}} transition={{ delay: 0.5 }} className="absolute bottom-8 left-1/2 -translate-x-1/2">
-          <ChevronDown className="w-6 h-6 text-white/30 animate-bounce" />
-        </motion.div>
+        </div>
       </section>
 
-      {/* STATS */}
-      <section ref={statsRef} className="relative py-16 px-6 border-y border-white/5 bg-white/[0.02]">
+      {/* SPEAKER SECTION - Mindvalley Style, moved up */}
+      <section ref={speakerRef} className="relative py-20 px-6 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <motion.div initial="hidden" animate={statsInView ? "visible" : "hidden"} variants={stagger} className="grid grid-cols-3 gap-8">
-            {stats.map((stat, i) => (
-              <motion.div key={i} variants={scaleIn} className="text-center">
-                <stat.icon className="w-8 h-8 mx-auto mb-3 text-[#D8B86A]" />
-                <div className="text-2xl md:text-3xl font-bold text-white">{stat.value}</div>
-                <div className="text-white/50 text-sm mt-1">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* WHAT YOU'LL GAIN */}
-      <section ref={gainRef} className="relative py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <motion.div initial="hidden" animate={gainInView ? "visible" : "hidden"} className="text-center mb-16">
-            <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">What You&apos;ll Discover</motion.h2>
-            <motion.p variants={fadeInUp} className="text-white/50 text-lg">Even with zero prior knowledge of numerology or patterns</motion.p>
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">Meet Your Trainer</h2>
           </motion.div>
 
-          <motion.div initial="hidden" animate={gainInView ? "visible" : "hidden"} variants={stagger} className="grid md:grid-cols-2 gap-6">
-            {gains.map((gain, i) => (
-              <motion.div key={i} variants={fadeInUp} className="group relative bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-white/10 rounded-2xl p-6 hover:border-[#D8B86A]/20 transition-all duration-300">
-                <div className="flex items-start gap-4">
-                  <motion.span initial={{ scale: 0 }} animate={gainInView ? { scale: 1 } : {}} transition={{ delay: prefersReducedMotion ? 0 : 0.2 + i * 0.1, type: "spring" }} className="flex-shrink-0 w-8 h-8 rounded-full bg-[#D8B86A]/20 flex items-center justify-center text-[#D8B86A] font-semibold">{i + 1}</motion.span>
-                  <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">{gain.title}</h3>
-                    <p className="text-white/50 leading-relaxed">{gain.desc}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* SPEAKER PROFILE */}
-      <section className="relative py-24 px-6">
-        <div className="max-w-6xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Meet Your Guide</h2>
-            <p className="text-white/50 text-lg">Dr. Keith Tong will walk you through your Pattern Code revelation</p>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="grid md:grid-cols-5 gap-12 items-center">
-            {/* Photo - Mindvalley style with enhanced frame */}
-            <div className="md:col-span-2 relative mx-auto">
-              <div className="relative">
-                {/* Decorative elements behind */}
-                <div className="absolute -top-4 -left-4 w-full h-full rounded-3xl bg-gradient-to-br from-[#D8B86A]/20 to-[#D8B86A]/5" />
-                <div className="absolute -bottom-4 -right-4 w-full h-full rounded-3xl bg-gradient-to-br from-pink-500/20 to-purple-500/5" />
-
-                {/* Main image container */}
-                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
-                  <img
-                    src="https://maas-log-prod.cn-wlcb.ufileos.com/anthropic/6901829d-ad38-4844-af22-8f52bfb9c78f/1.png?UCloudPublicKey=TOKEN_e15ba47a-d098-4fbd-9afc-a0dcf0e4e621&Expires=1779944663&Signature=cgl0g7lbWmx3MgQIjagLPLKcVJg="
-                    alt="Dr. Keith Tong"
-                    className="w-full h-full object-cover"
-                  />
-                  {/* Subtle gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E27]/30 via-transparent to-transparent" />
-                </div>
-
-                {/* Accent badges */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.6, type: "spring" }}
-                  className="absolute -bottom-3 -right-3 px-4 py-2 bg-[#D8B86A] rounded-full shadow-lg"
-                >
-                  <span className="text-[#0A0E27] font-semibold text-sm">25+ Years</span>
-                </motion.div>
+          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-center">
+            <div className="relative inline-block">
+              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-[#D8B86A]/20 shadow-xl">
+                <img
+                  src="https://maas-log-prod.cn-wlcb.ufileos.com/anthropic/6901829d-ad38-4844-af22-8f52bfb9c78f/1.png?UCloudPublicKey=TOKEN_e15ba47a-d098-4fbd-9afc-a0dcf0e4e621&Expires=1779944663&Signature=cgl0g7lbWmx3MgQIjagLPLKcVJg="
+                  alt="Dr. Keith Tong"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
+            <h3 className="text-xl md:text-2xl font-bold text-white mt-6 mb-2">Dr. Keith Tong</h3>
+            <p className="text-[#D8B86A] font-medium mb-4">PhD, Doctor of Natural Medicine (DNM)</p>
+            <p className="text-white/60 max-w-2xl mx-auto leading-relaxed">
+              Creator of the NUMI Numerology System, best-selling author of "Cutting Loose," and speaker with 25+ years in holistic health and personal development.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
-            {/* Bio */}
-            <div className="md:col-span-3 space-y-6">
-              <div>
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
-                >
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Dr. Keith Tong</h3>
-                  <p className="text-[#D8B86A] font-medium">PhD, Doctor of Natural Medicine (DNM)</p>
-                </motion.div>
-              </div>
+      {/* WHAT YOU'LL GAIN - Mindvalley Numbered Style */}
+      <section ref={gainRef} className="relative py-20 px-6 border-t border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">What You&apos;ll Gain From This Free Masterclass</h2>
+            <p className="text-white/50 text-lg">Even with zero prior knowledge of numerology or patterns</p>
+          </motion.div>
 
-              <p className="text-white/70 leading-relaxed">
-                Dr. Keith Tong brings 25+ years of clinical experience, his own lived journey through transformation, and a proprietary system no one else offers.
-              </p>
-
-              <ul className="space-y-3">
-                {[
-                  "Creator of the NUMI Numerology System",
-                  "Best-selling author of \"Cutting Loose\"",
-                  "Speaker at Get Inspired and global stages",
-                  "25+ years in holistic health and personal development",
-                ].map((item, i) => (
-                  <motion.li
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 + i * 0.1 }}
-                    className="flex items-start gap-3 text-white/60"
-                  >
-                    <Check className="w-5 h-5 text-[#D8B86A] mt-0.5 flex-shrink-0" strokeWidth={3} />
-                    <span>{item}</span>
-                  </motion.li>
-                ))}
-              </ul>
-
-              {/* Quote card */}
+          <div className="space-y-8">
+            {gains.map((gain, i) => (
               <motion.div
+                key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.7 }}
-                className="relative bg-gradient-to-br from-white/[0.08] to-white/[0.03] border border-white/10 rounded-xl p-6"
+                transition={{ delay: prefersReducedMotion ? 0 : 0.1 + i * 0.1 }}
+                className="flex gap-6"
               >
-                <div className="absolute top-4 left-4 text-4xl text-[#D8B86A]/30 font-serif">"</div>
-                <p className="text-white/60 italic relative z-10 pl-8">
-                  Your life has a blueprint. It&apos;s time to read it.
-                </p>
-                <div className="absolute bottom-4 right-4 text-4xl text-[#D8B86A]/30 font-serif rotate-180">"</div>
+                <div className="flex-shrink-0">
+                  <span className="text-5xl md:text-6xl font-bold text-[#D8B86A]/30">{i + 1}</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">{gain.title}</h3>
+                  <p className="text-white/50 leading-relaxed">{gain.desc}</p>
+                </div>
               </motion.div>
-            </div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16 p-8 rounded-2xl border border-white/10 bg-white/[0.02]"
+          >
+            <p className="text-white/70 leading-relaxed text-center">
+              Wherever you&apos;re at now, and whatever challenges or doubts you&apos;ve had in the past: you&apos;ll emerge from this Masterclass with an actionable understanding of your Pattern Code and how to use it in your daily life.
+            </p>
           </motion.div>
         </div>
       </section>
 
-      {/* IMMERSIVE VISUAL BREAK */}
-      <section className="relative py-32 px-6 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#D8B86A]/10 via-transparent to-[#D8B86A]/10" />
-        <div className="max-w-4xl mx-auto text-center relative">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-relaxed">
-              This isn&apos;t about predicting your future.
-              <span className="block mt-4 text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]">
-                It&apos;s about understanding your pattern.
-              </span>
-            </h2>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* REGISTRATION SECTION */}
-      <section ref={formSectionRef} className="relative py-24 px-6">
+      {/* REGISTRATION FORM */}
+      <section ref={formSectionRef} className="relative py-20 px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-[#D8B86A]/5">
         <div className="max-w-md mx-auto">
-          <motion.div initial="hidden" animate={formInView ? "visible" : "hidden"} variants={stagger} ref={formRef}>
-            <motion.div variants={scaleIn} className="bg-gradient-to-br from-white/[0.08] to-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-10 relative overflow-hidden">
-              {mounted && !prefersReducedMotion && (
-                <div className="absolute inset-0 bg-gradient-to-br from-[#D8B86A]/5 via-transparent to-transparent opacity-50" />
-              )}
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} ref={formRef}>
+            <div className="bg-white/[0.08] border border-white/10 rounded-2xl p-8 md:p-10 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#D8B86A]/5 via-transparent to-transparent opacity-50" />
 
-              <motion.h2 variants={fadeInUp} className="text-2xl md:text-3xl font-bold text-white mb-3 text-center relative">Reserve Your Spot</motion.h2>
-              <motion.p variants={fadeInUp} className="text-white/50 text-sm text-center mb-8 relative">Free registration • Limited spots • Live Q&A included</motion.p>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 text-center relative">Claim Your FREE Spot Now</h2>
+              <p className="text-white/50 text-sm text-center mb-8 relative">Submit your details to secure your spot in the free masterclass</p>
 
               <form onSubmit={handleSubmit} className="space-y-4 relative">
-                <motion.div variants={fadeInUp} className="relative">
+                <div>
                   <input
                     type="text"
                     placeholder="First Name"
                     value={formData.firstName}
                     onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    onFocus={() => setFieldFocused("firstName")}
-                    onBlur={() => setFieldFocused("")}
                     className="w-full px-4 py-3.5 bg-white/[0.05] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D8B86A]/50 transition-all"
                   />
-                  <AnimatePresence>
-                    {formData.firstName && (
-                      <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="absolute right-4 top-[17px] text-[#D8B86A]">
-                        <Check className="w-4 h-4" strokeWidth={3} />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
+                </div>
 
-                <motion.div variants={fadeInUp} className="relative">
+                <div>
                   <input
                     type="email"
                     placeholder="Email Address"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    onFocus={() => setFieldFocused("email")}
-                    onBlur={() => setFieldFocused("")}
                     className="w-full px-4 py-3.5 bg-white/[0.05] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D8B86A]/50 transition-all"
                   />
-                  <AnimatePresence>
-                    {formData.email?.includes("@") && (
-                      <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="absolute right-4 top-[17px] text-[#D8B86A]">
-                        <Check className="w-4 h-4" strokeWidth={3} />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
+                </div>
 
                 <AnimatePresence>
                   {error && (
@@ -341,64 +246,30 @@ export default function PreviewEventPage() {
                 </AnimatePresence>
 
                 <motion.button
-                  variants={fadeInUp}
                   type="submit"
                   disabled={isSubmitting}
                   whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                   whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                  className="group relative w-full py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-lg rounded-xl transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed overflow-hidden"
+                  className="w-full py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-lg rounded-xl transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                 >
-                  {mounted && !prefersReducedMotion && (
-                    <motion.div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent" animate={{ x: ["-100%", "200%"] }} transition={{ duration: 2.5, repeat: Infinity }} />
+                  {isSubmitting ? (
+                    <>
+                      <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity }} className="w-5 h-5 border-2 border-[#0A0E27] border-t-transparent rounded-full" />
+                      <span>Reserving Spot...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Reserve Your Spot Now</span>
+                      <ArrowRight className="w-5 h-5" />
+                    </>
                   )}
-                  <span className="relative z-10 flex items-center gap-2">
-                    {isSubmitting ? (
-                      <>
-                        <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity }} className="w-5 h-5 border-2 border-[#0A0E27] border-t-transparent rounded-full" />
-                        <span>Reserving Spot...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>Reserve My Free Spot</span>
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                      </>
-                    )}
-                  </span>
                 </motion.button>
 
-                <motion.div variants={fadeInUp} className="flex items-center justify-center gap-4 text-white/30 text-xs pt-2">
-                  <span className="flex items-center gap-1">
-                    <Check className="w-3 h-3 text-[#D8B86A]" strokeWidth={3} />
-                    Free
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Check className="w-3 h-3 text-[#D8B86A]" strokeWidth={3} />
-                    No spam
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Check className="w-3 h-3 text-[#D8B86A]" strokeWidth={3} />
-                    Limited spots
-                  </span>
-                </motion.div>
+                <p className="text-white/30 text-xs text-center">
+                  By registering, you agree to receive notifications about this event. You can withdraw your consent at any time.
+                </p>
               </form>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* FINAL CTA */}
-      <section className="relative py-24 px-6 border-t border-white/5">
-        <div className="max-w-3xl mx-auto text-center">
-          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
-            Your pattern is waiting.
-            <span className="block mt-3 text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]">
-              Will you read it?
-            </span>
-          </motion.h2>
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="mt-8">
-            <button onClick={scrollToForm} className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold rounded-xl transition-all">
-              Reserve My Spot Now
-            </button>
+            </div>
           </motion.div>
         </div>
       </section>
