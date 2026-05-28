@@ -36,6 +36,89 @@ export function calculateCoreNumber(dateString: string): number | null {
 }
 
 /**
+ * Detailed numerology breakdown
+ */
+export interface NumerologyBreakdown {
+  dayNumber: number;
+  monthNumber: number;
+  yearNumber: number;
+  dayRaw: number;
+  connecting1: number;
+  connecting2: number;
+  lifePathNumber: number;
+  daySum: number;
+  monthSum: number;
+  yearSum: number;
+}
+
+/**
+ * Calculate detailed numerology breakdown
+ * @param dateString - Date string in format DD/MM/YYYY or DD-MM-YYYY
+ * @returns Detailed breakdown or null if invalid
+ */
+export function calculateNumerologyBreakdown(dateString: string): NumerologyBreakdown | null {
+  if (!dateString) return null;
+
+  // Parse date assuming DD/MM/YYYY or DD-MM-YYYY format
+  const parts = dateString.split(/[-/]/);
+  if (parts.length !== 3) return null;
+
+  const [dayStr, monthStr, yearStr] = parts;
+  const day = parseInt(dayStr, 10);
+  const month = parseInt(monthStr, 10);
+  const year = parseInt(yearStr, 10);
+
+  if (isNaN(day) || isNaN(month) || isNaN(year)) return null;
+
+  // Calculate day number (sum digits of day)
+  const daySum = String(day).split("").map(Number).reduce((sum, d) => sum + d, 0);
+  const dayNumber = reduceToSingleDigit(daySum);
+
+  // Month is already 1-12, but may need reduction for double digits
+  const monthSum = month;
+  const monthNumber = reduceToSingleDigit(month);
+
+  // Calculate year number (sum digits of year)
+  const yearSum = String(year).split("").map(Number).reduce((sum, d) => sum + d, 0);
+  const yearNumber = reduceToSingleDigit(yearSum);
+
+  // Connecting numbers
+  const connecting1 = reduceToSingleDigit(dayNumber + monthNumber);
+  const connecting2 = reduceToSingleDigit(monthNumber + yearNumber);
+
+  // Life Path Number (all digits summed)
+  const allDigits = String(day) + String(month).padStart(2, "0") + String(year);
+  const totalSum = allDigits.split("").map(Number).reduce((sum, d) => sum + d, 0);
+  const lifePathNumber = reduceToSingleDigit(totalSum);
+
+  return {
+    dayNumber,
+    monthNumber,
+    yearNumber,
+    dayRaw: day,
+    connecting1,
+    connecting2,
+    lifePathNumber,
+    daySum,
+    monthSum,
+    yearSum,
+  };
+}
+
+/**
+ * Reduce a number to single digit (1-9)
+ */
+function reduceToSingleDigit(num: number): number {
+  while (num > 9 && num !== 11 && num !== 22 && num !== 33) {
+    num = String(num)
+      .split("")
+      .map(Number)
+      .reduce((sum, d) => sum + d, 0);
+  }
+  return num;
+}
+
+/**
  * Validate that a birthdate is not in the future
  */
 export function isValidBirthdate(dateString: string): boolean {

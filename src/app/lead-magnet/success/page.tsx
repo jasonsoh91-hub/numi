@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { CheckCircle, Download, ArrowRight, Home } from "lucide-react";
+import { CheckCircle, Download, ArrowRight, Home, Sparkles, Lock } from "lucide-react";
 import { useReducedMotion } from "framer-motion";
+import { calculateCoreNumber, calculateNumerologyBreakdown, NumerologyBreakdown } from "@/lib/calculateCoreNumber";
+import { getNumberContent, NumberContent } from "@/lib/numerology-content";
 
 export default function LeadMagnetSuccessPage() {
   const router = useRouter();
@@ -12,6 +14,10 @@ export default function LeadMagnetSuccessPage() {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [mounted, setMounted] = useState(false);
+  const [coreNumber, setCoreNumber] = useState<number | null>(null);
+  const [numberContent, setNumberContent] = useState<NumberContent | undefined>();
+  const [birthdate, setBirthdate] = useState("");
+  const [breakdown, setBreakdown] = useState<NumerologyBreakdown | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -20,6 +26,18 @@ export default function LeadMagnetSuccessPage() {
       const parsed = JSON.parse(data);
       setEmail(parsed.email || "");
       setFirstName(parsed.firstName || "");
+      setBirthdate(parsed.birthDate || "");
+
+      // Calculate Core Number and detailed breakdown
+      const calculated = calculateCoreNumber(parsed.birthDate || "");
+      setCoreNumber(calculated);
+      if (calculated) {
+        setNumberContent(getNumberContent(calculated));
+      }
+
+      // Calculate detailed breakdown
+      const detailed = calculateNumerologyBreakdown(parsed.birthDate || "");
+      setBreakdown(detailed);
     } else {
       router.push("/lead-magnet");
     }
@@ -50,8 +68,10 @@ export default function LeadMagnetSuccessPage() {
     },
     {
       step: 2,
-      title: "Calculate your Core Number",
-      desc: "Use the simple formula in the guide to find your primary pattern number",
+      title: "Explore your Life Path",
+      desc: breakdown
+        ? `Life Path ${breakdown.lifePathNumber} — discover what this means for your relationships, career, and growth`
+        : "Discover what your primary pattern number reveals about you",
       icon: "🔢",
     },
     {
@@ -62,9 +82,9 @@ export default function LeadMagnetSuccessPage() {
     },
     {
       step: 4,
-      title: "Consider going deeper",
-      desc: "If you want more personalized insights, explore a full numerology report",
-      icon: "🔍",
+      title: "Unlock the full pattern map",
+      desc: "Your free guide reveals one layer. NUMI reveals the complete picture of your patterns.",
+      icon: "🗺️",
     },
   ];
 
@@ -143,7 +163,7 @@ export default function LeadMagnetSuccessPage() {
             animate={mounted ? "visible" : "hidden"}
             variants={fadeInUp}
             transition={{ duration: transitionDuration, delay: prefersReducedMotion ? 0 : 0.4 }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
             <button
               onClick={handleDownload}
@@ -157,15 +177,203 @@ export default function LeadMagnetSuccessPage() {
             </p>
           </motion.div>
 
+          {/* Personalized Pattern Preview with Detailed Breakdown */}
+          {breakdown && numberContent && (
+            <motion.div
+              initial="hidden"
+              animate={mounted ? "visible" : "hidden"}
+              variants={fadeInUp}
+              transition={{ duration: transitionDuration, delay: prefersReducedMotion ? 0 : 0.5 }}
+              className="mb-12"
+            >
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center gap-2 bg-[#D8B86A]/10 border border-[#D8B86A]/20 text-[#D8B86A] px-4 py-2 rounded-full text-sm font-semibold">
+                  <Sparkles className="w-4 h-4" />
+                  <span>Your Personal Pattern Breakdown</span>
+                </div>
+              </div>
+
+              <div className="relative bg-gradient-to-br from-white/[0.06] to-white/[0.02] border border-white/10 rounded-3xl overflow-hidden">
+                {/* Life Path Number Display - Main */}
+                <div className="bg-gradient-to-r from-[#D8B86A]/20 via-[#F4D47A]/10 to-[#D8B86A]/20 p-8 text-center border-b border-white/10">
+                  <p className="text-white/50 text-xs uppercase tracking-wider mb-3">Your Life Path Number</p>
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: prefersReducedMotion ? 0 : 0.7, type: "spring", stiffness: 200 }}
+                    className="w-24 h-24 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] flex items-center justify-center shadow-lg shadow-[#D8B86A]/30"
+                  >
+                    <span className="text-5xl font-bold text-[#0A0E27]">{breakdown.lifePathNumber}</span>
+                  </motion.div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                    {breakdown.lifePathNumber} — {numberContent.title}
+                  </h2>
+                  <p className="text-[#D8B86A] text-sm font-medium">{numberContent.subtitle}</p>
+                </div>
+
+                {/* Detailed Number Breakdown */}
+                <div className="p-8">
+                  <h3 className="text-white/50 text-xs uppercase tracking-wider mb-6 text-center">Your Complete Number Structure</h3>
+
+                  {/* Birthdate Breakdown */}
+                  <div className="grid md:grid-cols-3 gap-6 mb-8">
+                    {/* Day Number */}
+                    <div className="text-center">
+                      <div className="inline-flex flex-col items-center">
+                        <div className="text-white/40 text-xs mb-2">DAY</div>
+                        <div className="text-lg text-white/60 mb-1">{breakdown.dayRaw}</div>
+                        <div className="flex items-center gap-2">
+                          <span className="w-10 h-10 rounded-xl bg-[#D8B86A]/10 border border-[#D8B86A]/20 flex items-center justify-center text-[#D8B86A] font-bold">
+                            {breakdown.daySum}
+                          </span>
+                          <span className="text-white/30">→</span>
+                          <span className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white font-bold">
+                            {breakdown.dayNumber}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Month Number */}
+                    <div className="text-center">
+                      <div className="inline-flex flex-col items-center">
+                        <div className="text-white/40 text-xs mb-2">MONTH</div>
+                        <div className="text-lg text-white/60 mb-1">{String(breakdown.monthSum).padStart(2, "0")}</div>
+                        <div className="flex items-center gap-2">
+                          <span className="w-10 h-10 rounded-xl bg-[#D8B86A]/10 border border-[#D8B86A]/20 flex items-center justify-center text-[#D8B86A] font-bold">
+                            {breakdown.monthSum}
+                          </span>
+                          {breakdown.monthSum > 9 && (
+                            <>
+                              <span className="text-white/30">→</span>
+                              <span className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white font-bold">
+                                {breakdown.monthNumber}
+                              </span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Year Number */}
+                    <div className="text-center">
+                      <div className="inline-flex flex-col items-center">
+                        <div className="text-white/40 text-xs mb-2">YEAR</div>
+                        <div className="text-lg text-white/60 mb-1">{breakdown.yearSum}</div>
+                        <div className="flex items-center gap-2">
+                          <span className="w-10 h-10 rounded-xl bg-[#D8B86A]/10 border border-[#D8B86A]/20 flex items-center justify-center text-[#D8B86A] font-bold text-sm">
+                            {breakdown.yearSum}
+                          </span>
+                          <span className="text-white/30">→</span>
+                          <span className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white font-bold">
+                            {breakdown.yearNumber}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* First Layer: Day-Month-Year */}
+                  <div className="bg-white/[0.02] rounded-2xl p-6 mb-6">
+                    <h4 className="text-white/40 text-xs uppercase tracking-wider mb-4 text-center">First Layer: Day — Month — Year</h4>
+                    <div className="flex items-center justify-center gap-4">
+                      <div className="w-14 h-14 rounded-xl bg-[#D8B86A]/10 border border-[#D8B86A]/30 flex items-center justify-center">
+                        <span className="text-[#D8B86A] text-xl font-bold">{breakdown.dayNumber}</span>
+                      </div>
+                      <span className="text-white/20">—</span>
+                      <div className="w-14 h-14 rounded-xl bg-[#D8B86A]/10 border border-[#D8B86A]/30 flex items-center justify-center">
+                        <span className="text-[#D8B86A] text-xl font-bold">{breakdown.monthNumber}</span>
+                      </div>
+                      <span className="text-white/20">—</span>
+                      <div className="w-14 h-14 rounded-xl bg-[#D8B86A]/10 border border-[#D8B86A]/30 flex items-center justify-center">
+                        <span className="text-[#D8B86A] text-xl font-bold">{breakdown.yearNumber}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Connecting Numbers */}
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="bg-white/[0.02] rounded-xl p-4 text-center">
+                      <div className="text-white/40 text-xs mb-2">Day + Month</div>
+                      <div className="text-white/60 text-sm mb-1">{breakdown.dayNumber} + {breakdown.monthNumber} = {breakdown.dayNumber + breakdown.monthNumber}</div>
+                      <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center mx-auto">
+                        <span className="text-white font-bold">{breakdown.connecting1}</span>
+                      </div>
+                    </div>
+                    <div className="bg-white/[0.02] rounded-xl p-4 text-center">
+                      <div className="text-white/40 text-xs mb-2">Month + Year</div>
+                      <div className="text-white/60 text-sm mb-1">{breakdown.monthNumber} + {breakdown.yearNumber} = {breakdown.monthNumber + breakdown.yearNumber}</div>
+                      <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center mx-auto">
+                        <span className="text-white font-bold">{breakdown.connecting2}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Final Result: Life Path */}
+                  <div className="bg-gradient-to-r from-[#D8B86A]/10 to-[#D8B86A]/5 border border-[#D8B86A]/20 rounded-xl p-5 text-center">
+                    <div className="text-[#D8B86A] text-xs font-semibold mb-2">Life Path Number</div>
+                    <div className="text-white/60 text-sm mb-2">
+                      {breakdown.connecting1} + {breakdown.connecting2} = {breakdown.connecting1 + breakdown.connecting2}
+                      {breakdown.connecting1 + breakdown.connecting2 > 9 && (
+                        <span> → {breakdown.lifePathNumber}</span>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="text-3xl font-bold text-white">{breakdown.lifePathNumber}</span>
+                      <span className="text-white/40 text-sm">— {numberContent.title}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Pattern Description */}
+                <div className="p-8 pt-0">
+                  <p className="text-white/70 leading-relaxed mb-6">
+                    {numberContent.coreEssence}
+                  </p>
+
+                  {/* Preview of strengths */}
+                  <div className="mb-6">
+                    <h3 className="text-white/50 text-xs uppercase tracking-wider mb-3">Your Natural Strengths</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {numberContent.strengths.slice(0, 3).map((strength, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1.5 bg-[#D8B86A]/10 border border-[#D8B86A]/20 rounded-lg text-white/80 text-sm"
+                        >
+                          {strength}
+                        </span>
+                      ))}
+                      <span className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-white/40 text-sm flex items-center gap-1">
+                        + more in NUMI
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Teaser for full insights */}
+                  <div className="bg-[#D8B86A]/5 border border-[#D8B86A]/10 rounded-xl p-4 flex items-start gap-3">
+                    <Lock className="w-5 h-5 text-[#D8B86A] flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-white/60 text-sm">
+                        <span className="text-[#D8B86A] font-semibold">Unlock the full pattern map:</span> Your complete
+                        relationship dynamics, 2026 strategic focus, career alignment, and personalized action steps are
+                        waiting in NUMI.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
           {/* What's Next */}
           <motion.div
             initial="hidden"
             animate={mounted ? "visible" : "hidden"}
             variants={fadeInUp}
-            transition={{ duration: transitionDuration, delay: prefersReducedMotion ? 0 : 0.5 }}
+            transition={{ duration: transitionDuration, delay: prefersReducedMotion ? 0 : 0.65 }}
             className="bg-white/[0.03] border border-white/10 rounded-2xl p-8 mb-12"
           >
-            <h2 className="text-2xl font-bold text-white mb-8 text-center">What's Next?</h2>
+            <h2 className="text-2xl font-bold text-white mb-8 text-center">Your Path Forward</h2>
             <div className="grid sm:grid-cols-2 gap-6">
               {nextSteps.map((item) => (
                 <div key={item.step} className="flex gap-4">
@@ -182,36 +390,83 @@ export default function LeadMagnetSuccessPage() {
             </div>
           </motion.div>
 
-          {/* Premium Offer */}
+          {/* Premium Offer - Enhanced with "One Layer vs Full Map" messaging */}
           <motion.div
             initial="hidden"
             animate={mounted ? "visible" : "hidden"}
             variants={fadeInUp}
-            transition={{ duration: transitionDuration, delay: prefersReducedMotion ? 0 : 0.6 }}
+            transition={{ duration: transitionDuration, delay: prefersReducedMotion ? 0 : 0.75 }}
             className="relative bg-gradient-to-br from-[#D8B86A]/10 to-[#D8B86A]/5 border border-[#D8B86A]/20 rounded-3xl p-8 md:p-12 text-center overflow-hidden"
           >
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#D8B86A]/5 rounded-full blur-[100px]" />
 
             <div className="relative">
               <div className="inline-flex items-center gap-2 bg-[#D8B86A]/10 border border-[#D8B86A]/20 text-[#D8B86A] px-4 py-2 rounded-full text-sm font-semibold mb-6">
-                <span>Go Deeper</span>
+                <Sparkles className="w-4 h-4" />
+                <span>One Layer vs. The Full Map</span>
               </div>
 
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                Want Your Complete Personalized Report?
+                The Guide Reveals One Pattern.
+                <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]">
+                  NUMI Reveals The Complete Picture.
+                </span>
               </h2>
 
               <p className="text-white/50 mb-8 max-w-xl mx-auto">
-                Your free guide is a great start. A full personalized report dives deeper into your specific patterns —
-                relationships, career timing, challenges, and opportunities.
+                Your free Pattern {breakdown?.lifePathNumber || "Code"} guide is the first layer. NUMI's AI-powered pattern
+                intelligence reveals your complete map — how you think, feel, decide, relate, grow, and what patterns
+                are shaping your life right now.
               </p>
+
+              {/* Feature comparison */}
+              <div className="grid md:grid-cols-2 gap-6 mb-8 max-w-2xl mx-auto">
+                <div className="text-left">
+                  <h3 className="text-white/40 text-xs uppercase tracking-wider mb-3">Free Guide</h3>
+                  <ul className="space-y-2 text-sm text-white/50">
+                    <li className="flex items-start gap-2">
+                      <span className="text-white/20">—</span>
+                      Your Core Number
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-white/20">—</span>
+                      Basic pattern description
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-white/20">—</span>
+                      General strengths
+                    </li>
+                  </ul>
+                </div>
+                <div className="text-left">
+                  <h3 className="text-[#D8B86A] text-xs uppercase tracking-wider mb-3">With NUMI</h3>
+                  <ul className="space-y-2 text-sm text-white/70">
+                    <li className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-[#D8B86A] flex-shrink-0 mt-0.5" strokeWidth={3} />
+                      Complete pattern map
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-[#D8B86A] flex-shrink-0 mt-0.5" strokeWidth={3} />
+                      Relationship dynamics
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-[#D8B86A] flex-shrink-0 mt-0.5" strokeWidth={3} />
+                      Career & timing insights
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-[#D8B86A] flex-shrink-0 mt-0.5" strokeWidth={3} />
+                      Personalized action steps
+                    </li>
+                  </ul>
+                </div>
+              </div>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
                   href="/funnel"
                   className="group px-8 py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#D8B86A]/20 flex items-center gap-2 cursor-pointer"
                 >
-                  <span>Explore Full Report</span>
+                  <span>Unlock My Full Pattern Map</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
                 </a>
                 <a
