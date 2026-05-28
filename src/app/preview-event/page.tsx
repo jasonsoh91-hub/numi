@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useInView, useReducedMotion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Check, Calendar, Clock, Users, Sparkles, Play } from "lucide-react";
+import { ArrowRight, Check, Calendar, Clock, Users, Sparkles, Play, Mail } from "lucide-react";
 
 export default function PreviewEventPage() {
   const router = useRouter();
@@ -13,22 +13,19 @@ export default function PreviewEventPage() {
   const [error, setError] = useState("");
   const [mounted, setMounted] = useState(false);
 
-  const formRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef(null);
   const statsRef = useRef(null);
   const gainRef = useRef(null);
   const speakerRef = useRef(null);
-  const formSectionRef = useRef(null);
+  const finalCtaRef = useRef(null);
 
   const heroInView = useInView(heroRef, { once: true, amount: 0.3 });
   const statsInView = useInView(statsRef, { once: true, amount: 0.2 });
   const gainInView = useInView(gainRef, { once: true, amount: 0.2 });
   const speakerInView = useInView(speakerRef, { once: true, amount: 0.2 });
-  const formInView = useInView(formSectionRef, { once: true, amount: 0.3 });
+  const finalCtaInView = useInView(finalCtaRef, { once: true, amount: 0.3 });
 
   useEffect(() => { setMounted(true); }, []);
-
-  const scrollToForm = () => formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,6 +49,7 @@ export default function PreviewEventPage() {
 
   const fadeInUp = { hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 30 }, visible: { opacity: 1, y: 0 } };
   const scaleIn = { hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1 } };
+  const fadeIn = { hidden: { opacity: 0 }, visible: { opacity: 1 } };
 
   const gains = [
     { title: "How your birthdate reveals your Core Pattern", desc: "Learn the NUMI system that decodes your unique blueprint from your date of birth" },
@@ -73,106 +71,157 @@ export default function PreviewEventPage() {
         )}
       </div>
 
-      {/* HERO - Mindvalley Style */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center px-6 py-20">
-        <div className="max-w-6xl mx-auto w-full">
-          <motion.div initial="hidden" animate={heroInView ? "visible" : "hidden"} className="space-y-8">
-            {/* Badge */}
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 bg-[#D8B86A]/10 border border-[#D8B86A]/30 rounded-full">
-              <Sparkles className="w-4 h-4 text-[#D8B86A]" />
-              <span className="text-[#D8B86A] text-sm font-medium">Free Live Masterclass</span>
+      {/* HERO - Mindvalley Format */}
+      <section ref={heroRef} className="relative min-h-screen flex items-center px-6 py-12 md:py-20">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left Content */}
+            <motion.div initial="hidden" animate={heroInView ? "visible" : "hidden"} className="space-y-6 md:space-y-8">
+              {/* Badge - Mindvalley style */}
+              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 bg-[#D8B86A]/10 border border-[#D8B86A]/30 rounded-full">
+                <Sparkles className="w-4 h-4 text-[#D8B86A]" />
+                <span className="text-[#D8B86A] text-sm font-medium">A NUMI Masterclass for Those Ready to Discover Their True Self</span>
+              </motion.div>
+
+              {/* Headline - Mindvalley style */}
+              <motion.h1 variants={fadeInUp} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                Discover Your
+                <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]">
+                  NUMI Pattern Code
+                </span>
+                <span className="block mt-2 text-white">— Starting with Your Own</span>
+              </motion.h1>
+
+              {/* Subtitle - Mindvalley style */}
+              <motion.p variants={fadeInUp} className="text-lg md:text-xl text-white/60 max-w-xl">
+                Join this free masterclass to uncover the hidden pattern behind how you think, feel, decide, and grow — even if you&apos;re starting from scratch.
+              </motion.p>
+
+              {/* Trainer Info - Mindvalley style */}
+              <motion.div variants={fadeInUp} className="flex items-center gap-3 pt-4">
+                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#D8B86A]/30">
+                  <img
+                    src="https://maas-log-prod.cn-wlcb.ufileos.com/anthropic/6901829d-ad38-4844-af22-8f52bfb9c78f/1.png?UCloudPublicKey=TOKEN_e15ba47a-d098-4fbd-9afc-a0dcf0e4e621&Expires=1779944663&Signature=cgl0g7lbWmx3MgQIjagLPLKcVJg="
+                    alt="Dr. Keith Tong"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <p className="text-white/40 text-sm">With</p>
+                  <p className="text-white font-semibold">Dr. Keith Tong</p>
+                </div>
+              </motion.div>
+
+              {/* Stats Bar - Mindvalley style */}
+              <motion.div variants={fadeInUp} className="flex flex-wrap gap-6 md:gap-12 pt-8 border-t border-white/10">
+                <div className="flex items-center gap-3">
+                  <Users className="w-6 h-6 text-[#D8B86A]" />
+                  <div>
+                    <div className="text-xl md:text-2xl font-bold text-white">Limited</div>
+                    <div className="text-white/50 text-sm">Spots Available</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Clock className="w-6 h-6 text-[#D8B86A]" />
+                  <div>
+                    <div className="text-xl md:text-2xl font-bold text-white">60</div>
+                    <div className="text-white/50 text-sm">Min Training</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Play className="w-6 h-6 text-[#D8B86A]" />
+                  <div>
+                    <div className="text-xl md:text-2xl font-bold text-white">Free</div>
+                    <div className="text-white/50 text-sm">To Attend</div>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
 
-            {/* Headline */}
-            <motion.h1 variants={fadeInUp} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-              Discover Your
-              <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]">
-                NUMI Pattern Code
-              </span>
-            </motion.h1>
+            {/* Right - Registration Form - Mindvalley style */}
+            <motion.div initial={{ opacity: 0, x: 30 }} animate={heroInView ? { opacity: 1, x: 0 } : {}} transition={{ delay: 0.2 }} className="lg:pl-8">
+              <div className="bg-white/[0.08] border border-white/10 rounded-2xl p-6 md:p-8 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#D8B86A]/5 via-transparent to-transparent opacity-50" />
 
-            {/* Subtitle */}
-            <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-white/60 max-w-3xl">
-              Join this free masterclass to uncover the hidden pattern behind how you think, feel, decide, and grow.
-            </motion.p>
+                {/* Form Icon - Mindvalley style */}
+                <motion.div variants={scaleIn} className="relative mb-6">
+                  <div className="w-16 h-16 rounded-xl bg-[#D8B86A]/10 flex items-center justify-center border border-[#D8B86A]/20">
+                    <Mail className="w-8 h-8 text-[#D8B86A]" />
+                  </div>
+                </motion.div>
 
-            {/* Speaker Photos Side by Side - Mindvalley Style */}
-            <motion.div variants={scaleIn} className="flex items-center justify-center gap-8 py-12">
-              <div className="relative w-48 md:w-56 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-2 border-white/10">
-                <img
-                  src="https://maas-log-prod.cn-wlcb.ufileos.com/anthropic/6901829d-ad38-4844-af22-8f52bfb9c78f/1.png?UCloudPublicKey=TOKEN_e15ba47a-d098-4fbd-9afc-a0dcf0e4e621&Expires=1779944663&Signature=cgl0g7lbWmx3MgQIjagLPLKcVJg="
-                  alt="Dr. Keith Tong"
-                  className="w-full h-full object-cover"
-                />
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 relative">Claim Your FREE Spot Now</h2>
+                <p className="text-white/50 text-sm mb-6 relative">Submit your details to secure your spot in the free masterclass</p>
+
+                <form onSubmit={handleSubmit} className="space-y-4 relative">
+                  <div>
+                    <label className="block text-white/70 text-sm mb-2">Name *</label>
+                    <input
+                      type="text"
+                      placeholder="First Name"
+                      value={formData.firstName}
+                      onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                      className="w-full px-4 py-3.5 bg-white/[0.05] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D8B86A]/50 transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-white/70 text-sm mb-2">Email *</label>
+                    <input
+                      type="email"
+                      placeholder="Email Address"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full px-4 py-3.5 bg-white/[0.05] border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#D8B86A]/50 transition-all"
+                    />
+                  </div>
+
+                  <AnimatePresence>
+                    {error && (
+                      <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="text-red-400 text-sm bg-red-400/10 border border-red-400/20 rounded-lg px-3 py-2">
+                        {error}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+
+                  <motion.button
+                    type="submit"
+                    disabled={isSubmitting}
+                    whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                    whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                    className="w-full py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-lg rounded-xl transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity }} className="w-5 h-5 border-2 border-[#0A0E27] border-t-transparent rounded-full" />
+                        <span>Reserving Spot...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Reserve Your Spot Now</span>
+                        <ArrowRight className="w-5 h-5" />
+                      </>
+                    )}
+                  </motion.button>
+
+                  <p className="text-white/30 text-xs text-center">
+                    By registering for the above, you confirm that you agree to receive notifications about this event. You can withdraw your consent at any time.
+                  </p>
+                </form>
               </div>
             </motion.div>
-
-            {/* Stats Bar - Mindvalley Style */}
-            <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-8 md:gap-16 py-8 border-y border-white/10">
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-[#D8B86A]">Limited</div>
-                <div className="text-white/50 text-sm mt-1">Spots Available</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-[#D8B86A]">60</div>
-                <div className="text-white/50 text-sm mt-1">Minutes Live</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-[#D8B86A]">Free</div>
-                <div className="text-white/50 text-sm mt-1">To Attend</div>
-              </div>
-            </motion.div>
-
-            {/* CTA */}
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-              <button onClick={scrollToForm} className="group px-8 py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-lg rounded-xl transition-all flex items-center gap-2">
-                <span>Reserve My Free Spot</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <div className="flex items-center gap-2 text-white/40 text-sm">
-                <Play className="w-4 h-4" />
-                <span>Live Q&A Included</span>
-              </div>
-            </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* SPEAKER SECTION - Mindvalley Style, moved up */}
-      <section ref={speakerRef} className="relative py-20 px-6 border-t border-white/5">
-        <div className="max-w-4xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">Meet Your Trainer</h2>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="text-center">
-            <div className="relative inline-block">
-              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-[#D8B86A]/20 shadow-xl">
-                <img
-                  src="https://maas-log-prod.cn-wlcb.ufileos.com/anthropic/6901829d-ad38-4844-af22-8f52bfb9c78f/1.png?UCloudPublicKey=TOKEN_e15ba47a-d098-4fbd-9afc-a0dcf0e4e621&Expires=1779944663&Signature=cgl0g7lbWmx3MgQIjagLPLKcVJg="
-                  alt="Dr. Keith Tong"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-            <h3 className="text-xl md:text-2xl font-bold text-white mt-6 mb-2">Dr. Keith Tong</h3>
-            <p className="text-[#D8B86A] font-medium mb-4">PhD, Doctor of Natural Medicine (DNM)</p>
-            <p className="text-white/60 max-w-2xl mx-auto leading-relaxed">
-              Creator of the NUMI Numerology System, best-selling author of "Cutting Loose," and speaker with 25+ years in holistic health and personal development.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* WHAT YOU'LL GAIN - Mindvalley Numbered Style */}
-      <section ref={gainRef} className="relative py-20 px-6 border-t border-white/5">
+      {/* WHAT YOU'LL GAIN - Mindvalley Format */}
+      <section ref={gainRef} className="relative py-16 md:py-24 px-6 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">What You&apos;ll Gain From This Free Masterclass</h2>
-            <p className="text-white/50 text-lg">Even with zero prior knowledge of numerology or patterns</p>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">What You&apos;ll Gain From This Free Masterclass — Even If You&apos;re Starting from Scratch</h2>
           </motion.div>
 
-          <div className="space-y-8">
+          <div className="space-y-10 md:space-y-12">
             {gains.map((gain, i) => (
               <motion.div
                 key={i}
@@ -180,13 +229,13 @@ export default function PreviewEventPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: prefersReducedMotion ? 0 : 0.1 + i * 0.1 }}
-                className="flex gap-6"
+                className="flex gap-6 md:gap-8"
               >
                 <div className="flex-shrink-0">
-                  <span className="text-5xl md:text-6xl font-bold text-[#D8B86A]/30">{i + 1}</span>
+                  <span className="text-6xl md:text-7xl font-bold text-[#D8B86A]/20">{i + 1}</span>
                 </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">{gain.title}</h3>
+                <div className="pt-2">
+                  <h3 className="text-xl md:text-2xl font-semibold text-white mb-3">{gain.title}</h3>
                   <p className="text-white/50 leading-relaxed">{gain.desc}</p>
                 </div>
               </motion.div>
@@ -206,18 +255,120 @@ export default function PreviewEventPage() {
         </div>
       </section>
 
-      {/* REGISTRATION FORM */}
-      <section ref={formSectionRef} className="relative py-20 px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-[#D8B86A]/5">
-        <div className="max-w-md mx-auto">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} ref={formRef}>
-            <div className="bg-white/[0.08] border border-white/10 rounded-2xl p-8 md:p-10 relative overflow-hidden">
+      {/* SPEAKER SECTION - Mindvalley Format */}
+      <section ref={speakerRef} className="relative py-16 md:py-24 px-6 border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">Meet Your Trainer: Dr. Keith Tong</h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-2 border-white/10">
+                <img
+                  src="https://maas-log-prod.cn-wlcb.ufileos.com/anthropic/6901829d-ad38-4844-af22-8f52bfb9c78f/1.png?UCloudPublicKey=TOKEN_e15ba47a-d098-4fbd-9afc-a0dcf0e4e621&Expires=1779944663&Signature=cgl0g7lbWmx3MgQIjagLPLKcVJg="
+                  alt="Dr. Keith Tong"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Dr. Keith Tong</h3>
+              <p className="text-[#D8B86A] font-medium mb-6">PhD, Doctor of Natural Medicine (DNM)</p>
+
+              <div className="space-y-4 text-white/60 leading-relaxed">
+                <p>
+                  <span className="text-white font-semibold">Dr. Keith Tong</span> is the creator of the NUMI Numerology System and best-selling author of &quot;Cutting Loose.&quot;
+                </p>
+                <p>
+                  With 25+ years in holistic health and personal development, he has helped thousands of people discover their authentic selves through the power of pattern awareness.
+                </p>
+                <p>
+                  His unique approach combines ancient numerology wisdom with modern psychology, making complex pattern insights accessible and practical for everyday life.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* TRANSFORMATION SECTION - Mindvalley Format */}
+      <section className="relative py-16 md:py-24 px-6 border-t border-white/5 bg-gradient-to-b from-transparent to-[#D8B86A]/5">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6">Transformation You Will Experience Through the NUMI Pattern Code</h2>
+            <p className="text-white/60 text-lg max-w-2xl mx-auto">
+              Discover how understanding your unique pattern can unlock clarity in decision-making, harmony in relationships, and confidence in your life path.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* FINAL CTA - Mindvalley Format */}
+      <section ref={finalCtaRef} className="relative py-16 md:py-24 px-6 border-t border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">Ready To Get Started?</h2>
+            <p className="text-white/60 text-lg">Submit your details below to secure your spot in this NUMI Masterclass.</p>
+          </motion.div>
+
+          {/* Large Banner Image - Mindvalley style */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="relative rounded-2xl overflow-hidden mb-12 border-2 border-white/10"
+          >
+            <img
+              src="https://maas-log-prod.cn-wlcb.ufileos.com/anthropic/6901829d-ad38-4844-af22-8f52bfb9c78f/1.png?UCloudPublicKey=TOKEN_e15ba47a-d098-4fbd-9afc-a0dcf0e4e621&Expires=1779944663&Signature=cgl0g7lbWmx3MgQIjagLPLKcVJg="
+              alt="Discover Your NUMI Pattern Code"
+              className="w-full h-48 md:h-64 object-cover object-top"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E27] via-transparent to-transparent" />
+          </motion.div>
+
+          {/* Registration Form - Mindvalley style */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-md mx-auto"
+          >
+            <div className="bg-white/[0.08] border border-white/10 rounded-2xl p-6 md:p-8 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-[#D8B86A]/5 via-transparent to-transparent opacity-50" />
 
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 text-center relative">Claim Your FREE Spot Now</h2>
-              <p className="text-white/50 text-sm text-center mb-8 relative">Submit your details to secure your spot in the free masterclass</p>
+              <motion.div variants={scaleIn} className="relative mb-6 flex justify-center">
+                <div className="w-16 h-16 rounded-xl bg-[#D8B86A]/10 flex items-center justify-center border border-[#D8B86A]/20">
+                  <Mail className="w-8 h-8 text-[#D8B86A]" />
+                </div>
+              </motion.div>
+
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 text-center relative">Claim Your FREE Spot Now</h2>
+              <p className="text-white/50 text-sm text-center mb-6 relative">Submit your details to secure your spot in the free masterclass</p>
 
               <form onSubmit={handleSubmit} className="space-y-4 relative">
                 <div>
+                  <label className="block text-white/70 text-sm mb-2">Name *</label>
                   <input
                     type="text"
                     placeholder="First Name"
@@ -228,6 +379,7 @@ export default function PreviewEventPage() {
                 </div>
 
                 <div>
+                  <label className="block text-white/70 text-sm mb-2">Email *</label>
                   <input
                     type="email"
                     placeholder="Email Address"
@@ -266,7 +418,7 @@ export default function PreviewEventPage() {
                 </motion.button>
 
                 <p className="text-white/30 text-xs text-center">
-                  By registering, you agree to receive notifications about this event. You can withdraw your consent at any time.
+                  By registering for the above, you confirm that you agree to receive notifications about this event. You can withdraw your consent at any time.
                 </p>
               </form>
             </div>
