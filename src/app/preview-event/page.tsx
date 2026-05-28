@@ -170,31 +170,56 @@ export default function PreviewEventPage() {
 
       {/* SPEAKER PROFILE */}
       <section className="relative py-24 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Meet Your Guide</h2>
             <p className="text-white/50 text-lg">Dr. Keith Tong will walk you through your Pattern Code revelation</p>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Photo */}
-            <div className="relative mx-auto w-full max-w-sm">
-              <div className="relative aspect-[3/4] rounded-3xl overflow-hidden">
-                <img
-                  src="https://www.mastervitality.com/images/keith-tong.jpg"
-                  alt="Dr. Keith Tong"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E27]/50 to-transparent" />
+          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="grid md:grid-cols-5 gap-12 items-center">
+            {/* Photo - Mindvalley style with enhanced frame */}
+            <div className="md:col-span-2 relative mx-auto">
+              <div className="relative">
+                {/* Decorative elements behind */}
+                <div className="absolute -top-4 -left-4 w-full h-full rounded-3xl bg-gradient-to-br from-[#D8B86A]/20 to-[#D8B86A]/5" />
+                <div className="absolute -bottom-4 -right-4 w-full h-full rounded-3xl bg-gradient-to-br from-pink-500/20 to-purple-500/5" />
+
+                {/* Main image container */}
+                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+                  <img
+                    src="https://maas-log-prod.cn-wlcb.ufileos.com/anthropic/6901829d-ad38-4844-af22-8f52bfb9c78f/1.png?UCloudPublicKey=TOKEN_e15ba47a-d098-4fbd-9afc-a0dcf0e4e621&Expires=1779944663&Signature=cgl0g7lbWmx3MgQIjagLPLKcVJg="
+                    alt="Dr. Keith Tong"
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Subtle gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E27]/30 via-transparent to-transparent" />
+                </div>
+
+                {/* Accent badges */}
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.6, type: "spring" }}
+                  className="absolute -bottom-3 -right-3 px-4 py-2 bg-[#D8B86A] rounded-full shadow-lg"
+                >
+                  <span className="text-[#0A0E27] font-semibold text-sm">25+ Years</span>
+                </motion.div>
               </div>
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-[#D8B86A]/20 blur-3xl" />
             </div>
 
             {/* Bio */}
-            <div className="space-y-6">
+            <div className="md:col-span-3 space-y-6">
               <div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Dr. Keith Tong</h3>
-                <p className="text-[#D8B86A] font-medium">PhD, Doctor of Natural Medicine (DNM)</p>
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Dr. Keith Tong</h3>
+                  <p className="text-[#D8B86A] font-medium">PhD, Doctor of Natural Medicine (DNM)</p>
+                </motion.div>
               </div>
 
               <p className="text-white/70 leading-relaxed">
@@ -222,9 +247,20 @@ export default function PreviewEventPage() {
                 ))}
               </ul>
 
-              <p className="text-white/50 text-sm italic">
-                "Your life has a blueprint. It&apos;s time to read it."
-              </p>
+              {/* Quote card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.7 }}
+                className="relative bg-gradient-to-br from-white/[0.08] to-white/[0.03] border border-white/10 rounded-xl p-6"
+              >
+                <div className="absolute top-4 left-4 text-4xl text-[#D8B86A]/30 font-serif">"</div>
+                <p className="text-white/60 italic relative z-10 pl-8">
+                  Your life has a blueprint. It&apos;s time to read it.
+                </p>
+                <div className="absolute bottom-4 right-4 text-4xl text-[#D8B86A]/30 font-serif rotate-180">"</div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
