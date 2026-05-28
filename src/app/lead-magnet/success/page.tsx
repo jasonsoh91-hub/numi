@@ -414,3 +414,4 @@ export default function LeadMagnetSuccessPage() {
     </div>
   );
 }
+
