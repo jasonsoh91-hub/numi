@@ -66,3 +66,14 @@
     animation: ambient-drift-slow 25s ease-in-out infinite;
   }
 }
+
+@theme inline {
+  @keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+    }
+  50% {
+    transform: translateY(-10px);
+    }
+  }
+}

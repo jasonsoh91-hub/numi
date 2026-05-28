@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import { motion, useInView, useReducedMotion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Check, Sparkles } from "lucide-react";
 import { StaticBookMockup } from "@/components/StaticBookMockup";
+import AnimatedShaderBackground from "@/components/ui/animated-shader-background";
+import { TestimonialsSection } from "@/components/ui/testimonials-section";
+// Note: Component exports as AnoAI internally but we import as AnimatedShaderBackground
 
 export default function LeadMagnetPage() {
   const router = useRouter();
@@ -29,14 +32,12 @@ export default function LeadMagnetPage() {
   const heroRef = useRef(null);
   const benefitsRef = useRef(null);
   const beforeAfterRef = useRef(null);
-  const trustRef = useRef(null);
   const optinRef = useRef(null);
   const finalRef = useRef(null);
 
   const heroInView = useInView(heroRef, { once: true, amount: 0.3 });
   const benefitsInView = useInView(benefitsRef, { once: true, amount: 0.2 });
   const beforeAfterInView = useInView(beforeAfterRef, { once: true, amount: 0.2 });
-  const trustInView = useInView(trustRef, { once: true, amount: 0.2 });
   const optinInView = useInView(optinRef, { once: true, amount: 0.3 });
   const finalInView = useInView(finalRef, { once: true, amount: 0.3 });
 
@@ -132,6 +133,7 @@ export default function LeadMagnetPage() {
     <div className="min-h-screen text-white relative overflow-hidden">
       {/* === CINEMATIC BACKGROUND === */}
       <div className="fixed inset-0 bg-[#0A0E27]">
+        {/* Base gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0A0E27] via-[#0F0F23] to-[#0a0d1a]" />
 
         {mounted && !prefersReducedMotion && (
@@ -253,8 +255,15 @@ export default function LeadMagnetPage() {
       <div className="relative z-10">
 
         {/* === SECTION 1: HERO === */}
-        <section ref={heroRef} className="min-h-screen flex items-center px-6 py-24 md:py-32">
-          <div className="max-w-7xl mx-auto w-full">
+        <section ref={heroRef} className="relative min-h-screen flex items-center px-6 py-24 md:py-32">
+          {/* Animated Shader Background - Hero Only */}
+          <div className="absolute inset-0 pointer-events-none z-0 mix-blend-screen opacity-40">
+            <AnimatedShaderBackground />
+            {/* Fade gradient at bottom for smooth transition */}
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0A0E27] to-transparent" />
+          </div>
+
+          <div className="relative z-10 max-w-7xl mx-auto w-full">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               {/* Left: Content */}
               <motion.div
@@ -446,47 +455,8 @@ export default function LeadMagnetPage() {
           </div>
         </section>
 
-        {/* === SECTION 4: TRUST SIGNAL === */}
-        <section ref={trustRef} className="py-24 md:py-32 px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.div
-              initial="hidden"
-              animate={trustInView ? "visible" : "hidden"}
-              variants={fadeInUp}
-              transition={{ duration: transitionDuration }}
-            >
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8 tracking-tight">
-                This Is Not About Predicting Your Future.
-              </h2>
-
-              <p className="text-white/60 text-base md:text-lg mb-12 max-w-2xl mx-auto leading-relaxed">
-                NUMI is designed for self-reflection and personal growth. Your Pattern Code is not a fixed destiny. It is a mirror to help you understand how you think, feel, decide, react, and grow.
-              </p>
-
-              {/* Testimonial - Enhanced with subtle animation */}
-              <motion.div
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={trustInView ? { scale: 1, opacity: 1 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-12"
-              >
-                <div className="absolute top-6 left-6 text-[#D8B86A]/20 font-serif text-5xl leading-none select-none">"</div>
-
-                <blockquote className="text-lg md:text-xl lg:text-2xl text-white/80 leading-relaxed mb-8 font-light relative">
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={trustInView ? { opacity: 1 } : {}}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                  >
-                    "I thought I was just burned out. NUMI helped me see the pattern behind why I kept feeling stuck."
-                  </motion.p>
-                </blockquote>
-
-                <p className="text-white/40 text-sm tracking-wide">— Early NUMI User</p>
-              </motion.div>
-            </motion.div>
-          </div>
-        </section>
+        {/* === TESTIMONIALS SECTION === */}
+        <TestimonialsSection />
 
         {/* === SECTION 5: OPT-IN - Enhanced with validation feedback === */}
         <section ref={optinRef} className="py-24 md:py-32 px-6">
