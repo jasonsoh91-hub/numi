@@ -25,7 +25,7 @@ export interface NumberContent {
 export const numerologyContent: Record<number, NumberContent> = {
   1: {
     number: 1,
-    title: "The Independent Leader",
+    title: "The Initiator",
     subtitle: "The Pioneer of New Beginnings",
     description: "You were born to lead, innovate, and blaze trails where others see only obstacles. As a Life Path 1, you carry the energy of creation, independence, and raw ambition. You are the architect of your destiny, naturally drawn to positions of authority and innovation.",
     coreEssence: "Your essence is that of the sovereign individual — self-reliant, determined, and fiercely original. You don't follow paths; you create them.",
@@ -66,7 +66,7 @@ export const numerologyContent: Record<number, NumberContent> = {
 
   2: {
     number: 2,
-    title: "The Strategic Diplomat",
+    title: "The Connector",
     subtitle: "The Master of Connection & Harmony",
     description: "You are the bridge-builder, the mediator, the one who sees all sides and finds the middle path. As a Life Path 2, you possess an innate ability to read people, sense underlying dynamics, and create harmony where chaos exists. Your power lies in cooperation, not confrontation.",
     coreEssence: "Your essence is that of the cosmic diplomat — intuitive, sensitive, and deeply connected to the emotional currents around you. You are the glue that holds teams, families, and partnerships together.",
@@ -107,7 +107,7 @@ export const numerologyContent: Record<number, NumberContent> = {
 
   3: {
     number: 3,
-    title: "The Creative Communicator",
+    title: "The Communicator",
     subtitle: "The Expression of Joy & Innovation",
     description: "You are the voice, the artist, the messenger. As a Life Path 3, you carry the gift of expression — whether through words, art, music, or pure charisma. You are here to inspire, entertain, and bring light to the world through your creative output.",
     coreEssence: "Your essence is pure creative expression. You are the cosmic storyteller, blessed with the ability to take complex ideas and make them accessible, engaging, and transformative.",
@@ -148,7 +148,7 @@ export const numerologyContent: Record<number, NumberContent> = {
 
   4: {
     number: 4,
-    title: "The Master Builder",
+    title: "The Builder",
     subtitle: "The Foundation of Stability & Success",
     description: "You are the architect, the planner, the one who makes things happen. As a Life Path 4, you possess an unmatched ability to take abstract visions and turn them into concrete reality. You are the backbone of any successful enterprise — reliable, methodical, and extraordinarily capable.",
     coreEssence: "Your essence is that of the cosmic engineer — practical, disciplined, and driven by the satisfaction of building things that last. You don't dream; you execute.",
@@ -189,7 +189,7 @@ export const numerologyContent: Record<number, NumberContent> = {
 
   5: {
     number: 5,
-    title: "The Freedom Explorer",
+    title: "The Explorer",
     subtitle: "The Agent of Change & Adventure",
     description: "You are the adventurer, the catalyst, the one who cannot be contained. As a Life Path 5, you carry the energy of freedom, change, and evolution. You are here to experience all that life offers, break boundaries, and show others what true liberation looks like.",
     coreEssence: "Your essence is pure freedom and adaptability. You are the cosmic explorer, driven by curiosity and the thrill of the new. Stagnation is your enemy; growth and adventure are your lifeblood.",
@@ -230,7 +230,7 @@ export const numerologyContent: Record<number, NumberContent> = {
 
   6: {
     number: 6,
-    title: "The Nurturing Visionary",
+    title: "The Nurturer",
     subtitle: "The Guardian of Harmony & Responsibility",
     description: "You are the caregiver, the protector, the one who creates beauty and balance wherever you go. As a Life Path 6, you carry a deep sense of responsibility for others and an innate desire to create harmony in all environments. You are the heart of your community and family.",
     coreEssence: "Your essence is that of the cosmic nurturer — loving, responsible, and deeply connected to home and family. You are the safe harbor in life's storms.",
@@ -271,7 +271,7 @@ export const numerologyContent: Record<number, NumberContent> = {
 
   7: {
     number: 7,
-    title: "The Mystic Seeker",
+    title: "The Analyst",
     subtitle: "The Philosopher of Hidden Knowledge",
     description: "You are the seeker, the analyst, the one who looks beneath the surface. As a Life Path 7, you carry an insatiable thirst for knowledge, truth, and understanding. You are here to question, investigate, and uncover wisdom that others miss.",
     coreEssence: "Your essence is that of the cosmic philosopher — intuitive, analytical, and deeply connected to the mysteries of existence. You are the bridge between the seen and unseen worlds.",
@@ -312,7 +312,7 @@ export const numerologyContent: Record<number, NumberContent> = {
 
   8: {
     number: 8,
-    title: "The Executive Wealth Builder",
+    title: "The Strategist",
     subtitle: "The Master of Power & Material Success",
     description: "You are the powerhouse, the magnate, the one who turns ambition into empire. As a Life Path 8, you carry an innate understanding of power, money, and material success. You are here to master the material world and build wealth that creates freedom for yourself and others.",
     coreEssence: "Your essence is that of the cosmic executive — ambitious, authoritative, and gifted in the arts of business and finance. You are the bridge between vision and material manifestation.",
@@ -353,7 +353,7 @@ export const numerologyContent: Record<number, NumberContent> = {
 
   9: {
     number: 9,
-    title: "The Humanitarian Guide",
+    title: "The Visionary",
     subtitle: "The Visionary of Global Impact",
     description: "You are the visionary, the humanitarian, the one who sees the big picture. As a Life Path 9, you carry the energy of completion, wisdom, and service to humanity. You are here to elevate others, share your gifts, and leave the world better than you found it.",
     coreEssence: "Your essence is that of the cosmic humanitarian — compassionate, wise, and deeply connected to the collective evolution. You are the elder soul who has seen it all and now guides others.",

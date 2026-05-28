@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { CheckCircle, Download, ArrowRight, Home, Sparkles, Lock } from "lucide-react";
+import { CheckCircle, Download, Sparkles, Lock, Check } from "lucide-react";
 import { useReducedMotion } from "framer-motion";
 import { calculateCoreNumber, calculateNumerologyBreakdown, NumerologyBreakdown } from "@/lib/calculateCoreNumber";
 import { getNumberContent, NumberContent } from "@/lib/numerology-content";
@@ -69,35 +69,6 @@ export default function LeadMagnetSuccessPage() {
   };
 
   const transitionDuration = prefersReducedMotion ? 0 : 0.5;
-
-  const nextSteps = [
-    {
-      step: 1,
-      title: "Read your guide",
-      desc: "Take 15 minutes to understand the pattern framework and how it applies to your life",
-      icon: "📖",
-    },
-    {
-      step: 2,
-      title: "Explore your Life Path",
-      desc: breakdown
-        ? `Life Path ${breakdown.lifePathNumber} — discover what this means for your relationships, career, and growth`
-        : "Discover what your primary pattern number reveals about you",
-      icon: "🔢",
-    },
-    {
-      step: 3,
-      title: "Reflect on what resonates",
-      desc: "Notice which parts of the description feel familiar to your experience",
-      icon: "💭",
-    },
-    {
-      step: 4,
-      title: "Unlock the full pattern map",
-      desc: "Your free guide reveals one layer. NUMI reveals the complete picture of your patterns.",
-      icon: "🗺️",
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0A0E27] via-[#0F0F23] to-[#0A0E27] text-white">
@@ -431,121 +402,6 @@ export default function LeadMagnetSuccessPage() {
               </div>
             </motion.div>
           )}
-
-          {/* What's Next */}
-          <motion.div
-            initial="hidden"
-            animate={mounted ? "visible" : "hidden"}
-            variants={fadeInUp}
-            transition={{ duration: transitionDuration, delay: prefersReducedMotion ? 0 : 0.65 }}
-            className="bg-white/[0.03] border border-white/10 rounded-2xl p-8 mb-12"
-          >
-            <h2 className="text-2xl font-bold text-white mb-8 text-center">Your Path Forward</h2>
-            <div className="grid sm:grid-cols-2 gap-6">
-              {nextSteps.map((item) => (
-                <div key={item.step} className="flex gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-[#D8B86A]/10 border border-[#D8B86A]/20 flex items-center justify-center text-lg">
-                    {item.icon}
-                  </div>
-                  <div>
-                    <div className="text-[#D8B86A] text-sm font-semibold mb-1">Step {item.step}</div>
-                    <h3 className="text-white font-semibold mb-1">{item.title}</h3>
-                    <p className="text-white/50 text-sm">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Premium Offer - Enhanced with "One Layer vs Full Map" messaging */}
-          <motion.div
-            initial="hidden"
-            animate={mounted ? "visible" : "hidden"}
-            variants={fadeInUp}
-            transition={{ duration: transitionDuration, delay: prefersReducedMotion ? 0 : 0.75 }}
-            className="relative bg-gradient-to-br from-[#D8B86A]/10 to-[#D8B86A]/5 border border-[#D8B86A]/20 rounded-3xl p-8 md:p-12 text-center overflow-hidden"
-          >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#D8B86A]/5 rounded-full blur-[100px]" />
-
-            <div className="relative">
-              <div className="inline-flex items-center gap-2 bg-[#D8B86A]/10 border border-[#D8B86A]/20 text-[#D8B86A] px-4 py-2 rounded-full text-sm font-semibold mb-6">
-                <Sparkles className="w-4 h-4" />
-                <span>One Layer vs. The Full Map</span>
-              </div>
-
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                The Guide Reveals One Pattern.
-                <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]">
-                  NUMI Reveals The Complete Picture.
-                </span>
-              </h2>
-
-              <p className="text-white/50 mb-8 max-w-xl mx-auto">
-                Your free Pattern {breakdown?.lifePathNumber || "Code"} guide is the first layer. NUMI's AI-powered pattern
-                intelligence reveals your complete map — how you think, feel, decide, relate, grow, and what patterns
-                are shaping your life right now.
-              </p>
-
-              {/* Feature comparison */}
-              <div className="grid md:grid-cols-2 gap-6 mb-8 max-w-2xl mx-auto">
-                <div className="text-left">
-                  <h3 className="text-white/40 text-xs uppercase tracking-wider mb-3">Free Guide</h3>
-                  <ul className="space-y-2 text-sm text-white/50">
-                    <li className="flex items-start gap-2">
-                      <span className="text-white/20">—</span>
-                      Your Core Number
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-white/20">—</span>
-                      Basic pattern description
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-white/20">—</span>
-                      General strengths
-                    </li>
-                  </ul>
-                </div>
-                <div className="text-left">
-                  <h3 className="text-[#D8B86A] text-xs uppercase tracking-wider mb-3">With NUMI</h3>
-                  <ul className="space-y-2 text-sm text-white/70">
-                    <li className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-[#D8B86A] flex-shrink-0 mt-0.5" strokeWidth={3} />
-                      Complete pattern map
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-[#D8B86A] flex-shrink-0 mt-0.5" strokeWidth={3} />
-                      Relationship dynamics
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-[#D8B86A] flex-shrink-0 mt-0.5" strokeWidth={3} />
-                      Career & timing insights
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-[#D8B86A] flex-shrink-0 mt-0.5" strokeWidth={3} />
-                      Personalized action steps
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a
-                  href="/funnel"
-                  className="group px-8 py-4 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#D8B86A]/20 flex items-center gap-2 cursor-pointer"
-                >
-                  <span>Unlock My Full Pattern Map</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-                </a>
-                <a
-                  href="/"
-                  className="px-8 py-4 border border-white/20 text-white hover:text-[#D8B86A] hover:border-[#D8B86A]/50 rounded-xl transition-all duration-200 flex items-center gap-2 cursor-pointer"
-                >
-                  <Home className="w-4 h-4" />
-                  <span>Return Home</span>
-                </a>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </main>
 
