@@ -23,22 +23,33 @@ export default function LeadMagnetSuccessPage() {
     setMounted(true);
     const data = localStorage.getItem("numiLeadMagnet");
     if (data) {
-      const parsed = JSON.parse(data);
-      setEmail(parsed.email || "");
-      setFirstName(parsed.firstName || "");
-      setBirthdate(parsed.birthDate || "");
+      try {
+        const parsed = JSON.parse(data);
+        setEmail(parsed.email || "");
+        setFirstName(parsed.firstName || "");
+        setBirthdate(parsed.birthDate || "");
 
-      // Calculate Core Number and detailed breakdown
-      const calculated = calculateCoreNumber(parsed.birthDate || "");
-      setCoreNumber(calculated);
-      if (calculated) {
-        setNumberContent(getNumberContent(calculated));
+        console.log("Birthdate from localStorage:", parsed.birthDate);
+
+        // Calculate Core Number and detailed breakdown
+        const calculated = calculateCoreNumber(parsed.birthDate || "");
+        console.log("Core Number calculated:", calculated);
+        setCoreNumber(calculated);
+        if (calculated) {
+          const content = getNumberContent(calculated);
+          setNumberContent(content);
+          console.log("Number content:", content);
+        }
+
+        // Calculate detailed breakdown
+        const detailed = calculateNumerologyBreakdown(parsed.birthDate || "");
+        console.log("Detailed breakdown:", detailed);
+        setBreakdown(detailed);
+      } catch (error) {
+        console.error("Error parsing lead magnet data:", error);
       }
-
-      // Calculate detailed breakdown
-      const detailed = calculateNumerologyBreakdown(parsed.birthDate || "");
-      setBreakdown(detailed);
     } else {
+      console.log("No lead magnet data found, redirecting");
       router.push("/lead-magnet");
     }
   }, [router]);
@@ -358,6 +369,62 @@ export default function LeadMagnetSuccessPage() {
                         relationship dynamics, 2026 strategic focus, career alignment, and personalized action steps are
                         waiting in NUMI.
                       </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Fallback: Simple Core Number Display (when breakdown fails) */}
+          {!breakdown && coreNumber && numberContent && (
+            <motion.div
+              initial="hidden"
+              animate={mounted ? "visible" : "hidden"}
+              variants={fadeInUp}
+              transition={{ duration: transitionDuration, delay: prefersReducedMotion ? 0 : 0.5 }}
+              className="mb-12"
+            >
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center gap-2 bg-[#D8B86A]/10 border border-[#D8B86A]/20 text-[#D8B86A] px-4 py-2 rounded-full text-sm font-semibold">
+                  <Sparkles className="w-4 h-4" />
+                  <span>Your Pattern Number</span>
+                </div>
+              </div>
+
+              <div className="relative bg-gradient-to-br from-white/[0.06] to-white/[0.02] border border-white/10 rounded-3xl overflow-hidden">
+                <div className="bg-gradient-to-r from-[#D8B86A]/20 via-[#F4D47A]/10 to-[#D8B86A]/20 p-8 text-center border-b border-white/10">
+                  <p className="text-white/50 text-xs uppercase tracking-wider mb-3">Your Core Number</p>
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: prefersReducedMotion ? 0 : 0.7, type: "spring", stiffness: 200 }}
+                    className="w-24 h-24 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] flex items-center justify-center shadow-lg shadow-[#D8B86A]/30"
+                  >
+                    <span className="text-5xl font-bold text-[#0A0E27]">{coreNumber}</span>
+                  </motion.div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                    {coreNumber} — {numberContent.title}
+                  </h2>
+                  <p className="text-[#D8B86A] text-sm font-medium">{numberContent.subtitle}</p>
+                </div>
+
+                <div className="p-8">
+                  <p className="text-white/70 leading-relaxed mb-6">
+                    {numberContent.coreEssence}
+                  </p>
+
+                  <div className="mb-6">
+                    <h3 className="text-white/50 text-xs uppercase tracking-wider mb-3">Your Natural Strengths</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {numberContent.strengths.slice(0, 3).map((strength, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1.5 bg-[#D8B86A]/10 border border-[#D8B86A]/20 rounded-lg text-white/80 text-sm"
+                        >
+                          {strength}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
