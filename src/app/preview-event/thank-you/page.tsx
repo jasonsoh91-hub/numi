@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion, useReducedMotion } from "framer-motion";
-import { Check, Mail, Calendar, ArrowRight, Home, Sparkles } from "lucide-react";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
+import { Check, Mail, Calendar, ArrowRight, Home } from "lucide-react";
 
 export default function ThankYouPage() {
   const router = useRouter();
@@ -25,184 +25,216 @@ export default function ThankYouPage() {
   };
 
   const staggerContainer = {
-    hidden: {},
+    hidden: { opacity: 0 },
     visible: {
+      opacity: 1,
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.12
-      }
-    }
+        staggerChildren: prefersReducedMotion ? 0 : 0.15,
+        delayChildren: prefersReducedMotion ? 0 : 0.2,
+      },
+    },
   };
 
-  const transitionDuration = prefersReducedMotion ? 0 : 0.6;
-
-  const nextSteps = [
-    { icon: Mail, title: "Check Your Email", desc: "We'll send event details and access link soon" },
-    { icon: Calendar, title: "Save the Date", desc: "We'll announce the exact date via email" },
-    { icon: Sparkles, title: "Prepare for Discovery", desc: "Get ready to uncover your Pattern Code" },
-  ];
-
   return (
-    <div className="min-h-screen text-gray-900 relative bg-white">
-      {/* Background Effects */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100" />
+    <div className="min-h-screen text-white relative overflow-hidden">
+      {/* === CINEMATIC BACKGROUND === */}
+      <div className="fixed inset-0 bg-[#0A0E27]">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A0E27] via-[#0F0F23] to-[#0a0d1a]" />
 
         {mounted && !prefersReducedMotion && (
           <>
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#D8B86A]/5 rounded-full blur-[120px]" />
-            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-amber-100/50 rounded-full blur-[100px]" />
+            {/* Gold ambient glow - top */}
+            <div
+              className="absolute w-[800px] h-[800px] rounded-full opacity-20 animate-ambient-drift-slow"
+              style={{
+                top: "-200px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                background: "radial-gradient(circle, rgba(216, 184, 106, 0.15) 0%, rgba(216, 184, 106, 0.05) 40%, transparent 70%)",
+                filter: "blur(100px)",
+              }}
+            />
+            {/* Deep blue glow - bottom */}
+            <div
+              className="absolute w-[900px] h-[900px] rounded-full opacity-15 animate-ambient-drift"
+              style={{
+                bottom: "-250px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                background: "radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(139, 92, 246, 0.06) 50%, transparent 70%)",
+                filter: "blur(120px)",
+              }}
+            />
+
+            {/* Floating particles */}
+            {Array.from({ length: 25 }).map((_, i) => {
+              const x = Math.random() * 100;
+              const y = Math.random() * 100;
+              const duration = 8 + Math.random() * 10;
+              const delay = Math.random() * 5;
+              return (
+                <motion.div
+                  key={`particle-${i}`}
+                  className="absolute rounded-full bg-amber-400/20 pointer-events-none"
+                  style={{
+                    width: `${2 + Math.random() * 3}px`,
+                    height: `${2 + Math.random() * 3}px`,
+                    filter: "blur(0.5px)",
+                  }}
+                  initial={{ x: `${x}%`, y: `${y}%`, opacity: 0 }}
+                  animate={{ x: `${x}%`, y: `${y}%`, opacity: [0.2, 0.5, 0.2] }}
+                  transition={{
+                    duration,
+                    delay,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+              );
+            })}
           </>
         )}
+
+        {/* Vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(5, 10, 20, 0.4) 100%)",
+          }}
+        />
       </div>
 
-      {/* Navigation */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100"
-      >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <motion.span
-            className="text-2xl font-bold bg-gradient-to-r from-[#D8B86A] to-[#B8943A] bg-clip-text text-transparent"
-          >
-            NUMI
-          </motion.span>
-          <motion.button
-            onClick={() => router.push("/")}
-            className="px-5 py-2 bg-gray-100 hover:bg-gray-200 rounded-full font-medium text-sm text-gray-700 transition-colors flex items-center gap-2"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Home className="w-4 h-4" />
-            <span>Home</span>
-          </motion.button>
-        </div>
-      </motion.nav>
-
-      {/* Main Content */}
+      {/* Content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-6 py-24">
-        <div className="max-w-3xl mx-auto w-full">
+        <div className="max-w-2xl mx-auto text-center">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
-            className="text-center space-y-8"
+            className="space-y-8"
           >
             {/* Success Icon */}
-            <motion.div variants={fadeInUp} className="relative inline-block">
+            <motion.div
+              variants={fadeInUp}
+              className="relative inline-flex"
+            >
               <motion.div
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ duration: 0.6, type: "spring", bounce: 0.5 }}
                 className="relative"
               >
-                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-[#D8B86A] to-[#E5C47A] flex items-center justify-center shadow-lg shadow-[#D8B86A]/30">
-                  <Check className="w-12 h-12 md:w-16 md:h-16 text-white" strokeWidth={3} />
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-[#D8B86A] to-[#F4D47A] flex items-center justify-center">
+                  <Check className="w-12 h-12 md:w-16 md:h-16 text-[#0A0E27]" strokeWidth={3} />
                 </div>
                 <motion.div
+                  className="absolute inset-0 rounded-full bg-[#D8B86A]/30"
                   animate={{ scale: [1, 1.3, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  className="absolute inset-0 rounded-full bg-[#D8B86A]/20"
                 />
               </motion.div>
             </motion.div>
 
             {/* Main Message */}
             <motion.div variants={fadeInUp}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
-                {registrationData?.firstName ? `You're In, ${registrationData.firstName}!` : "You're In!"}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                You&apos;re In,
+                <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]">
+                  {registrationData?.firstName || "Spot"} Reserved
+                </span>
               </h1>
-              <p className="text-xl md:text-2xl text-gray-500 mb-4">
-                Your Spot is Reserved
-              </p>
-              <p className="text-gray-400 max-w-xl mx-auto">
-                Thank you for registering for the NUMI Pattern Code masterclass. Get ready to discover the hidden patterns shaping your life.
+              <p className="text-lg md:text-xl text-white/60 max-w-xl mx-auto leading-relaxed">
+                Your spot for the NUMI Pattern Code masterclass is secured. We&apos;ll email you the access link soon.
               </p>
             </motion.div>
 
-            {/* Next Steps */}
-            <motion.div variants={fadeInUp} className="grid md:grid-cols-3 gap-6 mt-12">
-              {nextSteps.map((step, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: prefersReducedMotion ? 0 : 0.4 + i * 0.1 }}
-                  className="p-6 rounded-2xl bg-white border border-gray-100 text-left hover:border-[#D8B86A]/30 hover:shadow-lg transition-all"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-[#D8B86A]/10 flex items-center justify-center mb-4">
-                    <step.icon className="w-6 h-6 text-[#D8B86A]" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{step.title}</h3>
-                  <p className="text-sm text-gray-500">{step.desc}</p>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* Checklist */}
+            {/* Event Cards */}
             <motion.div
               variants={fadeInUp}
-              className="p-8 rounded-3xl bg-gradient-to-br from-gray-50 to-white border border-gray-100 text-left max-w-lg mx-auto"
+              className="grid md:grid-cols-2 gap-4 md:gap-6 mt-12"
             >
-              <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">What Happens Next</h3>
-              <ul className="space-y-4">
+              {/* Email Confirmation */}
+              <div className="bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:border-[#D8B86A]/20 transition-colors duration-200">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-[#D8B86A]/10 flex items-center justify-center">
+                  <Mail className="w-6 h-6 text-[#D8B86A]" />
+                </div>
+                <h3 className="text-white font-semibold mb-2">Check Your Email</h3>
+                <p className="text-white/50 text-sm">
+                  We&apos;ll send event details and the access link to your email soon.
+                </p>
+              </div>
+
+              {/* Calendar Info */}
+              <div className="bg-white/[0.05] border border-white/10 rounded-2xl p-6 hover:border-[#D8B86A]/20 transition-colors duration-200">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-[#D8B86A]/10 flex items-center justify-center">
+                  <Calendar className="w-6 h-6 text-[#D8B86A]" />
+                </div>
+                <h3 className="text-white font-semibold mb-2">Save the Date</h3>
+                <p className="text-white/50 text-sm">
+                  We&apos;ll announce the exact date soon. Stay tuned for updates.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* What's Next */}
+            <motion.div
+              variants={fadeInUp}
+              className="bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-white/10 rounded-2xl p-6 md:p-8 mt-8 text-left"
+            >
+              <h3 className="text-xl md:text-2xl font-semibold text-white mb-6 text-center">What&apos;s Next?</h3>
+              <ul className="space-y-4 max-w-md mx-auto">
                 {[
-                  "Check your email for confirmation",
-                  "Add the event to your calendar",
-                  "Receive the access link before the event",
-                  "Join us live for your Pattern reveal",
-                  "Participate in live Q&A"
+                  "Check your email for a confirmation message",
+                  "Look out for event details and access link",
+                  "Join us live for your NUMI Pattern reveal",
+                  "Bring your questions for the live Q&A",
                 ].map((item, i) => (
                   <motion.li
                     key={i}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: prefersReducedMotion ? 0 : 0.6 + i * 0.08 }}
-                    className="flex items-start gap-3"
+                    transition={{ delay: prefersReducedMotion ? 0 : 0.8 + i * 0.1 }}
+                    className="flex items-start gap-3 text-white/70"
                   >
                     <Check className="w-5 h-5 text-[#D8B86A] mt-0.5 flex-shrink-0" strokeWidth={3} />
-                    <span className="text-gray-600">{item}</span>
+                    <span>{item}</span>
                   </motion.li>
                 ))}
               </ul>
             </motion.div>
 
             {/* CTA Buttons */}
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
+            >
               <motion.button
                 onClick={() => router.push("/lead-magnet")}
-                className="group px-8 py-4 bg-gradient-to-r from-[#D8B86A] via-[#E5C47A] to-[#D8B86A] hover:shadow-lg hover:shadow-[#D8B86A]/25 text-white rounded-xl font-semibold transition-all flex items-center gap-2 relative overflow-hidden"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                className="group relative px-6 py-3 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-semibold rounded-xl transition-all duration-200 flex items-center gap-2 cursor-pointer shadow-lg shadow-[#D8B86A]/20 overflow-hidden"
               >
-                {mounted && !prefersReducedMotion && (
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                    animate={{ x: ["-100%", "200%"] }}
-                    transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                )}
-                <span className="relative z-10 flex items-center gap-2">
-                  <span>Get Your Free Pattern Guide</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </span>
+                <span>Get Your Free Pattern Guide</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
               </motion.button>
 
               <motion.button
                 onClick={() => router.push("/")}
-                className="px-8 py-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition-all flex items-center gap-2"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold rounded-xl transition-all duration-200 flex items-center gap-2 cursor-pointer"
               >
-                <Home className="w-5 h-5" />
+                <Home className="w-4 h-4" />
                 <span>Back to Home</span>
               </motion.button>
             </motion.div>
 
-            {/* Email Note */}
-            <motion.p variants={fadeInUp} className="text-gray-400 text-sm max-w-md mx-auto">
-              Can't find our email? Check your spam folder or contact{' '}
+            {/* Footer Note */}
+            <motion.p
+              variants={fadeInUp}
+              className="text-white/30 text-sm max-w-md mx-auto"
+            >
+              Can&apos;t find our email? Check your spam folder or contact us at{' '}
               <a href="mailto:hello@numi.com" className="text-[#D8B86A] hover:underline">
                 hello@numi.com
               </a>
@@ -212,12 +244,9 @@ export default function ThankYouPage() {
       </div>
 
       {/* Footer */}
-      <footer className="relative z-10 py-12 px-6 border-t border-gray-100">
+      <footer className="relative z-10 py-8 px-6 border-t border-white/5">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-gray-400 text-xs leading-relaxed">
-            NUMI is designed for self-reflection and personal growth. It does not provide medical, financial, legal, or professional advice.
-          </p>
-          <p className="text-gray-300 text-xs mt-6">© 2026 NUMI. All rights reserved.</p>
+          <p className="text-white/20 text-xs">© 2026 NUMI. All rights reserved.</p>
         </div>
       </footer>
     </div>
