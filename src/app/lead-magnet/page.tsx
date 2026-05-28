@@ -276,7 +276,7 @@ export default function LeadMagnetPage() {
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight tracking-tight">
                   Your Parents Gave You A Name.
                   <span className="block mt-4 text-transparent bg-clip-text bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A]">
-                    Life Gave You A Pattern.
+                    Universe Gave You A Number.
                   </span>
                 </h1>
 
