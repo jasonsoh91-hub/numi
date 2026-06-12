@@ -92,7 +92,7 @@ export default function LeadMagnetV2Page() {
     localStorage.setItem("numiLeads", JSON.stringify(existingLeads));
 
     setTimeout(() => {
-      router.push("/lead-magnet-v2/success");
+      router.push("/lead-magnet/success");
     }, 1200);
   };
 
