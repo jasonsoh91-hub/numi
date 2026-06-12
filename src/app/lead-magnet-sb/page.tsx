@@ -128,7 +128,7 @@ function VignetteOverlay() {
 // ============================================================================
 // SECTION 1: HERO (Monroe: Attention)
 // ============================================================================
-function HeroSection({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) {
+function HeroSection({ formRef }: { formRef: React.RefObject<HTMLDivElement | null> }) {
   const sectionRef = useRef<HTMLElement>(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 })
   const prefersReducedMotion = useReducedMotion()
@@ -978,7 +978,7 @@ function TestimonialsSection() {
 // ============================================================================
 // SECTION 7: FORM (Monroe: Action)
 // ============================================================================
-function FormSection({ forwardedRef }: { forwardedRef: React.RefObject<HTMLDivElement> }) {
+function FormSection({ forwardedRef }: { forwardedRef: React.RefObject<HTMLDivElement | null> }) {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
   const router = useRouter()
@@ -1353,7 +1353,7 @@ function FormSection({ forwardedRef }: { forwardedRef: React.RefObject<HTMLDivEl
 // ============================================================================
 // SECTION 8: FINAL CTA (Monroe: Action — reinforcement)
 // ============================================================================
-function FinalCTASection({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) {
+function FinalCTASection({ formRef }: { formRef: React.RefObject<HTMLDivElement | null> }) {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.3 })
 

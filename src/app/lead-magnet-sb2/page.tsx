@@ -128,7 +128,7 @@ function VignetteOverlay() {
 // ============================================================================
 // SECTION 1: HERO - V2 (Stronger relatable pain hook)
 // ============================================================================
-function HeroSection({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) {
+function HeroSection({ formRef }: { formRef: React.RefObject<HTMLDivElement | null> }) {
   const sectionRef = useRef<HTMLElement>(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 })
   const prefersReducedMotion = useReducedMotion()
@@ -567,7 +567,7 @@ function SolutionSection() {
             Your Core Number comes from your birthdate. The day, month, and year add up and reduce down to a single digit (or master number). That number corresponds to a specific pattern—a way of processing decisions, handling energy, navigating relationships, and approaching work.
           </p>
           <p className="text-xl md:text-2xl text-white font-light mb-8">
-            Think of it as your出厂设置. Factory settings, finally explained.
+            Think of it as your factory settings. Finally explained.
           </p>
           <p className="text-lg italic" style={{ color: "rgba(255,255,255,0.55)" }}>
             Not who you should be. Who you already are.
@@ -979,7 +979,7 @@ function TestimonialsSection() {
 // ============================================================================
 // SECTION 7: FORM - V2
 // ============================================================================
-function FormSection({ forwardedRef }: { forwardedRef: React.RefObject<HTMLDivElement> }) {
+function FormSection({ forwardedRef }: { forwardedRef: React.RefObject<HTMLDivElement | null> }) {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
   const router = useRouter()
@@ -1354,7 +1354,7 @@ function FormSection({ forwardedRef }: { forwardedRef: React.RefObject<HTMLDivEl
 // ============================================================================
 // SECTION 8: FINAL CTA - V2
 // ============================================================================
-function FinalCTASection({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) {
+function FinalCTASection({ formRef }: { formRef: React.RefObject<HTMLDivElement | null> }) {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.3 })
 

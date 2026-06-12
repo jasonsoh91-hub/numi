@@ -129,7 +129,7 @@ function VignetteOverlay() {
 // ============================================================================
 // SECTION 1: HERO
 // ============================================================================
-function HeroSection({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) {
+function HeroSection({ formRef }: { formRef: React.RefObject<HTMLDivElement | null> }) {
   const sectionRef = useRef<HTMLElement>(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 })
   const prefersReducedMotion = useReducedMotion()
@@ -766,7 +766,7 @@ function TestimonialsSectionCustom() {
 // ============================================================================
 // SECTION 6: OPT-IN FORM
 // ============================================================================
-function OptInFormSection({ forwardedRef }: { forwardedRef: React.RefObject<HTMLDivElement> }) {
+function OptInFormSection({ forwardedRef }: { forwardedRef: React.RefObject<HTMLDivElement | null> }) {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
   const router = useRouter()
@@ -1078,7 +1078,7 @@ function OptInFormSection({ forwardedRef }: { forwardedRef: React.RefObject<HTML
 // ============================================================================
 // SECTION 7: FINAL CTA
 // ============================================================================
-function FinalCTASection({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) {
+function FinalCTASection({ formRef }: { formRef: React.RefObject<HTMLDivElement | null> }) {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.3 })
 
