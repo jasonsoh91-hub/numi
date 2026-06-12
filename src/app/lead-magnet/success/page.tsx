@@ -21,18 +21,36 @@ export default function LeadMagnetSuccessPage() {
 
   useEffect(() => {
     setMounted(true);
-    const data = localStorage.getItem("numiLeadMagnet");
+
+    // Try multiple localStorage keys for compatibility
+    const keys = ["numiLeadMagnet", "numiLeadMagnetMV", "numiLeadMagnetMV2"];
+    let data = null;
+    let foundKey = "";
+
+    for (const key of keys) {
+      const stored = localStorage.getItem(key);
+      if (stored) {
+        data = stored;
+        foundKey = key;
+        break;
+      }
+    }
+
     if (data) {
       try {
         const parsed = JSON.parse(data);
         setEmail(parsed.email || "");
-        setFirstName(parsed.firstName || "");
-        setBirthdate(parsed.birthDate || "");
+        // Handle both 'firstName' and 'name' field names
+        setFirstName(parsed.firstName || parsed.name || "");
+        // Handle both 'birthDate' and 'birthdate' field names
+        const birthDate = parsed.birthDate || parsed.birthdate || "";
+        setBirthdate(birthDate);
 
-        console.log("Birthdate from localStorage:", parsed.birthDate);
+        console.log("Data retrieved from localStorage key:", foundKey);
+        console.log("Birthdate from localStorage:", birthDate);
 
         // Calculate Core Number and detailed breakdown
-        const calculated = calculateCoreNumber(parsed.birthDate || "");
+        const calculated = calculateCoreNumber(birthDate);
         console.log("Core Number calculated:", calculated);
         setCoreNumber(calculated);
         if (calculated) {
@@ -42,7 +60,7 @@ export default function LeadMagnetSuccessPage() {
         }
 
         // Calculate detailed breakdown
-        const detailed = calculateNumerologyBreakdown(parsed.birthDate || "");
+        const detailed = calculateNumerologyBreakdown(birthDate);
         console.log("Detailed breakdown:", detailed);
         setBreakdown(detailed);
       } catch (error) {
