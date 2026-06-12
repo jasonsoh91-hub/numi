@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { CheckCircle, Download, Sparkles, Lock, Check } from "lucide-react";
+import { CheckCircle, Download, Sparkles, Lock } from "lucide-react";
 import { useReducedMotion } from "framer-motion";
 import { calculateCoreNumber, calculateNumerologyBreakdown, NumerologyBreakdown } from "@/lib/calculateCoreNumber";
 import { getNumberContent, NumberContent } from "@/lib/numerology-content";
@@ -50,7 +50,7 @@ export default function LeadMagnetSuccessPage() {
       }
     } else {
       console.log("No lead magnet data found, redirecting");
-      router.push("/lead-magnet");
+      router.push("/lead-magnet-sb2");
     }
   }, [router]);
 
@@ -113,10 +113,10 @@ export default function LeadMagnetSuccessPage() {
             className="text-center mb-12"
           >
             <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-              {firstName ? `You're in, ${firstName}.` : "You're in."}
+              {firstName ? `Here's your Core Number, ${firstName}.` : "Here's your Core Number."}
             </h1>
             <p className="text-xl text-white/50">
-              Your Pattern Code Guide is ready.
+              Your free report is below.
             </p>
           </motion.div>
 
@@ -129,7 +129,7 @@ export default function LeadMagnetSuccessPage() {
             className="bg-white/[0.03] border border-[#D8B86A]/20 rounded-2xl p-6 mb-10 text-center backdrop-blur-sm"
           >
             <p className="text-white/70 mb-2">
-              We've sent a copy to:
+              We've also sent a copy to:
             </p>
             <p className="text-[#D8B86A] font-semibold text-lg">
               {email || "your email"}
@@ -149,7 +149,7 @@ export default function LeadMagnetSuccessPage() {
           >
             <button
               onClick={handleDownload}
-              className="group px-10 py-5 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] hover:brightness-110 text-[#0A0E27] font-bold text-xl rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#D8B86A]/20 flex items-center gap-3 mx-auto cursor-pointer"
+              className="group px-10 py-5 bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] text-[#0A0E27] font-bold text-xl rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#D8B86A]/20 flex items-center gap-3 mx-auto cursor-pointer"
             >
               <Download className="w-6 h-6" />
               <span>Download My Free Guide</span>
@@ -178,7 +178,7 @@ export default function LeadMagnetSuccessPage() {
               <div className="relative bg-gradient-to-br from-white/[0.06] to-white/[0.02] border border-white/10 rounded-3xl overflow-hidden">
                 {/* Life Path Number Display - Main */}
                 <div className="bg-gradient-to-r from-[#D8B86A]/20 via-[#F4D47A]/10 to-[#D8B86A]/20 p-8 text-center border-b border-white/10">
-                  <p className="text-white/50 text-xs uppercase tracking-wider mb-3">Your Life Path Number</p>
+                  <p className="text-white/50 text-xs uppercase tracking-wider mb-3">Your Core Number</p>
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -293,7 +293,7 @@ export default function LeadMagnetSuccessPage() {
 
                   {/* Final Result: Life Path */}
                   <div className="bg-gradient-to-r from-[#D8B86A]/10 to-[#D8B86A]/5 border border-[#D8B86A]/20 rounded-xl p-5 text-center">
-                    <div className="text-[#D8B86A] text-xs font-semibold mb-2">Life Path Number</div>
+                    <div className="text-[#D8B86A] text-xs font-semibold mb-2">Core Number</div>
                     <div className="text-white/60 text-sm mb-2">
                       {breakdown.connecting1} + {breakdown.connecting2} = {breakdown.connecting1 + breakdown.connecting2}
                       {breakdown.connecting1 + breakdown.connecting2 > 9 && (
@@ -359,7 +359,7 @@ export default function LeadMagnetSuccessPage() {
               <div className="text-center mb-6">
                 <div className="inline-flex items-center gap-2 bg-[#D8B86A]/10 border border-[#D8B86A]/20 text-[#D8B86A] px-4 py-2 rounded-full text-sm font-semibold">
                   <Sparkles className="w-4 h-4" />
-                  <span>Your Pattern Number</span>
+                  <span>Your Core Number</span>
                 </div>
               </div>
 
@@ -414,4 +414,3 @@ export default function LeadMagnetSuccessPage() {
     </div>
   );
 }
-
