@@ -311,7 +311,7 @@ function HeroSection({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) 
             background: "linear-gradient(135deg, #D8B86A, #C4A055)",
             color: "#0A0E27",
           }}
-          whileHover={{ scale: 1.03, brightness: 1.08 }}
+          whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
         >
           <span className="relative z-10 flex items-center gap-2">
@@ -1300,7 +1300,7 @@ function FormSection({ forwardedRef }: { forwardedRef: React.RefObject<HTMLDivEl
                 color: "#0A0E27",
                 opacity: isSubmitting ? 0.7 : 1,
               }}
-              whileHover={isSubmitting ? {} : { scale: 1.02, brightness: 1.08 }}
+              whileHover={isSubmitting ? {} : { scale: 1.02 }}
               whileTap={isSubmitting ? {} : { scale: 0.98 }}
             >
               {isSubmitting ? (
@@ -1477,7 +1477,7 @@ function FinalCTASection({ formRef }: { formRef: React.RefObject<HTMLDivElement>
             background: "linear-gradient(135deg, #D8B86A, #C4A055)",
             color: "#0A0E27",
           }}
-          whileHover={{ scale: 1.03, brightness: 1.08 }}
+          whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
         >
           <Download size={18} />
