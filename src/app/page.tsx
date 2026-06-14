@@ -420,7 +420,7 @@ export default function Home() {
 
       <footer className="border-t border-white/10 px-5 py-10 sm:px-8">
         <div className="mx-auto flex max-w-7xl flex-col justify-between gap-5 text-sm text-white/42 sm:flex-row sm:items-center">
-          <p className="font-serif text-2xl font-bold text-gold">NUMI</p>
+          <p className="font-serif text-2xl font-bold text-gold">NUMI™</p>
           <p>Prototype inspired by premium transformation-platform patterns. Built for learning and testing.</p>
           <div className="flex gap-5">
             <a href="#" className="hover:text-white">Privacy</a>

@@ -23,7 +23,7 @@ export function Footer() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo & tagline */}
           <div className="sm:col-span-2">
-            <h3 className="font-heading text-2xl font-semibold text-gold mb-2">NUMI</h3>
+            <h3 className="font-heading text-2xl font-semibold text-gold mb-2">NUMI™</h3>
             <p className="text-text-secondary">
               Understand your patterns. Align your next move.
             </p>
@@ -71,10 +71,10 @@ export function Footer() {
         {/* Disclaimer */}
         <div className="mt-12 pt-8 border-t border-gold-glow/10">
           <p className="text-text-muted text-sm text-center">
-            NUMI is designed for self-reflection and personal growth. It does not provide medical, financial, or professional advice.
+            NUMI™ is designed for self-reflection and personal growth. It does not provide medical, financial, or professional advice.
           </p>
           <p className="text-text-muted text-xs text-center mt-4">
-            © {new Date().getFullYear()} NUMI. All rights reserved.
+            © {new Date().getFullYear()} NUMI™. All rights reserved.
           </p>
         </div>
       </div>

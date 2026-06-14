@@ -147,7 +147,7 @@ export default function SuccessPage() {
       {/* Footer */}
       <footer className="px-4 py-6 bg-stone-950 border-t border-stone-800">
         <div className="max-w-6xl mx-auto text-center text-stone-300 text-sm">
-          <p>© 2026 NUMI. All rights reserved.</p>
+          <p>© 2026 NUMI™. All rights reserved.</p>
         </div>
       </footer>
     </div>

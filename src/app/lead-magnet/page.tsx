@@ -743,7 +743,7 @@ export default function LeadMagnetPage() {
             <p className="text-white/30 text-xs leading-relaxed">
               NUMI is designed for self-reflection and personal growth. It does not provide medical, financial, legal, or professional advice.
             </p>
-            <p className="text-white/20 text-xs mt-6">© 2026 NUMI. All rights reserved.</p>
+            <p className="text-white/20 text-xs mt-6">© 2026 NUMI™. All rights reserved.</p>
           </div>
         </footer>
 

@@ -372,7 +372,7 @@ export default function OfferPage() {
       {/* Footer */}
       <footer className="px-4 py-6 bg-stone-950 border-t border-stone-800">
         <div className="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-4 text-stone-300 text-sm">
-          <p>© 2026 NUMI. All rights reserved.</p>
+          <p>© 2026 NUMI™. All rights reserved.</p>
           <div className="flex gap-4">
             <a href="#" className="hover:text-amber-400 transition text-white">Privacy Policy</a>
             <a href="#" className="hover:text-amber-400 transition text-white">Terms</a>

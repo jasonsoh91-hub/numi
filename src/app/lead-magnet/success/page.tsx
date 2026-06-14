@@ -426,7 +426,7 @@ export default function LeadMagnetSuccessPage() {
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-white/5">
         <div className="max-w-6xl mx-auto text-center text-white/30 text-sm">
-          <p>© 2026 NUMI. All rights reserved.</p>
+          <p>© 2026 NUMI™. All rights reserved.</p>
         </div>
       </footer>
     </div>
