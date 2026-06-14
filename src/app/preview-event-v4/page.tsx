@@ -515,7 +515,7 @@ export default function PreviewEventV4Page() {
 
       {/* Speaker Section */}
       <section className="bg-white px-4 py-8 md:px-6 md:py-12 border-t border-gray-200">
-        <div className="mx-auto max-w-[720px]">
+        <div className="mx-auto max-w-[980px]">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -532,7 +532,8 @@ export default function PreviewEventV4Page() {
             </p>
           </motion.div>
 
-          <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+          {/* Horizontal Slider */}
+          <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
             {/* Vernon Loh */}
             <motion.div
               initial="hidden"
@@ -540,26 +541,24 @@ export default function PreviewEventV4Page() {
               viewport={{ once: true, amount: 0.25 }}
               variants={fadeUp}
               transition={{ duration: 0.4 }}
-              className="flex gap-4 items-start"
+              className="flex-shrink-0 w-72 md:w-80 snap-start"
             >
-              <div className="shrink-0">
-                <div className="h-20 w-20 overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
+              <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                <div className="mb-4 overflow-hidden rounded-xl bg-gray-100">
                   <img
-                    src="https://numi.manyproject.my/wp-content/uploads/2026/06/NUMI-people-6.png"
+                    src="/speaker-vernon.png"
                     alt="Vernon Loh"
-                    className="h-full w-full object-cover"
+                    className="h-48 w-full object-cover"
                   />
                 </div>
-              </div>
-              <div className="flex-1">
-                <h3 className="mb-0.5 text-base font-bold text-gray-900 md:text-lg">
+                <h3 className="mb-1 text-lg font-bold text-gray-900">
                   Vernon Loh
                 </h3>
-                <p className="text-xs font-medium text-[#D8B86A] md:text-sm mb-2">
+                <p className="mb-3 text-sm font-medium text-[#D8B86A]">
                   Founder & CEO
                 </p>
-                <p className="text-xs leading-relaxed text-gray-600 md:text-sm">
-                  Responsible for leading the NUMI company's overall vision, strategy, operations, growth, and decision-making.
+                <p className="text-xs leading-relaxed text-gray-600">
+                  Leading NUMI's vision, strategy, and operations to bring pattern-based insights to people worldwide.
                 </p>
               </div>
             </motion.div>
@@ -571,26 +570,24 @@ export default function PreviewEventV4Page() {
               viewport={{ once: true, amount: 0.25 }}
               variants={fadeUp}
               transition={{ duration: 0.4, delay: 0.05 }}
-              className="flex gap-4 items-start"
+              className="flex-shrink-0 w-72 md:w-80 snap-start"
             >
-              <div className="shrink-0">
-                <div className="h-20 w-20 overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
+              <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                <div className="mb-4 overflow-hidden rounded-xl bg-gray-100">
                   <img
-                    src="https://numi.manyproject.my/wp-content/uploads/2026/06/NUMI-people-7.png"
+                    src="/speaker-renzi.png"
                     alt="Master RenZi"
-                    className="h-full w-full object-cover"
+                    className="h-48 w-full object-cover"
                   />
                 </div>
-              </div>
-              <div className="flex-1">
-                <h3 className="mb-0.5 text-base font-bold text-gray-900 md:text-lg">
+                <h3 className="mb-1 text-lg font-bold text-gray-900">
                   Master RenZi
                 </h3>
-                <p className="text-xs font-medium text-[#D8B86A] md:text-sm mb-2">
+                <p className="mb-3 text-sm font-medium text-[#D8B86A]">
                   Co-Founder & Chief Education Officer
                 </p>
-                <p className="text-xs leading-relaxed text-gray-600 md:text-sm">
-                  Responsible for leading the NUMI company's educational vision, learning ecosystem, curriculum strategy, and knowledge delivery while also contributing to the company's overall growth as a co-founder.
+                <p className="text-xs leading-relaxed text-gray-600">
+                  20+ years decoding life patterns. Leading NUMI's educational vision and curriculum strategy.
                 </p>
               </div>
             </motion.div>
@@ -602,26 +599,24 @@ export default function PreviewEventV4Page() {
               viewport={{ once: true, amount: 0.25 }}
               variants={fadeUp}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className="flex gap-4 items-start"
+              className="flex-shrink-0 w-72 md:w-80 snap-start"
             >
-              <div className="shrink-0">
-                <div className="h-20 w-20 overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
+              <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                <div className="mb-4 overflow-hidden rounded-xl bg-gray-100">
                   <img
-                    src="https://numi.manyproject.my/wp-content/uploads/2026/06/NUMI-people-4.webp"
+                    src="/speaker-ziyi.png"
                     alt="Tan Zi Yi"
-                    className="h-full w-full object-cover"
+                    className="h-48 w-full object-cover"
                   />
                 </div>
-              </div>
-              <div className="flex-1">
-                <h3 className="mb-0.5 text-base font-bold text-gray-900 md:text-lg">
+                <h3 className="mb-1 text-lg font-bold text-gray-900">
                   Tan Zi Yi
                 </h3>
-                <p className="text-xs font-medium text-[#D8B86A] md:text-sm mb-2">
+                <p className="mb-3 text-sm font-medium text-[#D8B86A]">
                   Education Training Officer
                 </p>
-                <p className="text-xs leading-relaxed text-gray-600 md:text-sm">
-                  Responsible for planning, organizing, and delivering training or educational programs for NUMI's staff, students, customers, or members within an organization.
+                <p className="text-xs leading-relaxed text-gray-600">
+                  Planning and delivering training programs that help people understand and apply their personal patterns.
                 </p>
               </div>
             </motion.div>
@@ -633,26 +628,24 @@ export default function PreviewEventV4Page() {
               viewport={{ once: true, amount: 0.25 }}
               variants={fadeUp}
               transition={{ duration: 0.4, delay: 0.15 }}
-              className="flex gap-4 items-start"
+              className="flex-shrink-0 w-72 md:w-80 snap-start"
             >
-              <div className="shrink-0">
-                <div className="h-20 w-20 overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
+              <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                <div className="mb-4 overflow-hidden rounded-xl bg-gray-100">
                   <img
-                    src="https://numi.manyproject.my/wp-content/uploads/2026/06/NUMI-people-5.webp"
+                    src="/speaker-keith.png"
                     alt="Dr. Keith"
-                    className="h-full w-full object-cover"
+                    className="h-48 w-full object-cover"
                   />
                 </div>
-              </div>
-              <div className="flex-1">
-                <h3 className="mb-0.5 text-base font-bold text-gray-900 md:text-lg">
+                <h3 className="mb-1 text-lg font-bold text-gray-900">
                   Dr. Keith
                 </h3>
-                <p className="text-xs font-medium text-[#D8B86A] md:text-sm mb-2">
+                <p className="mb-3 text-sm font-medium text-[#D8B86A]">
                   Senior Education Leadership
                 </p>
-                <p className="text-xs leading-relaxed text-gray-600 md:text-sm">
-                  Responsible for managing the overall NUMI education strategy, training systems, curriculum quality, and learning operations within an organization.
+                <p className="text-xs leading-relaxed text-gray-600">
+                  Managing education strategy, training systems, and learning operations to deliver quality insights.
                 </p>
               </div>
             </motion.div>

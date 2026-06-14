@@ -30,6 +30,15 @@
 }
 
 @layer utilities {
+  /* Hide scrollbar utilities */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Ambient drift animations for NUMI pages */
   @keyframes ambient-drift {
     0%, 100% {
