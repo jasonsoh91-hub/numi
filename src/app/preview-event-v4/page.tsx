@@ -532,8 +532,8 @@ export default function PreviewEventV4Page() {
             </p>
           </motion.div>
 
-          {/* Horizontal Slider */}
-          <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+          {/* 2x2 Grid */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:gap-8">
             {/* Vernon Loh */}
             <motion.div
               initial="hidden"
@@ -541,14 +541,13 @@ export default function PreviewEventV4Page() {
               viewport={{ once: true, amount: 0.25 }}
               variants={fadeUp}
               transition={{ duration: 0.4 }}
-              className="flex-shrink-0 w-72 md:w-80 snap-start"
             >
               <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <div className="mb-4 overflow-hidden rounded-xl bg-gray-100">
+                <div className="mb-4 aspect-[3/4] overflow-hidden rounded-xl bg-gray-100">
                   <img
                     src="/speaker-vernon.png"
                     alt="Vernon Loh"
-                    className="h-48 w-full object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
                 <h3 className="mb-1 text-lg font-bold text-gray-900">
@@ -570,14 +569,13 @@ export default function PreviewEventV4Page() {
               viewport={{ once: true, amount: 0.25 }}
               variants={fadeUp}
               transition={{ duration: 0.4, delay: 0.05 }}
-              className="flex-shrink-0 w-72 md:w-80 snap-start"
             >
               <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <div className="mb-4 overflow-hidden rounded-xl bg-gray-100">
+                <div className="mb-4 aspect-[3/4] overflow-hidden rounded-xl bg-gray-100">
                   <img
                     src="/speaker-renzi.png"
                     alt="Master RenZi"
-                    className="h-48 w-full object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
                 <h3 className="mb-1 text-lg font-bold text-gray-900">
@@ -599,14 +597,13 @@ export default function PreviewEventV4Page() {
               viewport={{ once: true, amount: 0.25 }}
               variants={fadeUp}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className="flex-shrink-0 w-72 md:w-80 snap-start"
             >
               <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <div className="mb-4 overflow-hidden rounded-xl bg-gray-100">
+                <div className="mb-4 aspect-[3/4] overflow-hidden rounded-xl bg-gray-100">
                   <img
                     src="/speaker-ziyi.png"
                     alt="Tan Zi Yi"
-                    className="h-48 w-full object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
                 <h3 className="mb-1 text-lg font-bold text-gray-900">
@@ -628,14 +625,13 @@ export default function PreviewEventV4Page() {
               viewport={{ once: true, amount: 0.25 }}
               variants={fadeUp}
               transition={{ duration: 0.4, delay: 0.15 }}
-              className="flex-shrink-0 w-72 md:w-80 snap-start"
             >
               <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <div className="mb-4 overflow-hidden rounded-xl bg-gray-100">
+                <div className="mb-4 aspect-[3/4] overflow-hidden rounded-xl bg-gray-100">
                   <img
                     src="/speaker-keith.png"
                     alt="Dr. Keith"
-                    className="h-48 w-full object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
                 <h3 className="mb-1 text-lg font-bold text-gray-900">
