@@ -87,7 +87,7 @@ const testimonials = [
 // Credibility bar items
 const credibility = [
   { icon: Clock, label: "20+ years decoding the link between numbers and human behavior" },
-  { icon: Award, label: "Malaysia Book of Records holder (Business Edition)" },
+  { icon: Award, label: "20+ years of experience decoding life patterns" },
   { icon: Users, label: "Read birth-date patterns for [X,000]+ people across [X] countries" },
   { icon: Newspaper, label: "Featured in national media for his work on the meaning of numbers" },
 ];
@@ -318,7 +318,7 @@ export default function PreviewEventV3Page() {
             transition={{ duration: 0.45, delay: 0.12 }}
             className="mx-auto mb-5 max-w-[720px] text-center text-sm leading-relaxed text-gray-600 md:mb-6 md:text-base"
           >
-            In this 60-minute live masterclass, Master RenZi (Dato' Sri Dr Patrick Tan) shows you how the
+            In this 60-minute live masterclass, Master RenZi (Dr Patrick Tan) shows you how the
             numbers in your own birth date map the pattern behind your repeating struggles — so instead of
             guessing your way through this transition, you walk away with a clear read on the cycle you're in
             and the decisions that will actually move you forward.
@@ -334,7 +334,7 @@ export default function PreviewEventV3Page() {
             >
               <MediaCard />
               <p className="mt-4 text-center text-sm font-semibold text-gray-900 md:text-base">
-                With Master RenZi (Dato' Sri Dr Patrick Tan) · Malaysia Book of Records holder
+                With Master RenZi (Dr Patrick Tan) · 20+ years decoding life patterns
               </p>
             </motion.div>
 
@@ -504,7 +504,7 @@ export default function PreviewEventV3Page() {
             className="mb-6 text-center md:mb-8"
           >
             <h2 className="mb-2 text-xl font-bold text-gray-900 md:mb-3 md:text-2xl">
-              Your Guide: Master RenZi (Dato' Sri Dr Patrick Tan)
+              Your Guide: Master RenZi (Dr Patrick Tan)
             </h2>
             <p className="text-xs leading-relaxed text-gray-600 md:text-sm">
               Two decades reading the patterns in numbers — and a track record of building real businesses on them.
@@ -522,7 +522,7 @@ export default function PreviewEventV3Page() {
             >
               <div>
                 <h3 className="mb-1 text-base font-bold text-gray-900 md:text-lg">
-                  Master RenZi (Dato' Sri Dr Patrick Tan)
+                  Master RenZi (Dr Patrick Tan)
                 </h3>
                 <p className="text-xs font-medium text-[#D8B86A] md:text-sm">
                   Numerologist, entrepreneur & founder of NUMI
@@ -531,10 +531,10 @@ export default function PreviewEventV3Page() {
 
               <div className="space-y-1.5 text-xs leading-relaxed text-gray-600 md:space-y-2 md:text-sm">
                 <p>
-                  For over 20 years, Master RenZi (Dato' Sri Dr Patrick Tan) has studied one question: how do the numbers we're born with shape the way our lives actually unfold? He's a founder and chairman of a group of companies — and built much of that success applying the very patterns he teaches.
+                  For over 20 years, Master RenZi (Dr Patrick Tan) has studied one question: how do the numbers we're born with shape the way our lives actually unfold? He's a founder and chairman of a group of companies — and built much of that success applying the very patterns he teaches.
                 </p>
                 <p>
-                  His work has earned a place in the Malaysia Book of Records and recognition in national media. ("Dato' Sri" is an honorific title conferred by Malaysian royalty — roughly the equivalent of a knighthood.)
+                  His work has been featured in national media for his contributions to the field of numerology and personal development.
                 </p>
                 <p>
                   But what people remember isn't the titles. It's that he takes something that usually hides behind mysticism and jargon, and makes it plain, practical, and immediately useful — so an ordinary person can walk away knowing exactly what their numbers mean and what to do next.
@@ -553,7 +553,7 @@ export default function PreviewEventV3Page() {
               <div className="aspect-[3/4] overflow-hidden rounded-lg border border-gray-200 bg-gray-100 shadow-sm md:rounded-xl">
                 <img
                   src="/speaker-profile.png"
-                  alt="Master RenZi (Dato' Sri Dr Patrick Tan)"
+                  alt="Master RenZi (Dr Patrick Tan)"
                   className="h-full w-full object-cover object-[75%_center]"
                 />
               </div>
@@ -645,7 +645,7 @@ export default function PreviewEventV3Page() {
             >
               <MediaCard />
               <p className="mt-4 text-center text-sm font-semibold text-gray-900 md:text-base">
-                Master RenZi (Dato' Sri Dr Patrick Tan)
+                Master RenZi (Dr Patrick Tan)
               </p>
             </motion.div>
 

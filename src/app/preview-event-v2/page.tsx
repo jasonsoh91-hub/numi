@@ -86,8 +86,8 @@ const testimonials = [
 
 const stats = [
   { label: "Attendees", value: "12,000+" },
-  { label: "Training hours delivered", value: "94%" },
-  { label: "Coaching success stories", value: "60" },
+  { label: "Countries reached", value: "25+" },
+  { label: "Years of experience", value: "20+" },
 ];
 
 function RegistrationCard() {

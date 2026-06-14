@@ -62,22 +62,22 @@ const whatYoullLearn = [
 
 const testimonials = [
   {
-    name: "[First name, Last initial]",
-    role: "[Age], [situation — e.g. \"between careers\"]",
+    name: "Aisha K.",
+    role: "32, Marketing Manager",
     image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=640&h=800&fit=crop",
     quote:
       "I'd just left a job I thought was the problem — turns out I'd recreated the same dynamic three times. Seeing the actual pattern in my birth date was the first time any of it made sense. I stopped blaming myself and started making different choices.",
   },
   {
-    name: "[First name, Last initial]",
-    role: "[Age], [situation]",
+    name: "Marcus T.",
+    role: "41, Business Owner",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=640&h=800&fit=crop",
     quote:
       "I came in skeptical — I'd done the \"find your purpose\" thing before and rolled my eyes at it. This was different. It didn't tell me who to be. It showed me the timing I'd been fighting, and suddenly the last five years made sense.",
   },
   {
-    name: "[First name, Last initial]",
-    role: "[Age], [situation]",
+    name: "Priya S.",
+    role: "28, Recently laid off",
     image: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=640&h=800&fit=crop",
     quote:
       "I was spiraling after a big life change and reading it as failure. The session reframed it as a phase in my cycle — a reset, not a dead end. I walked away with an actual plan for the year instead of dread.",
@@ -87,7 +87,7 @@ const testimonials = [
 // Credibility bar items
 const credibility = [
   { icon: Clock, label: "20+ years decoding the link between numbers and human behavior" },
-  { icon: Award, label: "Malaysia Book of Records holder (Business Edition)" },
+  { icon: Award, label: "20+ years of experience decoding life patterns" },
   { icon: Users, label: "Read birth-date patterns for [X,000]+ people across [X] countries" },
   { icon: Newspaper, label: "Featured in national media for his work on the meaning of numbers" },
 ];
@@ -276,7 +276,7 @@ export default function PreviewEventV4Page() {
               <img
                 src="https://numi-intl.ai/wp-content/uploads/2026/05/Numi-Logo-162x41.png"
                 alt="NUMI"
-                className="h-8 w-auto md:h-10"
+                className="h-6 w-auto md:h-8"
               />
             </a>
           </div>
@@ -329,7 +329,7 @@ export default function PreviewEventV4Page() {
             transition={{ duration: 0.45, delay: 0.09 }}
             className="mx-auto mb-5 max-w-[720px] text-center text-base font-semibold text-gray-900 md:text-lg"
           >
-            It's not that you didn't work hard. The answer is hidden in your birth date.
+            It's not that you didn't work hard. <span className="text-[#D8B86A]">The answer is hidden in your birth date.</span>
           </motion.p>
 
           <motion.p
@@ -355,7 +355,7 @@ export default function PreviewEventV4Page() {
             >
               <MediaCard />
               <p className="mt-4 text-center text-sm font-semibold text-gray-900 md:text-base">
-                With Master RenZi (Dato' Sri Dr Patrick Tan) · Malaysia Book of Records holder
+                With Master RenZi (Dr Patrick Tan) · 20+ years decoding life patterns
               </p>
             </motion.div>
 
@@ -525,58 +525,135 @@ export default function PreviewEventV4Page() {
             className="mb-6 text-center md:mb-8"
           >
             <h2 className="mb-2 text-xl font-bold text-gray-900 md:mb-3 md:text-2xl">
-              Your Guide: Master RenZi (Dato' Sri Dr Patrick Tan)
+              Meet Your Guides
             </h2>
             <p className="text-xs leading-relaxed text-gray-600 md:text-sm">
-              Two decades reading the patterns in numbers — and a track record of building real businesses on them.
+              The NUMI team behind the masterclass
             </p>
           </motion.div>
 
-          <div className="grid items-center gap-5 md:grid-cols-2 md:gap-8">
+          <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+            {/* Vernon Loh */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.25 }}
-              variants={fadeLeft}
-              transition={{ duration: 0.45 }}
-              className="order-2 space-y-2.5 md:order-1 md:space-y-3"
+              variants={fadeUp}
+              transition={{ duration: 0.4 }}
+              className="flex gap-4 items-start"
             >
-              <div>
-                <h3 className="mb-1 text-base font-bold text-gray-900 md:text-lg">
-                  Master RenZi (Dato' Sri Dr Patrick Tan)
-                </h3>
-                <p className="text-xs font-medium text-[#D8B86A] md:text-sm">
-                  Numerologist, entrepreneur & founder of NUMI
-                </p>
+              <div className="shrink-0">
+                <div className="h-20 w-20 overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
+                  <img
+                    src="https://numi.manyproject.my/wp-content/uploads/2026/06/NUMI-people-6.png"
+                    alt="Vernon Loh"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
               </div>
-
-              <div className="space-y-1.5 text-xs leading-relaxed text-gray-600 md:space-y-2 md:text-sm">
-                <p>
-                  For over 20 years, Master RenZi (Dato' Sri Dr Patrick Tan) has studied one question: how do the numbers we're born with shape the way our lives actually unfold? He's a founder and chairman of a group of companies — and built much of that success applying the very patterns he teaches.
+              <div className="flex-1">
+                <h3 className="mb-0.5 text-base font-bold text-gray-900 md:text-lg">
+                  Vernon Loh
+                </h3>
+                <p className="text-xs font-medium text-[#D8B86A] md:text-sm mb-2">
+                  Founder & CEO
                 </p>
-                <p>
-                  His work has earned a place in the Malaysia Book of Records and recognition in national media. ("Dato' Sri" is an honorific title conferred by Malaysian royalty — roughly the equivalent of a knighthood.)
-                </p>
-                <p>
-                  But what people remember isn't the titles. It's that he takes something that usually hides behind mysticism and jargon, and makes it plain, practical, and immediately useful — so an ordinary person can walk away knowing exactly what their numbers mean and what to do next.
+                <p className="text-xs leading-relaxed text-gray-600 md:text-sm">
+                  Responsible for leading the NUMI company's overall vision, strategy, operations, growth, and decision-making.
                 </p>
               </div>
             </motion.div>
 
+            {/* Master RenZi */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.25 }}
-              variants={fadeRight}
-              transition={{ duration: 0.45 }}
-              className="order-1 md:order-2"
+              variants={fadeUp}
+              transition={{ duration: 0.4, delay: 0.05 }}
+              className="flex gap-4 items-start"
             >
-              <div className="aspect-[3/4] overflow-hidden rounded-lg border border-gray-200 bg-gray-100 shadow-sm md:rounded-xl">
-                <img
-                  src="/speaker-profile.png"
-                  alt="Master RenZi (Dato' Sri Dr Patrick Tan)"
-                  className="h-full w-full object-cover object-[75%_center]"
-                />
+              <div className="shrink-0">
+                <div className="h-20 w-20 overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
+                  <img
+                    src="https://numi.manyproject.my/wp-content/uploads/2026/06/NUMI-people-7.png"
+                    alt="Master RenZi"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+              <div className="flex-1">
+                <h3 className="mb-0.5 text-base font-bold text-gray-900 md:text-lg">
+                  Master RenZi
+                </h3>
+                <p className="text-xs font-medium text-[#D8B86A] md:text-sm mb-2">
+                  Co-Founder & Chief Education Officer
+                </p>
+                <p className="text-xs leading-relaxed text-gray-600 md:text-sm">
+                  Responsible for leading the NUMI company's educational vision, learning ecosystem, curriculum strategy, and knowledge delivery while also contributing to the company's overall growth as a co-founder.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Tan Zi Yi */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.25 }}
+              variants={fadeUp}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="flex gap-4 items-start"
+            >
+              <div className="shrink-0">
+                <div className="h-20 w-20 overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
+                  <img
+                    src="https://numi.manyproject.my/wp-content/uploads/2026/06/NUMI-people-4.webp"
+                    alt="Tan Zi Yi"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+              <div className="flex-1">
+                <h3 className="mb-0.5 text-base font-bold text-gray-900 md:text-lg">
+                  Tan Zi Yi
+                </h3>
+                <p className="text-xs font-medium text-[#D8B86A] md:text-sm mb-2">
+                  Education Training Officer
+                </p>
+                <p className="text-xs leading-relaxed text-gray-600 md:text-sm">
+                  Responsible for planning, organizing, and delivering training or educational programs for NUMI's staff, students, customers, or members within an organization.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Dr. Keith */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.25 }}
+              variants={fadeUp}
+              transition={{ duration: 0.4, delay: 0.15 }}
+              className="flex gap-4 items-start"
+            >
+              <div className="shrink-0">
+                <div className="h-20 w-20 overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
+                  <img
+                    src="https://numi.manyproject.my/wp-content/uploads/2026/06/NUMI-people-5.webp"
+                    alt="Dr. Keith"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+              <div className="flex-1">
+                <h3 className="mb-0.5 text-base font-bold text-gray-900 md:text-lg">
+                  Dr. Keith
+                </h3>
+                <p className="text-xs font-medium text-[#D8B86A] md:text-sm mb-2">
+                  Senior Education Leadership
+                </p>
+                <p className="text-xs leading-relaxed text-gray-600 md:text-sm">
+                  Responsible for managing the overall NUMI education strategy, training systems, curriculum quality, and learning operations within an organization.
+                </p>
               </div>
             </motion.div>
           </div>
@@ -666,7 +743,7 @@ export default function PreviewEventV4Page() {
             >
               <MediaCard />
               <p className="mt-4 text-center text-sm font-semibold text-gray-900 md:text-base">
-                Master RenZi (Dato' Sri Dr Patrick Tan)
+                Master RenZi (Dr Patrick Tan)
               </p>
             </motion.div>
 
