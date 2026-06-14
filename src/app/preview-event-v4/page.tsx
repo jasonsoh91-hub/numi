@@ -354,9 +354,6 @@ export default function PreviewEventV4Page() {
               className="order-2 lg:order-1 hidden md:block"
             >
               <MediaCard />
-              <p className="mt-4 text-center text-sm font-semibold text-gray-900 md:text-base">
-                With Master RenZi (Dr Patrick Tan) · 20+ years decoding life patterns
-              </p>
             </motion.div>
 
             <motion.div
@@ -731,9 +728,6 @@ export default function PreviewEventV4Page() {
               className="order-2 lg:order-1"
             >
               <MediaCard />
-              <p className="mt-4 text-center text-sm font-semibold text-gray-900 md:text-base">
-                Master RenZi (Dr Patrick Tan)
-              </p>
             </motion.div>
 
             <motion.div
