@@ -543,7 +543,7 @@ export default function PreviewEventV4Page() {
               transition={{ duration: 0.4 }}
             >
               <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <div className="mb-4 aspect-[3/4] overflow-hidden rounded-xl bg-gray-100">
+                <div className="mb-4 mx-auto h-[450px] w-[300px] overflow-hidden rounded-xl bg-gray-100">
                   <img
                     src="/speaker-vernon.png"
                     alt="Vernon Loh"
@@ -571,7 +571,7 @@ export default function PreviewEventV4Page() {
               transition={{ duration: 0.4, delay: 0.05 }}
             >
               <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <div className="mb-4 aspect-[3/4] overflow-hidden rounded-xl bg-gray-100">
+                <div className="mb-4 mx-auto h-[450px] w-[300px] overflow-hidden rounded-xl bg-gray-100">
                   <img
                     src="/speaker-renzi.png"
                     alt="Master RenZi"
@@ -599,7 +599,7 @@ export default function PreviewEventV4Page() {
               transition={{ duration: 0.4, delay: 0.1 }}
             >
               <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <div className="mb-4 aspect-[3/4] overflow-hidden rounded-xl bg-gray-100">
+                <div className="mb-4 mx-auto h-[450px] w-[300px] overflow-hidden rounded-xl bg-gray-100">
                   <img
                     src="/speaker-ziyi.png"
                     alt="Tan Zi Yi"
@@ -627,7 +627,7 @@ export default function PreviewEventV4Page() {
               transition={{ duration: 0.4, delay: 0.15 }}
             >
               <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <div className="mb-4 aspect-[3/4] overflow-hidden rounded-xl bg-gray-100">
+                <div className="mb-4 mx-auto h-[450px] w-[300px] overflow-hidden rounded-xl bg-gray-100">
                   <img
                     src="/speaker-keith.png"
                     alt="Dr. Keith"
