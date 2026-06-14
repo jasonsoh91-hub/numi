@@ -522,7 +522,7 @@ export default function PreviewEventV4Page() {
             className="mb-6 text-center md:mb-8"
           >
             <h2 className="mb-2 text-xl font-bold text-gray-900 md:mb-3 md:text-2xl">
-              Meet Your Guides
+              Meet Your Trainers
             </h2>
             <p className="text-xs leading-relaxed text-gray-600 md:text-sm">
               The NUMI team behind the masterclass
