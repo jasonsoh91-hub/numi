@@ -529,8 +529,8 @@ export default function PreviewEventV4Page() {
             </p>
           </motion.div>
 
-          {/* 2x2 Grid */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:gap-8">
+          {/* 3 Speaker Grid */}
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:gap-8">
             {/* Vernon Loh */}
             <motion.div
               initial="hidden"
@@ -555,34 +555,6 @@ export default function PreviewEventV4Page() {
                 </p>
                 <p className="text-xs leading-relaxed text-gray-600">
                   Leading NUMI's vision, strategy, and operations to bring pattern-based insights to people worldwide.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Master RenZi */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.25 }}
-              variants={fadeUp}
-              transition={{ duration: 0.4, delay: 0.05 }}
-            >
-              <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <div className="mb-4 mx-auto h-[450px] w-[300px] overflow-hidden rounded-xl bg-gray-100">
-                  <img
-                    src="/speaker-renzi.png"
-                    alt="Master RenZi"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <h3 className="mb-1 text-lg font-bold text-gray-900">
-                  Master RenZi
-                </h3>
-                <p className="mb-3 text-sm font-medium text-[#D8B86A]">
-                  Co-Founder & Chief Education Officer
-                </p>
-                <p className="text-xs leading-relaxed text-gray-600">
-                  20+ years decoding life patterns. Leading NUMI's educational vision and curriculum strategy.
                 </p>
               </div>
             </motion.div>
