@@ -137,14 +137,14 @@ export const AnimatedTestimonials = ({
               className="flex flex-col justify-between"
             >
                 <div>
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
+                    <h3 className="text-2xl font-bold text-gray-900">
                         {testimonials[active].name}
                     </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                    <p className="mt-1 text-sm font-medium text-gray-700">
                         {testimonials[active].designation}
                     </p>
-                    <motion.p className="mt-8 text-lg text-slate-700 dark:text-slate-300">
-                        "{testimonials[active].quote}"
+                    <motion.p className="mt-8 text-lg font-medium leading-relaxed text-gray-900">
+                        &ldquo;{testimonials[active].quote}&rdquo;
                     </motion.p>
                 </div>
             </motion.div>
@@ -153,16 +153,16 @@ export const AnimatedTestimonials = ({
             <button
               onClick={handlePrev}
               aria-label="Previous testimonial"
-              className="group flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 transition-colors hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:bg-slate-800 dark:hover:bg-slate-700 dark:focus:ring-slate-500"
+              className="group flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 transition-colors hover:bg-[#D8B86A] focus:outline-none focus:ring-2 focus:ring-[#D8B86A] focus:ring-offset-2"
             >
-              <ArrowLeft className="h-5 w-5 text-slate-800 transition-transform duration-300 group-hover:-translate-x-1 dark:text-slate-300" />
+              <ArrowLeft className="h-5 w-5 text-gray-900 transition-transform duration-300 group-hover:-translate-x-1 group-hover:text-[#0A0E27]" />
             </button>
             <button
               onClick={handleNext}
               aria-label="Next testimonial"
-              className="group flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 transition-colors hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:bg-slate-800 dark:hover:bg-slate-700 dark:focus:ring-slate-500"
+              className="group flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 transition-colors hover:bg-[#D8B86A] focus:outline-none focus:ring-2 focus:ring-[#D8B86A] focus:ring-offset-2"
             >
-              <ArrowRight className="h-5 w-5 text-slate-800 transition-transform duration-300 group-hover:translate-x-1 dark:text-slate-300" />
+              <ArrowRight className="h-5 w-5 text-gray-900 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#0A0E27]" />
             </button>
           </div>
         </div>
