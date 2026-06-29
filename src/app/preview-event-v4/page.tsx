@@ -318,7 +318,10 @@ export default function PreviewEventV4Page() {
             transition={{ duration: 0.45, delay: 0.06 }}
             className="mx-auto mb-3 max-w-[720px] text-center text-2xl font-bold leading-[1.1] tracking-tight text-gray-900 sm:text-3xl md:mb-4 md:text-4xl lg:text-5xl"
           >
-            Half of 2026 Is Gone. Same Struggles. Same Problems. Same You.
+            Half of 2026 Is Gone.<br />
+            Same Struggles.<br />
+            Same Problems.<br />
+            Same You.
           </motion.h1>
 
           {/* Deck */}
