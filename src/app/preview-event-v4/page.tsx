@@ -554,7 +554,7 @@ export default function PreviewEventV4Page() {
               </div>
             </motion.div>
 
-            {/* Tan Zi Yi */}
+            {/* Zi Yi. Tai */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -566,12 +566,12 @@ export default function PreviewEventV4Page() {
                 <div className="mb-4 mx-auto h-[450px] w-[300px] overflow-hidden rounded-xl bg-gray-100">
                   <img
                     src="/speaker-ziyi.png"
-                    alt="Tan Zi Yi"
+                    alt="Zi Yi. Tai"
                     className="h-full w-full object-cover"
                   />
                 </div>
                 <h3 className="mb-1 text-lg font-bold text-gray-900">
-                  Tan Zi Yi
+                  Zi Yi. Tai
                 </h3>
                 <p className="mb-3 text-sm font-medium text-[#D8B86A]">
                   Education Training Officer
