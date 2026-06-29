@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, CheckCircle2, Clock, Mail, Quote, Users, Calendar, Award, Globe, Newspaper, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, Clock, Mail, Quote, Users, Calendar, Award, Globe, Newspaper } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -262,13 +262,6 @@ function PainCard({ item, index }: { item: typeof pains[0]; index: number }) {
 export default function PreviewEventV4Page() {
   return (
     <main className="min-h-screen bg-white font-sans text-gray-900">
-      {/* Floating close button */}
-      <div className="fixed top-4 right-4 z-50 md:hidden">
-        <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-lg backdrop-blur">
-          <X className="h-5 w-5 text-gray-600" />
-        </button>
-      </div>
-
       <nav className="hidden md:flex fixed left-0 right-0 top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur">
         <div className="mx-auto flex w-full max-w-[980px] flex-row items-center justify-between px-4 py-3 md:px-6 md:py-4">
           <div className="flex items-center gap-2">
