@@ -29,12 +29,12 @@ Search-and-replace before saving each email in AC:
 
 | Placeholder | Replace with |
 |---|---|
-| `{{ebook_link}}` | Direct URL to Pattern Code PDF, e.g. `https://numi-website.vercel.app/The%20Pattern%20Code%20NUMI%20Self-Discovery%20Guide%20(Flyer%20(A4))%20(1).pdf` |
-| `{{register_link}}` | Your live webinar page, e.g. `https://numi-website.vercel.app/preview-event-v4` |
+| `{{ebook_link}}` | Direct URL to Pattern Code PDF, e.g. `https://learn.numi-intl.ai/The%20Pattern%20Code%20NUMI%20Self-Discovery%20Guide%20(Flyer%20(A4))%20(1).pdf` |
+| `{{register_link}}` | Your live webinar page, e.g. `https://learn.numi-intl.ai/preview-event-v4` |
 | `{{join_link}}` | Zoom/GoToWebinar unique join link (dynamic per contact — use platform integration) |
 | `{{calendar_link}}` | `https://calendar.google.com/calendar/render?action=TEMPLATE&text=NUMI+Masterclass+-+Decode+Your+Life+Pattern&details=A+free+60-minute+live+NUMI+masterclass.+Bring+your+birth+date.&dates=20260722T030000Z/20260722T040000Z` |
 | `{{replay_link}}` | Set after recording upload |
-| `{{offer_link}}` | Tier 1 checkout, e.g. `https://numi-website.vercel.app/offer` (build later) |
+| `{{offer_link}}` | Tier 1 checkout, e.g. `https://learn.numi-intl.ai/offer` (build later) |
 | `{{support_email}}` | `support@numi-intl.ai` (or your support address) |
 
 ---
