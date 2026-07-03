@@ -383,7 +383,7 @@ export default function PreviewEventV4Page() {
             transition={{ duration: 0.45, delay: 0.4 }}
             className="mt-6 text-center text-xs text-gray-500 md:text-sm"
           >
-            Live on [DATE] · [TIME] [TIMEZONE] · Seats limited to [NUMBER] so the live Q&A stays personal
+            Live on Tuesday, July 21 · 8:00 PM PDT (Los Angeles) · Seats limited so the live Q&A stays personal
           </motion.p>
         </div>
       </section>
@@ -731,8 +731,8 @@ export default function PreviewEventV4Page() {
             transition={{ duration: 0.45 }}
             className="mt-6 text-center text-xs text-gray-600 md:text-sm"
           >
-            Live on [DATE] at [TIME] [TIMEZONE]. We cap the room at [NUMBER] so the live Q&A stays
-            personal — once it's full, it's full.
+            Live on Tuesday, July 21 at 8:00 PM PDT (Los Angeles). We keep the room small so the live
+            Q&A stays personal — once it's full, it's full.
           </motion.p>
 
           <motion.div
