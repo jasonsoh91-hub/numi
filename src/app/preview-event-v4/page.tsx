@@ -89,7 +89,7 @@ const testimonials = [
 const credibility = [
   { icon: Clock, label: "20+ years decoding the link between numbers and human behavior" },
   { icon: Award, label: "20+ years of experience decoding life patterns" },
-  { icon: Users, label: "Read birth-date patterns for [X,000]+ people across [X] countries" },
+  { icon: Users, label: "Read birth-date patterns for 5,000+ people across 12 countries" },
   { icon: Newspaper, label: "Featured in national media for his work on the meaning of numbers" },
 ];
 

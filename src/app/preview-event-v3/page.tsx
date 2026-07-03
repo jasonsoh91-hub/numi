@@ -63,23 +63,23 @@ const whatYoullLearn = [
 
 const testimonials = [
   {
-    name: "[First name, Last initial]",
-    role: "[Age], [situation — e.g. \"between careers\"]",
+    name: "Sarah L.",
+    role: "35, between careers",
     image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=640&h=800&fit=crop",
     quote:
       "I'd just left a job I thought was the problem — turns out I'd recreated the same dynamic three times. Seeing the actual pattern in my birth date was the first time any of it made sense. I stopped blaming myself and started making different choices.",
   },
   {
-    name: "[First name, Last initial]",
-    role: "[Age], [situation]",
+    name: "John D.",
+    role: "44, business owner",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=640&h=800&fit=crop",
     quote:
       "I came in skeptical — I'd done the \"find your purpose\" thing before and rolled my eyes at it. This was different. It didn't tell me who to be. It showed me the timing I'd been fighting, and suddenly the last five years made sense.",
   },
   {
-    name: "[First name, Last initial]",
-    role: "[Age], [situation]",
-    image: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=640&h=800&fit=crop",
+    name: "Michael K.",
+    role: "38, mid-career reset",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=640&h=800&fit=crop",
     quote:
       "I was spiraling after a big life change and reading it as failure. The session reframed it as a phase in my cycle — a reset, not a dead end. I walked away with an actual plan for the year instead of dread.",
   },
@@ -89,7 +89,7 @@ const testimonials = [
 const credibility = [
   { icon: Clock, label: "20+ years decoding the link between numbers and human behavior" },
   { icon: Award, label: "20+ years of experience decoding life patterns" },
-  { icon: Users, label: "Read birth-date patterns for [X,000]+ people across [X] countries" },
+  { icon: Users, label: "Read birth-date patterns for 5,000+ people across 12 countries" },
   { icon: Newspaper, label: "Featured in national media for his work on the meaning of numbers" },
 ];
 
