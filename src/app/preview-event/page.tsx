@@ -193,7 +193,7 @@ export default function PreviewEventPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#D8B86A] to-[#F4D47A] md:h-10 md:w-10">
               <span className="text-lg font-bold text-[#0A0E27] md:text-xl">N</span>
             </div>
-            <span className="text-xl font-bold tracking-tight text-gray-900 md:text-2xl">NUMI</span>
+            <span className="text-xl font-bold tracking-tight text-gray-900 md:text-2xl">Numi®</span>
           </a>
 
           <a
@@ -536,7 +536,7 @@ export default function PreviewEventPage() {
           <p className="mb-1.5 text-[10px] leading-relaxed text-gray-400 md:text-xs">
             NUMI does not provide medical, financial, legal, psychological, or professional advice.
           </p>
-          <p className="text-[10px] text-gray-300 md:text-xs">© 2026 NUMI. All rights reserved.</p>
+          <p className="text-[10px] text-gray-300 md:text-xs">© 2026 NUMI International (M) SDN BHD All Rights Reserved.</p>
         </div>
       </footer>
     </main>

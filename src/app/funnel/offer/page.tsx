@@ -49,7 +49,7 @@ export default function OfferPage() {
       <header className="py-4 px-6 border-b border-amber-900/30">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="text-2xl font-bold text-white tracking-wider">
-            <span className="text-amber-400">NUMI</span>
+            <span className="text-amber-400">Numi®</span>
           </div>
           <div className="flex items-center gap-2">
             <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
@@ -372,7 +372,7 @@ export default function OfferPage() {
       {/* Footer */}
       <footer className="px-4 py-6 bg-stone-950 border-t border-stone-800">
         <div className="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-4 text-stone-300 text-sm">
-          <p>© 2026 NUMI™. All rights reserved.</p>
+          <p>© 2026 NUMI International (M) SDN BHD All Rights Reserved.</p>
           <div className="flex gap-4">
             <a href="#" className="hover:text-amber-400 transition text-white">Privacy Policy</a>
             <a href="#" className="hover:text-amber-400 transition text-white">Terms</a>

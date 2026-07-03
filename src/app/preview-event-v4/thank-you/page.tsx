@@ -112,7 +112,7 @@ export default function ThankYouV4Page() {
         <div className="mx-auto flex max-w-[980px] items-center justify-between px-4 py-3 md:px-6 md:py-4">
           <a href="/" className="flex items-center">
             <img
-              src="https://numi-intl.ai/wp-content/uploads/2026/05/Numi-Logo-162x41.png"
+              src="/numi-logo.png"
               alt="NUMI"
               className="h-8 w-auto md:h-10"
             />
@@ -620,7 +620,7 @@ export default function ThankYouV4Page() {
       <footer className="border-t border-gray-200 px-4 py-8 md:px-6">
         <div className="mx-auto flex max-w-[980px] flex-col items-center justify-between gap-3 text-center md:flex-row md:text-left">
           <p className="text-xs text-gray-400">
-            © 2026 NUMI. All rights reserved.
+            © 2026 NUMI International (M) SDN BHD All Rights Reserved.
           </p>
           <div className="flex items-center gap-4 text-xs text-gray-500">
             <a href="mailto:hello@numi.com" className="hover:text-gray-900">

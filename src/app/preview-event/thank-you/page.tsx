@@ -246,7 +246,7 @@ export default function ThankYouPage() {
       {/* Footer */}
       <footer className="relative z-10 py-8 px-6 border-t border-white/5">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-white/20 text-xs">© 2026 NUMI. All rights reserved.</p>
+          <p className="text-white/20 text-xs">© 2026 NUMI International (M) SDN BHD All Rights Reserved.</p>
         </div>
       </footer>
     </div>

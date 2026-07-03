@@ -7,6 +7,7 @@ import { ArrowRight, Check, Sparkles, Info } from "lucide-react";
 import { StaticBookMockup } from "@/components/StaticBookMockup";
 import AnimatedShaderBackground from "@/components/ui/animated-shader-background";
 import { TestimonialsSection } from "@/components/ui/testimonials-section";
+import { subscribeToAC } from "@/lib/subscribe";
 
 export default function LeadMagnetV2Page() {
   const router = useRouter();
@@ -90,6 +91,14 @@ export default function LeadMagnetV2Page() {
     const existingLeads = JSON.parse(localStorage.getItem("numiLeads") || "[]");
     existingLeads.push(leadMagnetData);
     localStorage.setItem("numiLeads", JSON.stringify(existingLeads));
+
+    await subscribeToAC({
+      firstName: formData.firstName,
+      email: formData.email,
+      birthDate: leadMagnetData.birthDate,
+      listType: "pattern-code",
+      source: "lead-magnet-v2",
+    });
 
     setTimeout(() => {
       router.push("/lead-magnet/success");
@@ -831,7 +840,7 @@ export default function LeadMagnetV2Page() {
             <p className="text-white/30 text-xs leading-relaxed">
               NUMI is designed for self-reflection and personal growth. It does not provide medical, financial, legal, or professional advice.
             </p>
-            <p className="text-white/20 text-xs mt-6">© 2026 NUMI. All rights reserved.</p>
+            <p className="text-white/20 text-xs mt-6">© 2026 NUMI International (M) SDN BHD All Rights Reserved.</p>
           </div>
         </footer>
 

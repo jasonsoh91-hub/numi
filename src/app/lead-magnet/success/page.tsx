@@ -102,7 +102,7 @@ export default function LeadMagnetSuccessPage() {
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#0A0E27]/80 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <a href="/" className="text-xl font-bold tracking-wider hover:opacity-80 transition-opacity">
-            <span className="text-[#D8B86A]">NUMI</span>
+            <span className="text-[#D8B86A]">Numi®</span>
           </a>
         </div>
       </header>
@@ -426,7 +426,7 @@ export default function LeadMagnetSuccessPage() {
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-white/5">
         <div className="max-w-6xl mx-auto text-center text-white/30 text-sm">
-          <p>© 2026 NUMI™. All rights reserved.</p>
+          <p>© 2026 NUMI International (M) SDN BHD All Rights Reserved.</p>
         </div>
       </footer>
     </div>

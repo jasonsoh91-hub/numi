@@ -45,7 +45,7 @@ export default function SuccessPage() {
       <header className="py-4 px-6 border-b border-amber-900/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-2xl font-bold text-white tracking-wider">
-            <span className="text-amber-400">NUMI</span>
+            <span className="text-amber-400">Numi®</span>
           </div>
         </div>
       </header>
@@ -147,7 +147,7 @@ export default function SuccessPage() {
       {/* Footer */}
       <footer className="px-4 py-6 bg-stone-950 border-t border-stone-800">
         <div className="max-w-6xl mx-auto text-center text-stone-300 text-sm">
-          <p>© 2026 NUMI™. All rights reserved.</p>
+          <p>© 2026 NUMI International (M) SDN BHD All Rights Reserved.</p>
         </div>
       </footer>
     </div>

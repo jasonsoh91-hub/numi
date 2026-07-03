@@ -3,6 +3,7 @@
 import { ArrowRight, CheckCircle2, Clock, Mail, Quote, Users, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { subscribeToAC } from "@/lib/subscribe";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -112,16 +113,28 @@ function RegistrationCard() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (validateForm()) {
       setIsSubmitting(true);
+      const parts = formData.name.trim().split(/\s+/);
+      const firstName = parts.shift() ?? "";
+      const lastName = parts.join(" ") || undefined;
       localStorage.setItem("numiEventRegistration", JSON.stringify({
-        firstName: formData.name.split(" ")[0],
+        firstName,
         email: formData.email,
         phone: formData.phone,
       }));
+
+      await subscribeToAC({
+        firstName,
+        lastName,
+        email: formData.email,
+        phone: formData.phone,
+        listType: "webinar",
+        source: "preview-event-v2",
+      });
 
       setTimeout(() => {
         window.location.href = "/preview-event-v2/thank-you";
@@ -272,7 +285,7 @@ export default function PreviewEventV2Page() {
           <div className="flex items-center gap-2">
             <a href="/" className="flex items-center">
               <img
-                src="https://numi-intl.ai/wp-content/uploads/2026/05/Numi-Logo-162x41.png"
+                src="/numi-logo.png"
                 alt="NUMI"
                 className="h-8 w-auto md:h-10"
               />
@@ -727,7 +740,7 @@ export default function PreviewEventV2Page() {
           <p className="mb-1.5 text-[10px] leading-relaxed text-gray-400 md:text-xs">
             NUMI does not provide medical, financial, legal, psychological, or professional advice.
           </p>
-          <p className="text-[10px] text-gray-300 md:text-xs">© 2026 NUMI. All rights reserved.</p>
+          <p className="text-[10px] text-gray-300 md:text-xs">© 2026 NUMI International (M) SDN BHD All Rights Reserved.</p>
         </div>
       </footer>
     </main>

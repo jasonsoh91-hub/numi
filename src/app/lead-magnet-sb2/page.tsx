@@ -8,6 +8,7 @@ import { ChevronDown, XCircle, CheckCircle, Loader2, Download, Lock } from "luci
 import { TestimonialsSection as TestimonialsSectionComponent } from "@/components/ui/testimonials-section"
 const BOOK_IMAGE = "/frames/book-transparent.png"
 import { calculateCoreNumber } from "@/lib/calculateCoreNumber"
+import { subscribeToAC } from "@/lib/subscribe"
 
 // ============================================================================
 // IMAGE ASSETS
@@ -1074,6 +1075,14 @@ function FormSection({ forwardedRef }: { forwardedRef: React.RefObject<HTMLDivEl
     existing.push(lead)
     localStorage.setItem("numiLeads", JSON.stringify(existing))
 
+    await subscribeToAC({
+      firstName: formData.firstName,
+      email: formData.email,
+      birthDate: formData.birthdate,
+      listType: "pattern-code",
+      source: "lead-magnet-sb2",
+    })
+
     router.push("/lead-magnet/success")
   }
 
@@ -1522,7 +1531,7 @@ function Footer() {
 
       {/* Copyright */}
       <p className="text-xs" style={{ color: "rgba(255,255,255,0.18)" }}>
-        © 2025 NUMI International. All rights reserved.
+        © 2026 NUMI International (M) SDN BHD All Rights Reserved.
       </p>
     </footer>
   )

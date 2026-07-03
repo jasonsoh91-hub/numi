@@ -5,6 +5,7 @@ import { useRef, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { ChevronDown, XCircle, CheckCircle, Loader2, Sparkles } from "lucide-react"
 import { StaticBookMockup } from "@/components/StaticBookMockup"
+import { subscribeToAC } from "@/lib/subscribe"
 
 // ============================================================================
 // IMAGES FROM Z.AI - All 8 images generated
@@ -833,6 +834,14 @@ function OptInFormSection({ forwardedRef }: { forwardedRef: React.RefObject<HTML
     leads.push(lead)
     localStorage.setItem("numiLeadsMV2", JSON.stringify(leads))
 
+    await subscribeToAC({
+      firstName: formData.firstName,
+      email: formData.email,
+      birthDate: formData.birthdate,
+      listType: "pattern-code",
+      source: "lead-magnet-mv2",
+    })
+
     router.push("/lead-magnet/success")
   }
 
@@ -1216,7 +1225,7 @@ function Footer() {
 
       {/* Copyright */}
       <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>
-        © 2025 NUMI. All rights reserved.
+        © 2026 NUMI International (M) SDN BHD All Rights Reserved.
       </p>
     </footer>
   )

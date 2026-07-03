@@ -62,7 +62,7 @@ export default function VideoPage() {
       <header className="py-4 px-6 border-b border-amber-900/30">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="text-2xl font-bold text-white tracking-wider">
-            <span className="text-amber-400">NUMI</span>
+            <span className="text-amber-400">Numi®</span>
           </div>
           <div className="text-white text-sm">
             Welcome, <span className="text-amber-400 font-semibold">{funnelData.firstName}</span>

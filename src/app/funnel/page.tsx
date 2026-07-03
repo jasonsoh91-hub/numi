@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { subscribeToAC } from "@/lib/subscribe";
 
 export default function FunnelLandingPage() {
   const router = useRouter();
@@ -15,12 +16,23 @@ export default function FunnelLandingPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     // Store form data for next pages
     localStorage.setItem("numiFunnelData", JSON.stringify(formData));
+
+    const monthIdx = parseInt(formData.month, 10);
+    await subscribeToAC({
+      firstName: formData.firstName,
+      email: formData.email,
+      birthDate: formData.day && monthIdx > 0 && formData.year
+        ? `${formData.day}/${monthIdx}/${formData.year}`
+        : undefined,
+      listType: "pattern-code",
+      source: "funnel",
+    });
 
     // Simulate API call then redirect
     setTimeout(() => {
@@ -50,7 +62,7 @@ export default function FunnelLandingPage() {
         <header className="relative z-10 py-6 px-4">
           <div className="max-w-6xl mx-auto flex justify-between items-center">
             <div className="text-2xl font-bold text-white tracking-wider">
-              <span className="text-amber-400">NUMI</span>
+              <span className="text-amber-400">Numi®</span>
             </div>
             <div className="text-white text-sm">
               Over <span className="text-amber-400 font-semibold">2,385,368</span> people trust NUMI
@@ -284,7 +296,7 @@ export default function FunnelLandingPage() {
       {/* Footer */}
       <footer className="relative z-10 px-4 py-8 bg-stone-950 border-t border-stone-800">
         <div className="max-w-6xl mx-auto text-center text-stone-300 text-sm">
-          <p>© 2026 NUMI™. All rights reserved.</p>
+          <p>© 2026 NUMI International (M) SDN BHD All Rights Reserved.</p>
           <div className="flex justify-center gap-6 mt-4">
             <a href="#" className="hover:text-amber-400 transition text-white">Privacy Policy</a>
             <a href="#" className="hover:text-amber-400 transition text-white">Terms of Service</a>
