@@ -73,7 +73,7 @@ export default function LeadMagnetSuccessPage() {
   }, [router]);
 
   const handleDownload = () => {
-    window.open("/The Pattern Code NUMI Self-Discovery Guide (Flyer (A4)) (1).pdf", "_blank");
+    window.open("/pattern-code.pdf", "_blank");
   };
 
   const fadeInUp = {
