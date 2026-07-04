@@ -2,7 +2,7 @@
 
 Paste-ready copy for 20 emails across 5 automations.
 All merge fields converted to AC personalization tags.
-Webinar date: **Tuesday, July 21, 2026 · 8:00 PM PDT (Los Angeles)**.
+Webinar date: **Tuesday, July 21, 2026 · 8:00 PM EST (New York)**.
 
 ---
 
@@ -32,7 +32,7 @@ Search-and-replace before saving each email in AC:
 | `{{ebook_link}}` | Direct URL to Pattern Code PDF, e.g. `https://learn.numi-intl.ai/pattern-code.pdf` |
 | `{{register_link}}` | Your live webinar page, e.g. `https://learn.numi-intl.ai/preview-event-v4` |
 | `{{join_link}}` | Zoom/GoToWebinar unique join link (dynamic per contact — use platform integration) |
-| `{{calendar_link}}` | `https://calendar.google.com/calendar/render?action=TEMPLATE&text=NUMI+Masterclass+-+Decode+Your+Life+Pattern&details=A+free+60-minute+live+NUMI+masterclass.+Bring+your+birth+date.&dates=20260722T030000Z/20260722T040000Z` |
+| `{{calendar_link}}` | `https://calendar.google.com/calendar/render?action=TEMPLATE&text=NUMI+Masterclass+-+Decode+Your+Life+Pattern&details=A+free+60-minute+live+NUMI+masterclass.+Bring+your+birth+date.&dates=20260722T010000Z/20260722T020000Z` |
 | `{{replay_link}}` | Set after recording upload |
 | `{{offer_link}}` | Tier 1 checkout, e.g. `https://learn.numi-intl.ai/offer` (build later) |
 | `{{support_email}}` | `support@numi-intl.ai` (or your support address) |
@@ -62,9 +62,9 @@ Search-and-replace before saving each email in AC:
 │  Trigger: Subscribes to list "Webinar" (ID 5)                    │
 │  Also: Apply tag `webinar-registered`                            │
 │  → B1 send immediately                                           │
-│  → wait until 2026-07-20 08:00 PDT → B2 (24h before)             │
-│  → wait until 2026-07-21 19:00 PDT → B3 (1h before)              │
-│  → wait until 2026-07-21 20:00 PDT → B4 (at start)               │
+│  → wait until 2026-07-20 08:00 EST → B2 (24h before)             │
+│  → wait until 2026-07-21 19:00 EST → B3 (1h before)              │
+│  → wait until 2026-07-21 20:00 EST → B4 (at start)               │
 │  → end                                                           │
 └──────────────────────────────────────────────────────────────────┘
 
@@ -72,7 +72,7 @@ Search-and-replace before saving each email in AC:
 │  AUTOMATION #3 — C-Sequence: No-Show Replay                      │
 │  Trigger: Enters segment (`webinar-registered` AND NOT           │
 │           `webinar-attended`)                                    │
-│  Start date: 2026-07-21 22:00 PDT (2hr after webinar end)        │
+│  Start date: 2026-07-21 22:00 EST (2hr after webinar end)        │
 │  → C1 send immediately                                           │
 │  → wait 46 hours → C2 (~48h after event)                         │
 │  → end                                                           │
@@ -255,7 +255,7 @@ I'm telling you this because half of 2026 is already behind us, and if you're be
 
 The book showed you your number. The masterclass shows you the *loop* your number has been running — and the one shift that changes what happens from here.
 
-**Tuesday, July 21 · 8:00 PM PDT (Los Angeles) · 60 minutes, live.**
+**Tuesday, July 21 · 8:00 PM EST (New York) · 60 minutes, live.**
 
 **→ [Claim my seat]({{register_link}})**
 
@@ -303,7 +303,7 @@ Hi %FIRSTNAME%,
 You're in. Here's everything you need:
 
 **📅 Decode Your Life Pattern — Live Masterclass**
-**Tuesday, July 21, 2026 · 8:00 PM PDT (Los Angeles) · 60 minutes**
+**Tuesday, July 21, 2026 · 8:00 PM EST (New York) · 60 minutes**
 
 **→ [Add it to your calendar]({{calendar_link}})**
 **→ Your private join link:** {{join_link}}
@@ -326,7 +326,7 @@ P.S. Didn't mean to register, or need to move to another session? Just reply to 
 
 ## B2 · Reminder · 24 Hours Out
 
-**Send:** 2026-07-20 08:00 PDT (schedule via AC "Wait Until Date" node)
+**Send:** 2026-07-20 08:00 EST (schedule via AC "Wait Until Date" node)
 **Subject:** Tomorrow: your pattern, read live
 **Alt subject:** %FIRSTNAME%, we go live tomorrow
 **Preview text:** One birth date. One realization. A different next year.
@@ -335,7 +335,7 @@ Hi %FIRSTNAME%,
 
 Tomorrow's the day.
 
-**Decode Your Life Pattern — Tuesday, July 21 · 8:00 PM PDT (Los Angeles)**
+**Decode Your Life Pattern — Tuesday, July 21 · 8:00 PM EST (New York)**
 **→ [Your join link]({{join_link}})**
 
 Two-minute prep so you get the most out of it:
@@ -356,7 +356,7 @@ P.S. Can't make it live anymore? Reply and we'll make sure you get the replay. J
 
 ## B3 · Reminder · 1 Hour Out
 
-**Send:** 2026-07-21 19:00 PDT
+**Send:** 2026-07-21 19:00 EST
 **Subject:** We're live in 1 hour ⏳
 **Preview text:** Grab your birth date and your join link — let's go.
 
@@ -366,7 +366,7 @@ One hour to go. Here's your link so it's not buried when we start:
 
 **→ [Join the masterclass]({{join_link}})**
 
-**Starts: 8:00 PM PDT today**
+**Starts: 8:00 PM EST today**
 
 Before we begin:
 - Birth date — ready ✅
@@ -381,7 +381,7 @@ That's it. See you in there, %FIRSTNAME%.
 
 ## B4 · We're Live Now
 
-**Send:** 2026-07-21 20:00 PDT
+**Send:** 2026-07-21 20:00 EST
 **Subject:** 🔴 We're live — come on in, %FIRSTNAME%
 **Preview text:** Doors are open. Your seat is waiting.
 
@@ -400,11 +400,11 @@ Bring your birth date. See you inside.
 # SEQUENCE C — No-Show Replay
 
 **Segment:** contacts tagged `webinar-registered` AND NOT `webinar-attended`.
-**Automation start:** 2026-07-21 22:00 PDT (2h after event end).
+**Automation start:** 2026-07-21 22:00 EST (2h after event end).
 
 ## C1 · Replay + Re-Invite
 
-**Send:** Immediately when entered segment (~2026-07-21 22:00 PDT)
+**Send:** Immediately when entered segment (~2026-07-21 22:00 EST)
 **Subject:** You missed it — here's the replay, %FIRSTNAME%
 **Alt subject:** Sorry we missed you (the recording's inside)
 **Preview text:** Watch it before it comes down — your pattern is in here.
@@ -435,7 +435,7 @@ P.S. The replay doesn't stay up forever. If your pattern matters to you, today's
 
 ## C2 · Replay Closing (Last Call)
 
-**Send:** +46 hours after C1 (~2026-07-23 20:00 PDT)
+**Send:** +46 hours after C1 (~2026-07-23 20:00 EST)
 **Subject:** Coming down soon, %FIRSTNAME%
 **Preview text:** Last window to watch the masterclass replay.
 
