@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { registerZoomWebinarAttendee } from "@/lib/zoom";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -130,16 +131,32 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "List subscribe failed" }, { status: 502 });
     }
 
-    // Re-apply WEBINAR_DATE after list assignment so any list-trigger automation
-    // that sets a default value doesn't overwrite the user's selection.
+    // Register in Zoom + capture personal join URL (webinar list only).
+    let zoomJoinUrl: string | null = null;
+    if (webinarDate && listType === "webinar") {
+      const zoom = await registerZoomWebinarAttendee({
+        webinarSlot: webinarDate,
+        email,
+        firstName: firstName || "Attendee",
+        lastName,
+      });
+      if (zoom) zoomJoinUrl = zoom.joinUrl;
+      else console.warn("[subscribe] Zoom registration failed for", email);
+    }
+
+    // Re-apply WEBINAR_DATE and store ZOOM_JOIN_URL after list assignment so
+    // list-trigger automations that set defaults don't overwrite the user data.
+    const zoomJoinUrlFieldId = process.env.ACTIVECAMPAIGN_FIELD_ZOOM_JOIN_URL;
+    const rebindFieldValues: { field: string; value: string }[] = [];
     if (webinarDate && webinarDateFieldId && WEBINAR_DATE_ISO[webinarDate]) {
+      rebindFieldValues.push({ field: webinarDateFieldId, value: WEBINAR_DATE_ISO[webinarDate] });
+    }
+    if (zoomJoinUrl && zoomJoinUrlFieldId) {
+      rebindFieldValues.push({ field: zoomJoinUrlFieldId, value: zoomJoinUrl });
+    }
+    if (rebindFieldValues.length) {
       const rebindPayload = {
-        contact: {
-          email,
-          fieldValues: [
-            { field: webinarDateFieldId, value: WEBINAR_DATE_ISO[webinarDate] },
-          ],
-        },
+        contact: { email, fieldValues: rebindFieldValues },
       };
       const rebindRes = await fetch(`${apiUrl}/api/3/contact/sync`, {
         method: "POST",
@@ -151,7 +168,7 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify(rebindPayload),
       });
       if (!rebindRes.ok) {
-        console.warn("AC webinar-date rebind failed", rebindRes.status);
+        console.warn("AC field rebind failed", rebindRes.status);
       }
     }
 
