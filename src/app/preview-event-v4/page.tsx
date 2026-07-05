@@ -4,6 +4,9 @@ import { ArrowRight, CheckCircle2, Clock, Mail, Quote, Users, Calendar, Award, G
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { subscribeToAC } from "@/lib/subscribe";
+import { CountdownTimer } from "@/components/CountdownTimer";
+
+const WEBINAR_TARGET_ISO = "2026-07-22T01:00:00Z"; // 2026-07-21 20:00 EST (UTC-5)
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -147,13 +150,21 @@ function RegistrationCard() {
   return (
     <div className="overflow-hidden rounded-2xl shadow-xl">
       {/* Header Bar */}
-      <div className="flex items-center gap-3 rounded-t-xl border-2 border-[#D8B86A] bg-gradient-to-r from-[#0A0E27] to-[#1a1f3a] px-6 py-4">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#D8B86A]/20">
-          <Mail className="h-5 w-5 text-[#D8B86A]" />
+      <div className="rounded-t-xl border-2 border-[#D8B86A] bg-gradient-to-r from-[#0A0E27] to-[#1a1f3a] px-6 py-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#D8B86A]/20">
+            <Mail className="h-5 w-5 text-[#D8B86A]" />
+          </div>
+          <span className="text-base font-bold text-white md:text-lg">
+            Save your seat
+          </span>
         </div>
-        <span className="text-base font-bold text-white md:text-lg">
-          Save your seat
-        </span>
+        <div className="mt-3 border-t border-white/10 pt-3">
+          <p className="mb-2 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-white/60 md:text-[11px]">
+            Masterclass begins in
+          </p>
+          <CountdownTimer targetIso={WEBINAR_TARGET_ISO} variant="dark" />
+        </div>
       </div>
 
       {/* Form Card */}
