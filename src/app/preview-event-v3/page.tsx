@@ -745,30 +745,64 @@ export default function PreviewEventV3Page() {
             Q&A stays personal — once it's full, it's full.
           </motion.p>
 
+        </div>
+      </section>
+
+      {/* What you get on register — dedicated section */}
+      <section className="bg-white px-4 py-10 md:px-6 md:py-14 border-t border-gray-200">
+        <div className="mx-auto max-w-[980px]">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.25 }}
+            viewport={{ once: true, amount: 0.2 }}
             variants={fadeUp}
             transition={{ duration: 0.45 }}
-            className="mt-8 text-center"
+            className="mb-8 text-center md:mb-10"
           >
-            <p className="mb-4 text-xs font-medium text-gray-700 md:text-sm">The moment you register:</p>
-            <div className="flex flex-col gap-3 md:flex-row md:justify-center">
-              <div className="flex items-center gap-2 text-xs text-gray-600 md:text-sm">
-                <CheckCircle2 className="h-4 w-4 text-[#D8B86A]" />
-                <span>Instant confirmation + calendar invite so you don't miss it</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs text-gray-600 md:text-sm">
-                <CheckCircle2 className="h-4 w-4 text-[#D8B86A]" />
-                <span>Your private join link for the live session</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs text-gray-600 md:text-sm">
-                <CheckCircle2 className="h-4 w-4 text-[#D8B86A]" />
-                <span>A short \"bring your birth date\" prep note so you're ready to read your own pattern live</span>
-              </div>
-            </div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#D8B86A] md:text-sm">
+              What arrives in your inbox
+            </p>
+            <h2 className="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
+              The moment you register
+            </h2>
           </motion.div>
+
+          <div className="grid gap-4 md:grid-cols-3 md:gap-6">
+            {[
+              {
+                title: "Instant confirmation",
+                body: "A confirmation email with a calendar invite lands in your inbox — so the session is blocked and you don't miss it.",
+              },
+              {
+                title: "Your private join link",
+                body: "A unique join link for the live session, saved in the email and the calendar invite so it's ready when you are.",
+              },
+              {
+                title: "A short prep note",
+                body: "A quick “bring your birth date” prep note so you're ready to read your own pattern live in the room.",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.25 }}
+                variants={fadeUp}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+                className="rounded-2xl border border-gray-200 bg-gray-50 p-5 md:p-6"
+              >
+                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-[#D8B86A]/15">
+                  <CheckCircle2 className="h-5 w-5 text-[#D8B86A]" />
+                </div>
+                <h3 className="mb-1.5 text-base font-bold text-gray-900 md:text-lg">
+                  {item.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-gray-600 md:text-[15px]">
+                  {item.body}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
