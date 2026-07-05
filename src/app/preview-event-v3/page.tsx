@@ -348,13 +348,13 @@ export default function PreviewEventV3Page() {
             and the decisions that will actually move you forward.
           </motion.p>
 
-          <div className="grid items-start gap-6 md:gap-8 lg:grid-cols-[16fr_9fr]">
+          <div className="grid items-start gap-6 md:gap-8 lg:grid-cols-[19fr_9fr]">
             <motion.div
               initial="hidden"
               animate="visible"
               variants={fadeLeft}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="order-2 lg:order-1 hidden md:block"
+              className="order-2 lg:order-1 hidden md:block lg:pt-8"
             >
               <MediaCard />
               <p className="mt-4 text-center text-sm font-semibold text-gray-900 md:text-base">
@@ -367,7 +367,7 @@ export default function PreviewEventV3Page() {
               animate="visible"
               variants={fadeRight}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="order-1 lg:sticky lg:top-24 lg:order-2"
+              className="order-1 lg:sticky lg:top-24 lg:order-2 lg:pt-16"
             >
               <RegistrationCard />
             </motion.div>
@@ -658,14 +658,14 @@ export default function PreviewEventV3Page() {
             </p>
           </motion.div>
 
-          <div className="grid items-start gap-5 md:gap-6 lg:grid-cols-[16fr_9fr]">
+          <div className="grid items-start gap-5 md:gap-6 lg:grid-cols-[19fr_9fr]">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.25 }}
               variants={fadeLeft}
               transition={{ duration: 0.45 }}
-              className="order-2 lg:order-1"
+              className="order-2 lg:order-1 lg:pt-8"
             >
               <MediaCard />
               <p className="mt-4 text-center text-sm font-semibold text-gray-900 md:text-base">
@@ -679,7 +679,7 @@ export default function PreviewEventV3Page() {
               viewport={{ once: true, amount: 0.25 }}
               variants={fadeRight}
               transition={{ duration: 0.45 }}
-              className="order-1 lg:order-2"
+              className="order-1 lg:order-2 lg:pt-16"
             >
               <RegistrationCard />
             </motion.div>
