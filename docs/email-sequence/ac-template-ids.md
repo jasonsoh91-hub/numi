@@ -12,7 +12,7 @@ Created 2026-07-03 via API.
 | A1 | 100033 | NUMI · A1 · Welcome + Ebook Delivery |
 | A2 | 100034 | NUMI · A2 · Deep-Dive: Two Sides of Your Number |
 | A3 | 100035 | NUMI · A3 · Deep-Dive: People Around You |
-| A4 | 100036 | NUMI · A4 · Bridge to Webinar |
+| A4 | 100069 | NUMI · A4 · Bridge to Webinar |
 | A5 | 100061 | NUMI · A5 · The Loop |
 | A6 | 100038 | NUMI · A6 · Last Call to Register |
 | B1 | 100065 | NUMI · B1 · Registration Confirmation |
