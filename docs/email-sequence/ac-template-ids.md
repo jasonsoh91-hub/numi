@@ -13,21 +13,21 @@ Created 2026-07-03 via API.
 | A2 | 100034 | NUMI · A2 · Deep-Dive: Two Sides of Your Number |
 | A3 | 100035 | NUMI · A3 · Deep-Dive: People Around You |
 | A4 | 100069 | NUMI · A4 · Bridge to Webinar |
-| A5 | 100061 | NUMI · A5 · The Loop |
-| A6 | 100038 | NUMI · A6 · Last Call to Register |
+| A5 | 100070 | NUMI · A5 · The Loop |
+| A6 | 100071 | NUMI · A6 · Last Call to Register |
 | B1 | 100065 | NUMI · B1 · Registration Confirmation |
 | B2 | 100066 | NUMI · B2 · Reminder 24h Out |
 | B3 | 100067 | NUMI · B3 · Reminder 1h Out |
 | B4 | 100068 | NUMI · B4 · We're Live Now |
-| C1 | 100043 | NUMI · C1 · Replay + Re-Invite |
-| C2 | 100044 | NUMI · C2 · Replay Closing |
-| D1 | 100045 | NUMI · D1 · Recap + Founding Offer |
-| D2 | 100046 | NUMI · D2 · What's Inside the 3 Days |
-| D3 | 100047 | NUMI · D3 · "I Don't Have Time" |
-| D4 | 100048 | NUMI · D4 · Stories From the Room |
-| D5 | 100049 | NUMI · D5 · Two Futures |
-| D6 | 100050 | NUMI · D6 · Founding-Member Status + Gold Card |
-| D7 | 100051 | NUMI · D7 · Doors Close Tonight |
+| C1 | 100072 | NUMI · C1 · Replay + Re-Invite |
+| C2 | 100073 | NUMI · C2 · Replay Closing |
+| D1 | 100074 | NUMI · D1 · Recap + Founding Offer |
+| D2 | 100075 | NUMI · D2 · What's Inside the 3 Days |
+| D3 | 100076 | NUMI · D3 · "I Don't Have Time" |
+| D4 | 100077 | NUMI · D4 · Stories From the Room |
+| D5 | 100078 | NUMI · D5 · Two Futures |
+| D6 | 100079 | NUMI · D6 · Founding-Member Status + Gold Card |
+| D7 | 100080 | NUMI · D7 · Doors Close Tonight |
 | E1 | 100052 | NUMI · E1 · Tier 1 Onboarding |
 
 ## URLs already substituted in templates
