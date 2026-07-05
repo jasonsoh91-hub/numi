@@ -411,13 +411,13 @@ export default function PreviewEventV4Page() {
             finally read yours, and learn the one shift that changes what happens from here.
           </motion.p>
 
-          <div className="grid items-start gap-6 md:gap-8 lg:grid-cols-[19fr_9fr]">
+          <div className="grid items-start gap-6 md:gap-8 lg:grid-cols-[22fr_8fr]">
             <motion.div
               initial="hidden"
               animate="visible"
               variants={fadeLeft}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="order-2 lg:order-1 hidden md:block lg:pt-8"
+              className="order-2 lg:order-1 hidden md:block lg:pt-[132px]"
             >
               <MediaCard />
             </motion.div>

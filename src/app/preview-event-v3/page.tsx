@@ -395,13 +395,13 @@ export default function PreviewEventV3Page() {
             and the decisions that will actually move you forward.
           </motion.p>
 
-          <div className="grid items-start gap-6 md:gap-8 lg:grid-cols-[19fr_9fr]">
+          <div className="grid items-start gap-6 md:gap-8 lg:grid-cols-[22fr_8fr]">
             <motion.div
               initial="hidden"
               animate="visible"
               variants={fadeLeft}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="order-2 lg:order-1 hidden md:block lg:pt-8"
+              className="order-2 lg:order-1 hidden md:block lg:pt-[132px]"
             >
               <MediaCard />
               <p className="mt-4 text-center text-sm font-semibold text-gray-900 md:text-base">
