@@ -177,7 +177,7 @@ function RegistrationCard() {
       {/* Form Card */}
       <div className="rounded-b-xl border-2 border-t-0 border-gray-200 bg-white p-4 md:p-4">
         <p className="mb-3 text-center text-xs text-gray-600 md:text-sm">
-          Enter your details to lock in your spot for the live masterclass.
+          Enter your details to lock in your spot.
         </p>
 
         <form className="space-y-3" onSubmit={handleSubmit}>
