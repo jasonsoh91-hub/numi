@@ -2,7 +2,7 @@
 
 Paste-ready copy for 20 emails across 5 automations.
 All merge fields converted to AC personalization tags.
-Webinar date: **Tuesday, July 21, 2026 · 7:00 PM PST (Los Angeles)**.
+Webinar date: **Tuesday, July 21, 2026 · 7:00 PM PT (Los Angeles) / 10:00 PM ET (New York)**.
 
 ---
 
@@ -255,7 +255,7 @@ I'm telling you this because half of 2026 is already behind us, and if you're be
 
 The book showed you your number. The masterclass shows you the *loop* your number has been running — and the one shift that changes what happens from here.
 
-**Tuesday, July 21 · 7:00 PM PST (Los Angeles) · 60 minutes, live.**
+**Tuesday, July 21 · 7:00 PM PT (Los Angeles) / 10:00 PM ET (New York) · 60 minutes, live.**
 
 **→ [Claim my seat]({{register_link}})**
 
@@ -303,7 +303,7 @@ Hi %FIRSTNAME%,
 You're in. Here's everything you need:
 
 **📅 Decode Your Life Pattern — Live Masterclass**
-**Tuesday, July 21, 2026 · 7:00 PM PST (Los Angeles) · 60 minutes**
+**Tuesday, July 21, 2026 · 7:00 PM PT (Los Angeles) / 10:00 PM ET (New York) · 60 minutes**
 
 **→ [Add it to your calendar]({{calendar_link}})**
 **→ Your private join link:** {{join_link}}
@@ -335,7 +335,7 @@ Hi %FIRSTNAME%,
 
 Tomorrow's the day.
 
-**Decode Your Life Pattern — Tuesday, July 21 · 7:00 PM PST (Los Angeles)**
+**Decode Your Life Pattern — Tuesday, July 21 · 7:00 PM PT (Los Angeles) / 10:00 PM ET (New York)**
 **→ [Your join link]({{join_link}})**
 
 Two-minute prep so you get the most out of it:
@@ -366,7 +366,7 @@ One hour to go. Here's your link so it's not buried when we start:
 
 **→ [Join the masterclass]({{join_link}})**
 
-**Starts: 7:00 PM PST today**
+**Starts: 7:00 PM PT / 10:00 PM ET today**
 
 Before we begin:
 - Birth date — ready ✅

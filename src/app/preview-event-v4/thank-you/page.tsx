@@ -96,7 +96,7 @@ export default function ThankYouV4Page() {
 
   // Event details
   const eventDate = "Tuesday, July 21, 2026";
-  const eventTime = "7:00 PM PST (Los Angeles)";
+  const eventTime = "7:00 PM PT (Los Angeles) / 10:00 PM ET (New York)";
   const eventDuration = "60 minutes";
 
   // 7:00 PM PST (LA local July, PDT UTC-7) = 02:00 UTC next day

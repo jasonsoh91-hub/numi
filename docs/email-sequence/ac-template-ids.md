@@ -13,11 +13,11 @@ Created 2026-07-03 via API.
 | A2 | 100034 | NUMI · A2 · Deep-Dive: Two Sides of Your Number |
 | A3 | 100035 | NUMI · A3 · Deep-Dive: People Around You |
 | A4 | 100036 | NUMI · A4 · Bridge to Webinar |
-| A5 | 100057 | NUMI · A5 · The Loop |
+| A5 | 100061 | NUMI · A5 · The Loop |
 | A6 | 100038 | NUMI · A6 · Last Call to Register |
-| B1 | 100058 | NUMI · B1 · Registration Confirmation |
-| B2 | 100059 | NUMI · B2 · Reminder 24h Out |
-| B3 | 100060 | NUMI · B3 · Reminder 1h Out |
+| B1 | 100062 | NUMI · B1 · Registration Confirmation |
+| B2 | 100063 | NUMI · B2 · Reminder 24h Out |
+| B3 | 100064 | NUMI · B3 · Reminder 1h Out |
 | B4 | 100042 | NUMI · B4 · We're Live Now |
 | C1 | 100043 | NUMI · C1 · Replay + Re-Invite |
 | C2 | 100044 | NUMI · C2 · Replay Closing |
@@ -36,7 +36,7 @@ Created 2026-07-03 via API.
 |---|---|
 | `{{ebook_link}}` | `https://learn.numi-intl.ai/pattern-code.pdf` |
 | `{{register_link}}` | `https://learn.numi-intl.ai/preview-event-v4` |
-| `{{calendar_link}}` | Google Calendar link for July 21, 2026 7pm PST |
+| `{{calendar_link}}` | Google Calendar link for July 21, 2026 7pm PT / 10pm ET |
 | `{{support_email}}` | `support@numi-intl.ai` |
 
 ## URLs still placeholder (edit in AC per template)
