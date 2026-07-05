@@ -6,7 +6,7 @@ import { useState } from "react";
 import { subscribeToAC } from "@/lib/subscribe";
 import { CountdownTimer } from "@/components/CountdownTimer";
 
-const WEBINAR_TARGET_ISO = "2026-07-22T01:00:00Z"; // 2026-07-21 20:00 EST (UTC-5)
+const WEBINAR_TARGET_ISO = "2026-07-22T02:00:00Z"; // 2026-07-21 22:00 EDT (= 7:00 PM PST) (UTC-5)
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -188,8 +188,8 @@ function RegistrationCard() {
             </legend>
             <div className="grid grid-cols-2 gap-2">
               {[
-                { value: "2026-07-21" as const, label: "Tue, Jul 21", sub: "8:00 PM EST" },
-                { value: "2026-07-28" as const, label: "Tue, Jul 28", sub: "8:00 PM EST" },
+                { value: "2026-07-21" as const, label: "Tue, Jul 21", sub: "7:00 PM PST" },
+                { value: "2026-07-28" as const, label: "Tue, Jul 28", sub: "7:00 PM PST" },
               ].map((opt) => {
                 const active = formData.webinarDate === opt.value;
                 return (
@@ -428,7 +428,7 @@ export default function PreviewEventV3Page() {
             transition={{ duration: 0.45, delay: 0.4 }}
             className="mt-6 text-center text-xs text-gray-500 md:text-sm"
           >
-            Live on Tuesday, July 21 · 8:00 PM EST (New York) · Seats limited so the live Q&A stays personal
+            Live on Tuesday, July 21 · 7:00 PM PST (Los Angeles) · Seats limited so the live Q&A stays personal
           </motion.p>
         </div>
       </section>
@@ -741,7 +741,7 @@ export default function PreviewEventV3Page() {
             transition={{ duration: 0.45 }}
             className="mt-6 text-center text-xs text-gray-600 md:text-sm"
           >
-            Live on Tuesday, July 21 at 8:00 PM EST (New York). We keep the room small so the live
+            Live on Tuesday, July 21 at 7:00 PM PST (Los Angeles). We keep the room small so the live
             Q&A stays personal — once it's full, it's full.
           </motion.p>
 

@@ -18,10 +18,11 @@ interface SubscribeBody {
 }
 
 const WEBINAR_DATE_ISO: Record<WebinarDateSlot, string> = {
-  // Wall-clock 8:00 PM in AC account timezone (America/New_York).
+  // Wall-clock 22:00 (10pm) in AC account timezone (America/New_York, EDT in July)
+  // = 7:00 PM PDT/PST in California, which is what the site advertises.
   // No offset suffix — AC interprets naive datetimes in account TZ.
-  "2026-07-21": "2026-07-21 20:00:00",
-  "2026-07-28": "2026-07-28 20:00:00",
+  "2026-07-21": "2026-07-21 22:00:00",
+  "2026-07-28": "2026-07-28 22:00:00",
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
