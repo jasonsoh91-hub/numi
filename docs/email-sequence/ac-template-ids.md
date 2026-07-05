@@ -15,10 +15,10 @@ Created 2026-07-03 via API.
 | A4 | 100069 | NUMI · A4 · Bridge to Webinar |
 | A5 | 100070 | NUMI · A5 · The Loop |
 | A6 | 100071 | NUMI · A6 · Last Call to Register |
-| B1 | 100065 | NUMI · B1 · Registration Confirmation |
-| B2 | 100066 | NUMI · B2 · Reminder 24h Out |
-| B3 | 100067 | NUMI · B3 · Reminder 1h Out |
-| B4 | 100068 | NUMI · B4 · We're Live Now |
+| B1 | 100081 | NUMI · B1 · Registration Confirmation |
+| B2 | 100082 | NUMI · B2 · Reminder 24h Out |
+| B3 | 100083 | NUMI · B3 · Reminder 1h Out |
+| B4 | 100084 | NUMI · B4 · We're Live Now |
 | C1 | 100072 | NUMI · C1 · Replay + Re-Invite |
 | C2 | 100073 | NUMI · C2 · Replay Closing |
 | D1 | 100074 | NUMI · D1 · Recap + Founding Offer |

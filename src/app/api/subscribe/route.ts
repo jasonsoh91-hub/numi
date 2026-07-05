@@ -26,6 +26,11 @@ const WEBINAR_DATE_ISO: Record<WebinarDateSlot, string> = {
   "2026-07-28": "2026-07-28 22:00:00",
 };
 
+const WEBINAR_DATE_LABEL: Record<WebinarDateSlot, string> = {
+  "2026-07-21": "Tuesday, July 21, 2026 · 7:00 PM PT (Los Angeles) / 10:00 PM ET (New York)",
+  "2026-07-28": "Tuesday, July 28, 2026 · 7:00 PM PT (Los Angeles) / 10:00 PM ET (New York)",
+};
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function normalizeBirthDate(raw?: string): string | undefined {
@@ -69,6 +74,7 @@ export async function POST(req: NextRequest) {
   const apiKey = process.env.ACTIVECAMPAIGN_API_KEY;
   const birthdayFieldId = process.env.ACTIVECAMPAIGN_FIELD_BIRTHDAY;
   const webinarDateFieldId = process.env.ACTIVECAMPAIGN_FIELD_WEBINAR_DATE;
+  const webinarLabelFieldId = process.env.ACTIVECAMPAIGN_FIELD_WEBINAR_DATE_LABEL;
 
   if (!apiUrl || !apiKey) {
     return NextResponse.json({ error: "ActiveCampaign not configured" }, { status: 500 });
@@ -81,6 +87,9 @@ export async function POST(req: NextRequest) {
   }
   if (webinarDate && webinarDateFieldId && WEBINAR_DATE_ISO[webinarDate]) {
     fieldValues.push({ field: webinarDateFieldId, value: WEBINAR_DATE_ISO[webinarDate] });
+  }
+  if (webinarDate && webinarLabelFieldId && WEBINAR_DATE_LABEL[webinarDate]) {
+    fieldValues.push({ field: webinarLabelFieldId, value: WEBINAR_DATE_LABEL[webinarDate] });
   }
 
 
@@ -150,6 +159,9 @@ export async function POST(req: NextRequest) {
     const rebindFieldValues: { field: string; value: string }[] = [];
     if (webinarDate && webinarDateFieldId && WEBINAR_DATE_ISO[webinarDate]) {
       rebindFieldValues.push({ field: webinarDateFieldId, value: WEBINAR_DATE_ISO[webinarDate] });
+    }
+    if (webinarDate && webinarLabelFieldId && WEBINAR_DATE_LABEL[webinarDate]) {
+      rebindFieldValues.push({ field: webinarLabelFieldId, value: WEBINAR_DATE_LABEL[webinarDate] });
     }
     if (zoomJoinUrl && zoomJoinUrlFieldId) {
       rebindFieldValues.push({ field: zoomJoinUrlFieldId, value: zoomJoinUrl });
