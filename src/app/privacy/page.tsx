@@ -12,9 +12,14 @@ export default function PrivacyPage() {
     <main className="min-h-screen bg-white text-gray-900">
       <nav className="border-b border-gray-200 bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-[980px] items-center justify-between px-4 py-3 md:px-6 md:py-4">
-          <Link href="/" className="flex items-center">
+          <a
+            href="https://numi-intl.ai/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center"
+          >
             <img src="/numi-logo.png" alt="NUMI" className="h-8 w-auto md:h-10" />
-          </Link>
+          </a>
           <Link
             href="/"
             className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
