@@ -340,7 +340,7 @@ export default function PreviewEventV3Page() {
         </button>
       </div>
 
-      <nav className="hidden md:flex fixed left-0 right-0 top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur">
+      <nav className="hidden md:flex w-full border-b border-gray-200 bg-white">
         <div className="mx-auto flex w-full max-w-[980px] flex-row items-center justify-between px-4 py-3 md:px-6 md:py-4">
           <div className="flex items-center gap-2">
             <a href="https://numi-intl.ai/" target="_blank" rel="noopener noreferrer" className="flex items-center">
@@ -364,7 +364,7 @@ export default function PreviewEventV3Page() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative px-4 pb-8 pt-6 md:px-6 md:pb-12 md:pt-28 bg-white">
+      <section className="relative px-4 pb-8 pt-6 md:px-6 md:pb-12 md:pt-8 bg-white">
         <div className="mx-auto max-w-[980px]">
           {/* Mobile banner - shown first on mobile */}
           <div className="md:hidden mb-6">
@@ -414,7 +414,7 @@ export default function PreviewEventV3Page() {
               animate="visible"
               variants={fadeRight}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="order-1 lg:sticky lg:top-24 lg:order-2 lg:pt-16"
+              className="order-1 lg:sticky lg:top-6 lg:order-2 lg:pt-16"
             >
               <RegistrationCard />
             </motion.div>
@@ -705,14 +705,14 @@ export default function PreviewEventV3Page() {
             </p>
           </motion.div>
 
-          <div className="grid items-start gap-5 md:gap-6 lg:grid-cols-[19fr_9fr]">
+          <div className="grid items-start gap-5 md:gap-6 lg:grid-cols-[22fr_8fr]">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.25 }}
               variants={fadeLeft}
               transition={{ duration: 0.45 }}
-              className="order-2 lg:order-1 lg:pt-8"
+              className="order-2 lg:order-1 lg:pt-[132px]"
             >
               <MediaCard />
               <p className="mt-4 text-center text-sm font-semibold text-gray-900 md:text-base">
