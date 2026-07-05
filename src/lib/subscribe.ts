@@ -1,9 +1,12 @@
+export type WebinarDateSlot = "2026-07-21" | "2026-07-28";
+
 export interface SubscribePayload {
   firstName?: string;
   lastName?: string;
   email: string;
   phone?: string;
   birthDate?: string;
+  webinarDate?: WebinarDateSlot;
   listType: "pattern-code" | "webinar";
   source?: string;
 }

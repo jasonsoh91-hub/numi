@@ -97,7 +97,12 @@ const credibility = [
 ];
 
 function RegistrationCard() {
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
+  const [formData, setFormData] = useState<{
+    name: string;
+    email: string;
+    phone: string;
+    webinarDate: "2026-07-21" | "2026-07-28";
+  }>({ name: "", email: "", phone: "", webinarDate: "2026-07-21" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
 
@@ -130,6 +135,7 @@ function RegistrationCard() {
         firstName,
         email: formData.email,
         phone: formData.phone,
+        webinarDate: formData.webinarDate,
       }));
 
       await subscribeToAC({
@@ -137,6 +143,7 @@ function RegistrationCard() {
         lastName,
         email: formData.email,
         phone: formData.phone,
+        webinarDate: formData.webinarDate,
         listType: "webinar",
         source: "preview-event-v3",
       });
@@ -174,6 +181,46 @@ function RegistrationCard() {
         </p>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
+          {/* Session Date Picker */}
+          <fieldset>
+            <legend className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-700">
+              Pick your session
+            </legend>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { value: "2026-07-21" as const, label: "Tue, Jul 21", sub: "8:00 PM EST" },
+                { value: "2026-07-28" as const, label: "Tue, Jul 28", sub: "8:00 PM EST" },
+              ].map((opt) => {
+                const active = formData.webinarDate === opt.value;
+                return (
+                  <label
+                    key={opt.value}
+                    className={`cursor-pointer rounded-lg border-2 px-3 py-3 text-center transition ${
+                      active
+                        ? "border-[#D8B86A] bg-[#D8B86A]/10 shadow-sm"
+                        : "border-gray-200 bg-white hover:border-gray-300"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="webinarDate"
+                      value={opt.value}
+                      checked={active}
+                      onChange={() => setFormData({ ...formData, webinarDate: opt.value })}
+                      className="sr-only"
+                    />
+                    <span className={`block text-sm font-bold ${active ? "text-[#0A0E27]" : "text-gray-800"}`}>
+                      {opt.label}
+                    </span>
+                    <span className={`mt-0.5 block text-[11px] ${active ? "text-[#0A0E27]/70" : "text-gray-500"}`}>
+                      {opt.sub}
+                    </span>
+                  </label>
+                );
+              })}
+            </div>
+          </fieldset>
+
           {/* Name Field */}
           <div className="grid grid-cols-1 gap-4">
             <div>

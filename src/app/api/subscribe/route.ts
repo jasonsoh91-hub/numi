@@ -4,6 +4,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 type ListType = "pattern-code" | "webinar";
+type WebinarDateSlot = "2026-07-21" | "2026-07-28";
 
 interface SubscribeBody {
   firstName?: string;
@@ -11,9 +12,17 @@ interface SubscribeBody {
   email?: string;
   phone?: string;
   birthDate?: string;
+  webinarDate?: WebinarDateSlot;
   listType?: ListType;
   source?: string;
 }
+
+const WEBINAR_DATE_ISO: Record<WebinarDateSlot, string> = {
+  // Wall-clock 8:00 PM in AC account timezone (America/New_York).
+  // No offset suffix — AC interprets naive datetimes in account TZ.
+  "2026-07-21": "2026-07-21 20:00:00",
+  "2026-07-28": "2026-07-28 20:00:00",
+};
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -43,7 +52,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { firstName, lastName, email, phone, birthDate, listType, source } = body;
+  const { firstName, lastName, email, phone, birthDate, webinarDate, listType, source } = body;
 
   if (!email || !EMAIL_RE.test(email)) {
     return NextResponse.json({ error: "Valid email required" }, { status: 400 });
@@ -57,6 +66,7 @@ export async function POST(req: NextRequest) {
   const apiUrl = process.env.ACTIVECAMPAIGN_API_URL;
   const apiKey = process.env.ACTIVECAMPAIGN_API_KEY;
   const birthdayFieldId = process.env.ACTIVECAMPAIGN_FIELD_BIRTHDAY;
+  const webinarDateFieldId = process.env.ACTIVECAMPAIGN_FIELD_WEBINAR_DATE;
 
   if (!apiUrl || !apiKey) {
     return NextResponse.json({ error: "ActiveCampaign not configured" }, { status: 500 });
@@ -67,6 +77,10 @@ export async function POST(req: NextRequest) {
   if (iso && birthdayFieldId) {
     fieldValues.push({ field: birthdayFieldId, value: iso });
   }
+  if (webinarDate && webinarDateFieldId && WEBINAR_DATE_ISO[webinarDate]) {
+    fieldValues.push({ field: webinarDateFieldId, value: WEBINAR_DATE_ISO[webinarDate] });
+  }
+
 
   const contactPayload: Record<string, unknown> = { email };
   if (firstName) contactPayload.firstName = firstName;
@@ -113,6 +127,31 @@ export async function POST(req: NextRequest) {
       const text = await listRes.text();
       console.error("AC contactLists failed", listRes.status, text);
       return NextResponse.json({ error: "List subscribe failed" }, { status: 502 });
+    }
+
+    // Re-apply WEBINAR_DATE after list assignment so any list-trigger automation
+    // that sets a default value doesn't overwrite the user's selection.
+    if (webinarDate && webinarDateFieldId && WEBINAR_DATE_ISO[webinarDate]) {
+      const rebindPayload = {
+        contact: {
+          email,
+          fieldValues: [
+            { field: webinarDateFieldId, value: WEBINAR_DATE_ISO[webinarDate] },
+          ],
+        },
+      };
+      const rebindRes = await fetch(`${apiUrl}/api/3/contact/sync`, {
+        method: "POST",
+        headers: {
+          "Api-Token": apiKey,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(rebindPayload),
+      });
+      if (!rebindRes.ok) {
+        console.warn("AC webinar-date rebind failed", rebindRes.status);
+      }
     }
 
     return NextResponse.json({ ok: true, contactId, source: source ?? null }, { status: 200 });
