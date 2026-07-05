@@ -157,17 +157,17 @@ function RegistrationCard() {
   return (
     <div className="overflow-hidden rounded-2xl shadow-xl">
       {/* Header Bar */}
-      <div className="rounded-t-xl border-2 border-[#D8B86A] bg-gradient-to-r from-[#0A0E27] to-[#1a1f3a] px-6 py-4">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#D8B86A]/20">
-            <Mail className="h-5 w-5 text-[#D8B86A]" />
+      <div className="rounded-t-xl border-2 border-[#D8B86A] bg-gradient-to-r from-[#0A0E27] to-[#1a1f3a] px-4 py-3">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#D8B86A]/20">
+            <Mail className="h-4 w-4 text-[#D8B86A]" />
           </div>
-          <span className="text-base font-bold text-white md:text-lg">
+          <span className="text-sm font-bold text-white md:text-base">
             Save your seat
           </span>
         </div>
-        <div className="mt-3 border-t border-white/10 pt-3">
-          <p className="mb-2 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-white/60 md:text-[11px]">
+        <div className="mt-2.5 border-t border-white/10 pt-2.5">
+          <p className="mb-1.5 text-center text-[9px] font-semibold uppercase tracking-[0.2em] text-white/60 md:text-[10px]">
             Masterclass begins in
           </p>
           <CountdownTimer targetIso={WEBINAR_TARGET_ISO} variant="dark" />
@@ -175,15 +175,15 @@ function RegistrationCard() {
       </div>
 
       {/* Form Card */}
-      <div className="rounded-b-xl border-2 border-t-0 border-gray-200 bg-white p-5 md:p-6">
-        <p className="mb-5 text-center text-sm text-gray-600 md:text-base">
+      <div className="rounded-b-xl border-2 border-t-0 border-gray-200 bg-white p-4 md:p-4">
+        <p className="mb-3 text-center text-xs text-gray-600 md:text-sm">
           Enter your details to lock in your spot for the live masterclass.
         </p>
 
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <form className="space-y-3" onSubmit={handleSubmit}>
           {/* Session Date Picker */}
           <fieldset>
-            <legend className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-700">
+            <legend className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-gray-700">
               Pick your session
             </legend>
             <div className="grid grid-cols-2 gap-2">
@@ -195,7 +195,7 @@ function RegistrationCard() {
                 return (
                   <label
                     key={opt.value}
-                    className={`cursor-pointer rounded-lg border-2 px-3 py-3 text-center transition ${
+                    className={`cursor-pointer rounded-lg border-2 px-2 py-2 text-center transition ${
                       active
                         ? "border-[#D8B86A] bg-[#D8B86A]/10 shadow-sm"
                         : "border-gray-200 bg-white hover:border-gray-300"
@@ -209,10 +209,10 @@ function RegistrationCard() {
                       onChange={() => setFormData({ ...formData, webinarDate: opt.value })}
                       className="sr-only"
                     />
-                    <span className={`block text-sm font-bold ${active ? "text-[#0A0E27]" : "text-gray-800"}`}>
+                    <span className={`block text-xs font-bold ${active ? "text-[#0A0E27]" : "text-gray-800"}`}>
                       {opt.label}
                     </span>
-                    <span className={`mt-0.5 block text-[11px] ${active ? "text-[#0A0E27]/70" : "text-gray-500"}`}>
+                    <span className={`mt-0.5 block text-[10px] ${active ? "text-[#0A0E27]/70" : "text-gray-500"}`}>
                       {opt.sub}
                     </span>
                   </label>
@@ -222,7 +222,7 @@ function RegistrationCard() {
           </fieldset>
 
           {/* Name Field */}
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-3">
             <div>
               <input
                 id="signup-name"
@@ -231,13 +231,13 @@ function RegistrationCard() {
                 placeholder="Name *"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className={`w-full rounded-lg border bg-gray-50 px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition md:text-base ${
+                className={`w-full rounded-lg border bg-gray-50 px-3 py-2 text-xs text-gray-900 placeholder:text-gray-400 outline-none transition md:text-sm ${
                   errors.name
                     ? "border-red-300 focus:border-red-500 bg-red-50/30"
                     : "border-gray-200 bg-gray-50 focus:border-[#D8B86A] focus:bg-white"
                 }`}
               />
-              {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
+              {errors.name && <p className="mt-1 text-[10px] text-red-500">{errors.name}</p>}
             </div>
 
             <div>
@@ -248,13 +248,13 @@ function RegistrationCard() {
                 placeholder="Email *"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className={`w-full rounded-lg border bg-gray-50 px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition md:text-base ${
+                className={`w-full rounded-lg border bg-gray-50 px-3 py-2 text-xs text-gray-900 placeholder:text-gray-400 outline-none transition md:text-sm ${
                   errors.email
                     ? "border-red-300 focus:border-red-500 bg-red-50/30"
                     : "border-gray-200 bg-gray-50 focus:border-[#D8B86A] focus:bg-white"
                 }`}
               />
-              {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
+              {errors.email && <p className="mt-1 text-[10px] text-red-500">{errors.email}</p>}
             </div>
 
             <div>
@@ -265,7 +265,7 @@ function RegistrationCard() {
                 placeholder="Phone number (optional)"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition focus:border-[#D8B86A] focus:bg-white md:text-base"
+                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-xs text-gray-900 placeholder:text-gray-400 outline-none transition focus:border-[#D8B86A] focus:bg-white md:text-sm"
               />
             </div>
           </div>
@@ -274,13 +274,13 @@ function RegistrationCard() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full rounded-lg bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] bg-[length:200%_100%] px-6 py-3.5 text-sm font-bold text-[#0A0E27] transition-all hover:bg-right disabled:opacity-50 disabled:hover:bg-left md:py-4 md:text-base"
+            className="w-full rounded-lg bg-gradient-to-r from-[#D8B86A] via-[#F4D47A] to-[#D8B86A] bg-[length:200%_100%] px-4 py-2.5 text-xs font-bold text-[#0A0E27] transition-all hover:bg-right disabled:opacity-50 disabled:hover:bg-left md:py-3 md:text-sm"
           >
             {isSubmitting ? "Saving your seat..." : "Save My Seat"}
           </button>
 
           {/* Disclaimer */}
-          <p className="text-center text-[10px] leading-relaxed text-gray-400 md:text-xs">
+          <p className="text-center text-[9px] leading-relaxed text-gray-400 md:text-[10px]">
             By registering, you agree to the{' '}
             <a href="/terms" className="underline hover:text-gray-500">Terms of Use</a>
             {' '}& the{' '}
@@ -295,7 +295,7 @@ function RegistrationCard() {
 
 function MediaCard() {
   return (
-    <div className="relative rounded-xl overflow-hidden">
+    <div className="relative mx-auto max-w-[520px] rounded-xl overflow-hidden">
       <img
         src="/event-banner-v2.png"
         alt="NUMI Masterclass"
