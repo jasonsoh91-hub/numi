@@ -1,3 +1,5 @@
+import { trackEvent } from "./meta-pixel";
+
 export type WebinarDateSlot = "2026-07-21" | "2026-07-28";
 
 export interface SubscribePayload {
@@ -23,6 +25,13 @@ export async function subscribeToAC(payload: SubscribePayload): Promise<boolean>
       console.error("[subscribe] non-2xx", res.status, text);
       return false;
     }
+
+    const eventName = payload.listType === "webinar" ? "CompleteRegistration" : "Lead";
+    trackEvent(eventName, {
+      content_name: payload.source ?? payload.listType,
+      content_category: payload.listType,
+    });
+
     return true;
   } catch (err) {
     console.error("[subscribe] network error", err);
