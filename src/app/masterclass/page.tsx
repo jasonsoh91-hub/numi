@@ -145,11 +145,11 @@ function RegistrationCard() {
         phone: formData.phone,
         webinarDate: formData.webinarDate,
         listType: "webinar",
-        source: "preview-event-v4",
+        source: "masterclass",
       });
 
       setTimeout(() => {
-        window.location.href = "/preview-event-v4/thank-you";
+        window.location.href = "/masterclass/thank-you";
       }, 500);
     }
   };
