@@ -297,7 +297,7 @@ function MediaCard() {
   return (
     <div className="relative mx-auto max-w-[520px] rounded-xl overflow-hidden">
       <img
-        src="/event-banner-v3.png"
+        src="/event-banner-v4.png"
         alt="NUMI Masterclass"
         className="w-full h-auto object-contain"
       />
