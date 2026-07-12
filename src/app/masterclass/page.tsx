@@ -665,12 +665,12 @@ export default function PreviewEventV4Page() {
                 <div className="mb-4 mx-auto h-[450px] w-[300px] overflow-hidden rounded-xl bg-gray-100">
                   <img
                     src="/speaker-keith.png"
-                    alt="Dr. Keith"
+                    alt="Dr. Keith Tong, PhD DNM"
                     className="h-full w-full object-cover"
                   />
                 </div>
                 <h3 className="mb-1 text-lg font-bold text-gray-900">
-                  Dr. Keith
+                  Dr. Keith Tong, PhD DNM
                 </h3>
                 <p className="mb-3 text-sm font-medium text-[#D8B86A]">
                   Senior Education Leadership
