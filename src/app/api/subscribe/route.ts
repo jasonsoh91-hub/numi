@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { registerZoomWebinarAttendee } from "@/lib/zoom";
+import { registerZoomWebinarAttendee, cancelOppositeSlotRegistration } from "@/lib/zoom";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -143,14 +143,24 @@ export async function POST(req: NextRequest) {
     // Register in Zoom + capture personal join URL (webinar list only).
     let zoomJoinUrl: string | null = null;
     if (webinarDate && listType === "webinar") {
+      // If the contact previously picked the other session, drop that Zoom
+      // registration so they aren't left booked in both webinars.
+      await cancelOppositeSlotRegistration({ keepSlot: webinarDate, email });
+
       const zoom = await registerZoomWebinarAttendee({
         webinarSlot: webinarDate,
         email,
         firstName: firstName || "Attendee",
         lastName,
       });
-      if (zoom) zoomJoinUrl = zoom.joinUrl;
-      else console.warn("[subscribe] Zoom registration failed for", email);
+      if (zoom) {
+        zoomJoinUrl = zoom.joinUrl;
+      } else {
+        // Registration exhausted retries. Contact stays on the AC list (blank
+        // ZOOM_JOIN_URL field is the queryable marker for the backfill job).
+        // Log loudly so it surfaces in Vercel logs / alerting.
+        console.error("[subscribe] ZOOM_REGISTRATION_FAILED", JSON.stringify({ email, webinarDate }));
+      }
     }
 
     // Re-apply WEBINAR_DATE and store ZOOM_JOIN_URL after list assignment so
