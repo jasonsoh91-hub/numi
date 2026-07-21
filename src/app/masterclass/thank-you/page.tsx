@@ -95,7 +95,7 @@ export default function ThankYouV4Page() {
   };
 
   // Event details
-  const eventDate = "Tuesday, July 21, 2026";
+  const eventDate = "Tuesday, July 28, 2026";
   const eventTime = "7:00 PM PT (Los Angeles) / 10:00 PM ET (New York)";
   const eventDuration = "60 minutes";
 
@@ -104,7 +104,7 @@ export default function ThankYouV4Page() {
     "https://calendar.google.com/calendar/render?action=TEMPLATE" +
     "&text=NUMI+Masterclass+-+Decode+Your+Life+Pattern" +
     "&details=A+free+60-minute+live+NUMI+masterclass.+Bring+your+birth+date.+Your+host+will+be+revealed+live." +
-    "&dates=20260722T020000Z/20260722T030000Z";
+    "&dates=20260729T020000Z/20260729T030000Z";
 
   return (
     <main className="min-h-screen bg-white font-sans text-gray-900">
